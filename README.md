@@ -44,7 +44,7 @@ Central to the toolkit, the **TXR Player** handles player presence and inputs:
 - ✋ **Hand Tracking** – Includes clean visual models for gesture-based interaction
 - 🤏 **Pinch Detection** – Enable natural gesture-based interaction
 - 🎮 **Controller Input & Haptics** – Access button data + vibration feedback
-- 👁️ **Eye Tracking** – Use gaze data for attention-aware experiences *(Pro only)*
+- 👁️ **Eye Tracking** – Use gaze data for attention-aware experiences *(Quest Pro only)*
 
 ---
 
