@@ -9,11 +9,28 @@ TagManager:
   - RoomLight
   - SamplesInfoPanel
   - PlayerHead
+  - QDSUIBackplateGradient
+  - QDSUIToggleCheckboxRadio
+  - QDSUITooltip
+  - QDSUISharedThemeColor
+  - QDSUIToggleButton
+  - QDSUIIcon
+  - QDSUIToggleBorderlessButton
+  - QDSUITextSecondaryColor
+  - QDSUIToggleSwitch
+  - QDSUIAccentColor
+  - QDSUIBorderlessButton
+  - QDSUIDestructiveButton
+  - QDSUISecondaryButton
+  - QDSUIPrimaryButton
+  - QDSUITextInvertedColor
+  - QDSUITextSecondaryInvertedColor
+  - QDSUITextInputField
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Overlay UI
   - Water
   - UI
   - 
@@ -41,7 +58,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - OVROverlayCanvas Rendering
   m_SortingLayers:
   - name: Default
     uniqueID: 0
