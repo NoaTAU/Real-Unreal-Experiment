@@ -205,6 +205,243 @@ followSphere.lerpSpeed = 5f; // Adjust smoothness
    - Check for proper OVREyeGaze component setup
    - Verify layer mask configuration
 
+## 🏗️ Base Scene Components
+
+The Base Scene provides the foundation for all TAUXR experiences. It includes essential components for room calibration, scene management, and environment setup.
+
+### Project Initialization
+
+#### ProjectInitializer
+Entry point for TAUXR experiences. Handles initial setup and calibration.
+
+```csharp
+// Configure in inspector
+[SerializeField] private bool _shouldProjectUseCalibration;     // Enable physical space calibration
+[SerializeField] private bool _shouldCalibrateOnEditor;        // Allow calibration in editor
+```
+
+### Room Calibration System
+
+#### TXR_RoomCalibrator
+Manages the calibration of the virtual environment to physical space.
+
+##### Components
+1. **EnvironmentCalibrator** (`EnvironmentCalibrator.cs`)
+   - Handles room calibration process
+   - Manages calibration points
+   - Adjusts environment scale and position
+
+2. **CalibrationPoint** (Prefab)
+   - Visual marker for calibration
+   - Used to align virtual and physical space
+
+##### Usage
+```csharp
+// Start calibration
+await EnvironmentCalibrator.Instance.CalibrateRoom();
+
+// Check calibration status
+bool isCalibrated = EnvironmentCalibrator.Instance.IsCalibrated;
+```
+
+### Scene Management
+
+#### TXRSceneManager
+Controls scene transitions and player positioning.
+
+##### Components
+1. **TXRSceneManager** (`TXRSceneManager.cs`)
+   - Manages scene loading and transitions
+   - Handles player positioning
+   - Coordinates with room calibration
+
+2. **PlayerRepositioner** (`PlayerRepositioner.cs`)
+   - Handles player position adjustments
+   - Manages scene-specific player placement
+
+3. **PlayerScenePositioner** (Prefab)
+   - Visual indicator for player positioning
+   - Helps with scene setup
+
+##### Usage
+```csharp
+// Initialize scene manager
+TXRSceneManager.Instance.Init(useCalibration: true);
+
+// Reposition player
+await PlayerRepositioner.Instance.RepositionPlayer();
+```
+
+### Environment Setup
+
+#### Center Model
+Provides the base environment for TAUXR experiences.
+
+##### Components
+1. **Arena V2** (Prefab)
+   - Main environment model
+   - Includes floor and walls
+   - Configurable materials and textures
+
+2. **Materials**
+   - `walls.mat`: Environment wall materials
+   - Customizable textures and properties
+
+3. **Models**
+   - `Floor.fbx`: Base floor model
+   - Additional environment models
+
+##### Setup
+1. Place `Arena V2` prefab in scene
+2. Configure materials as needed
+3. Adjust scale and position based on calibration
+
+### Best Practices
+
+1. **Calibration**
+   - Always calibrate in the target physical space
+   - Use calibration points for accurate alignment
+   - Verify calibration before starting experience
+
+2. **Scene Management**
+   - Use `TXRSceneManager` for all scene transitions
+   - Implement proper player positioning
+   - Handle calibration state appropriately
+
+3. **Environment**
+   - Keep environment scale consistent
+   - Use provided materials for visual consistency
+   - Consider physical space constraints
+
+### Troubleshooting
+
+1. **Calibration Issues**
+   - Verify physical space matches virtual space
+   - Check calibration point placement
+   - Ensure proper lighting for tracking
+
+2. **Scene Loading Problems**
+   - Check scene build settings
+   - Verify scene manager initialization
+   - Ensure proper player positioning
+
+3. **Environment Setup**
+   - Verify material assignments
+   - Check model scale and orientation
+   - Ensure proper collision setup
+
+## 📊 Data Management System
+
+The TAUXR Data Management system provides comprehensive data collection and logging capabilities for VR experiences.
+
+### Components
+
+#### TXRDataManager
+Central manager for all data logging operations.
+
+##### Core Components
+1. **TXRDataManager** (`TXRDataManager.cs`)
+   - Coordinates all data writers
+   - Manages file streams
+   - Handles data collection timing
+
+2. **DataContinuousWriter** (`DataContinuousWriter.cs`)
+   - Logs transform data (position, rotation)
+   - Configurable logging intervals
+   - Supports multiple tracked objects
+
+3. **DataExporterFaceExpression** (`DataExporterFaceExpression.cs`)
+   - Captures facial expression data
+   - Logs blendshape weights
+   - Integrates with OVRFaceExpressions
+
+4. **AnalyticsWriter** (`AnalyticsWriter.cs`)
+   - Handles custom analytics events
+   - Supports multiple data tables
+   - Manages CSV file organization
+
+### Usage
+
+#### Basic Data Logging
+```csharp
+// Log custom analytics
+TXRDataManager.Instance.LogLineToFile("EventName,Value1,Value2");
+
+// Access continuous data writer
+var continuousWriter = TXRDataManager.Instance.ContinuousWriter;
+```
+
+#### Transform Tracking
+```csharp
+// Add transform to track
+continuousWriter.AddTransformToTrack(transform);
+
+// Configure logging interval
+continuousWriter.SetLoggingInterval(0.1f); // Log every 100ms
+```
+
+#### Face Expression Logging
+```csharp
+// Initialize face tracking
+var faceExporter = TXRDataManager.Instance.FaceExporter;
+faceExporter.Init();
+
+// Start logging
+faceExporter.StartLogging();
+```
+
+### Data Structure
+
+#### Continuous Data
+- Head position and rotation
+- Hand positions and rotations
+- Eye tracking data (when enabled)
+- Custom tracked transforms
+
+#### Face Expression Data
+- All OVRFaceExpressions blendshapes
+- Timestamp for each frame
+- Confidence values
+
+#### Analytics Data
+- Custom event names
+- Timestamp
+- Event-specific parameters
+
+### Best Practices
+
+1. **File Management**
+   - Use unique file names for each session
+   - Implement proper file closing
+   - Handle file write permissions
+
+2. **Performance**
+   - Adjust logging intervals based on needs
+   - Monitor memory usage with large datasets
+   - Use appropriate data compression
+
+3. **Data Organization**
+   - Use consistent naming conventions
+   - Implement proper data validation
+   - Structure analytics events logically
+
+### Troubleshooting
+
+1. **File Access Issues**
+   - Verify write permissions
+   - Check disk space
+   - Ensure proper file paths
+
+2. **Data Collection Problems**
+   - Verify component initialization
+   - Check tracking references
+   - Monitor logging intervals
+
+3. **Performance Issues**
+   - Adjust logging frequency
+   - Optimize tracked transforms
+   - Monitor memory usage
+
 ## 🔄 Experimental Flow System
 
 ### Session Management
