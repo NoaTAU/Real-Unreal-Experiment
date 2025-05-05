@@ -1,0 +1,52 @@
+# Getting Started: Base Scene
+
+The Base Scene provides a complete setup for developing VR experiences in this project. It includes the core XR rig, input handling, data recording, scene management, and calibration components. All input and data systems are already initialized in this scene.
+
+## Scene Contents
+
+### TXR\_Player (Prefab)
+
+The XR camera rig. Includes:
+
+* `TXRPlayer` script: a configured TXRPlayer instance that manages player tracking, hand tracking (`TXRHand`), controller input, and eye tracking (`TXREyeTracker`).
+*  `OVRFaceExpressions` component: enables face tracking on quest pro devices.
+* `PositionSetter`: allows switching between predefined starting positions for testing.
+
+### TXR\_DataManager (Prefab)
+
+Handles runtime data logging. Includes:
+
+* `TXRDataManager`: manages logging and initialization of data components.
+* `DataContinuousWriter`: logs headset, hands, and eye positions to CSV.
+* `DataExporterFaceExpression`: logs facial expression blendshape data if face tracking is enabled.
+
+### TXR\_SceneManager (Prefab)
+
+Handles scene loading. Includes:
+
+* `TXRSceneManager`: provides additive scene loading, active scene switching, and player repositioning when appropriate.
+
+### GameManager (Prefab)
+
+Handles project-level initialization. Includes:
+
+* `ProjectInitializer`: performs calibration and setup on startup.
+
+## Usage Instructions
+
+1. Open the Base Scene (Assets/TAUXR/Base Scene/Base Scene) in Unity. 
+2. Add objects and interactive content to the scene directly, or load additional scenes additively by dragging them into the hierarchy. Configure them later in the Build Settings and `TXRSceneManager` as needed.
+3. The scene automatically initializes tracking, input, data export, and calibration logic at runtime.
+
+## Using TXR with Meta Interaction SDK
+
+If you want to integrate Meta's Interaction SDK while continuing to use the TXR data export system, use the **Base Scene with Meta Interactions**:
+
+`Assets/TAUXR/Meta Components/Meta Interactions/Base Scene Meta Interactions.unity`
+
+This scene is based on the regular Base Scene with the following adjustments:
+
+* An **Interaction SDK building block** has been added to the TXR\_Player object.
+* A custom script disables the TXRHand visual renderers to prevent duplicate hand models.
+
+Use this scene as your starting point when combining TXR's data management features with Meta's interaction system.
