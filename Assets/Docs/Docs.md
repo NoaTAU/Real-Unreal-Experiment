@@ -1,9 +1,46 @@
 # TAUXR Framework Documentation
 
+## 📑 Table of Contents
+- [Quick Start Guide](#-quick-start-guide)
+  - [Project Setup](#project-setup)
+- [Directory Structure](#-directory-structure)
+- [Core Systems](#-core-systems)
+  - [Player System](#1-player-system-txrplayercs)
+  - [Data Logging System](#2-data-logging-system-txrdatamanagercs)
+  - [Input System](#3-input-system)
+  - [Interaction System](#4-interaction-system)
+- [Eye Tracking System](#-eye-tracking-system)
+  - [Components](#components)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [Key Features](#key-features)
+  - [Best Practices](#best-practices)
+  - [Troubleshooting](#troubleshooting)
+- [Base Scene Components](#-base-scene-components)
+  - [Project Initialization](#project-initialization)
+  - [Room Calibration System](#room-calibration-system)
+  - [Scene Management](#scene-management)
+  - [Environment Setup](#environment-setup)
+  - [Best Practices](#best-practices-1)
+  - [Troubleshooting](#troubleshooting-1)
+- [Data Management System](#-data-management-system)
+  - [Components](#components-1)
+  - [Usage](#usage-1)
+  - [Data Structure](#data-structure)
+  - [Best Practices](#best-practices-2)
+  - [Troubleshooting](#troubleshooting-2)
+- [Experimental Flow System](#-experimental-flow-system)
+  - [Session Management](#session-management)
+  - [Trial Management](#trial-management)
+- [Best Practices](#-best-practices)
+- [Troubleshooting](#-troubleshooting)
+- [Additional Resources](#-additional-resources)
+- [Version History](#-version-history)
+
 ## 🎯 Quick Start Guide
 
 ### Project Setup
-1. Import the TAUXR package into your Unity project
+1. This is a sample project containing all necessary TAUXR framework files
 2. Open the Base Scene from `Assets/TAUXR/Base Scene/Base Scene.unity`
 3. The scene includes all necessary prefabs and managers
 4. Use `ProjectInitializer.cs` to set up your project-specific configurations
@@ -17,12 +54,39 @@
 
 ```
 Assets/TAUXR/
-├── Base Scene/           # Core scene and prefabs
-├── Shaders/             # Custom shaders
-├── Meta components/     # Meta-specific integrations
-├── Utilities/          # Helper scripts
-├── Detectors/          # Interaction detection
-└── Flow Management/    # Experimental flow system
+├── Base Scene/                    # Core scene and prefabs
+│   ├── Center Model/             # Environment models and materials
+│   ├── TXRPlayer/               # Player-related components
+│   │   ├── Pinching/           # Pinch-based interaction system
+│   │   │   
+│   │   ├── TXR Hand/           # Hand tracking and visualization
+│   │   │   
+│   │   ├── Controllers/        # Controller-based input
+│   │   │   └── ControllersInputManager.cs
+│   │   ├── TXR Eye Tracker/    # Eye tracking system
+│   │   │   
+│   │   ├── Not Ready yet/      # Features in development
+│   │   ├── ViewOverlayColor.mat
+│   │   ├── TXR Player.prefab
+│   │   └── TXRPlayer.cs
+│   ├── TXR_RoomCalibrator/      # Room calibration system
+│   ├── SceneManagement/         # Scene transition and management
+│   ├── TXRDataManager/          # Data logging and analytics
+│   ├── GameManager.prefab       # Main game manager
+│   ├── ProjectInitializer.cs    # Project setup configuration
+│   └── Base Scene.unity         # Main scene file
+├── Shaders/                      # Custom shaders
+├── Meta componentrs/             # Meta-specific integrations
+│   
+├── Utilities/                    # Helper scripts and tools
+├── Detectors/                    # Interaction detection
+│  
+└── Flow Management/             # Experimental flow system
+    ├── Round.cs                # Round management
+    ├── RoundManager.cs         # Round system controller
+    ├── SessionManager.cs       # Session handling
+    ├── Trial.cs               # Trial definition
+    └── TrialManager.cs        # Trial system controller
 ```
 
 ## 🎮 Core Systems
@@ -388,6 +452,57 @@ faceExporter.Init();
 
 // Start logging
 faceExporter.StartLogging();
+```
+
+#### Accessing Face Expressions
+```csharp
+// Get the OVRFaceExpressions component
+var faceExpressions = TXRPlayer.Instance.OVRFace;
+
+// Check if face tracking is enabled
+if (TXRPlayer.Instance.IsFaceTrackingEnabled)
+{
+    // Get specific expression values
+    float smileValue = faceExpressions.GetWeight(OVRFaceExpressions.FaceExpression.Smile);
+    float browValue = faceExpressions.GetWeight(OVRFaceExpressions.FaceExpression.BrowLowerer);
+    
+    // Get all expression values
+    float[] allExpressions = new float[faceExpressions.ExpressionCount];
+    faceExpressions.GetWeights(allExpressions);
+    
+    // Example: React to smile intensity
+    if (smileValue > 0.7f)
+    {
+        Debug.Log("User is smiling strongly!");
+    }
+}
+
+// Subscribe to face tracking events
+void OnEnable()
+{
+    TXRPlayer.Instance.OnFaceTrackingStateChanged += HandleFaceTrackingStateChanged;
+}
+
+void OnDisable()
+{
+    TXRPlayer.Instance.OnFaceTrackingStateChanged -= HandleFaceTrackingStateChanged;
+}
+
+void HandleFaceTrackingStateChanged(bool isEnabled)
+{
+    Debug.Log($"Face tracking {(isEnabled ? "enabled" : "disabled")}");
+}
+```
+
+#### Common Face Expressions
+```csharp
+// Common expression types
+OVRFaceExpressions.FaceExpression.Smile;           // Smile intensity
+OVRFaceExpressions.FaceExpression.BrowLowerer;     // Frown intensity
+OVRFaceExpressions.FaceExpression.EyeSquintLeft;   // Left eye squint
+OVRFaceExpressions.FaceExpression.EyeSquintRight;  // Right eye squint
+OVRFaceExpressions.FaceExpression.JawOpen;         // Mouth openness
+OVRFaceExpressions.FaceExpression.TongueOut;       // Tongue protrusion
 ```
 
 ### Data Structure
