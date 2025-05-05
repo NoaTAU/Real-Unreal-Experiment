@@ -8,6 +8,7 @@
 4. Toggle MTP (Media Transfer Protocol)  
 5. Open the headset folder under My Computer  
 
+![MTP Toggle](https://raw.githubusercontent.com/TAU-XR/TAUXR-OpenTemplate/main/Media/mtp.png)
 
 
 ## Get the data files
