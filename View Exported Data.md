@@ -8,7 +8,7 @@
 4. Toggle MTP (Media Transfer Protocol)  
 5. Open the headset folder under My Computer  
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f612f7a6-33bd-4ab4-9a2b-b4713135cd22/86648b5a-da7c-406c-861e-3e9ba84a6b25/Untitled.png)
+
 
 ## Get the data files
 
