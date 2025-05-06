@@ -36,7 +36,7 @@ Handles project-level initialization. Includes:
 
 1. Open the Base Scene (Assets/TAUXR/Base Scene/Base Scene) in Unity. 
 2. Add objects and interactive content to the scene directly, or load additional scenes additively by dragging them into the hierarchy. Configure them later in the Build Settings and `TXRSceneManager` as needed.
-3. The scene automatically initializes tracking, input, data export, and calibration logic at runtime.
+3. The scene automatically initializes tracking, input, data export, and calibration logic at runtime. To view your exported data, see [this guide](https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/View%20Exported%20Data.md).
 
 ## Using TXR with Meta Interaction SDK
 
