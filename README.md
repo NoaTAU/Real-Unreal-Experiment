@@ -17,10 +17,12 @@ Each component is optimized for **Meta Quest devices**, streamlining development
 
 Quickly jump into VR/XR development with our pre-configured Unity project template for Meta Quest. It includes:
 
-- Optimized settings for standalone VR
-- Minimal setup for beginners
-- A solid foundation to start building immersive content
-➡️ [Get started using the Base Scene]([https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Docs/Scene%20Manager.md](https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Docs/Getting%20Started%20with%20Base%20Scene.md)) -– the foundational scene for all XR development and data logging.
+- Optimized settings for standalone VR  
+- Minimal setup for beginners  
+- A solid foundation to start building immersive content  
+
+➡️ [Get started using the Base Scene](https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Docs/Getting%20Started%20with%20Base%20Scene.md) – the foundational scene for all XR development and data logging.
+
 ---
 
 ## 📊 Data Collection and Export Tools
