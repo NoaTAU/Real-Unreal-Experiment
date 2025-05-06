@@ -45,5 +45,5 @@ These handle calibration and scene loading automatically.
 ### 🔁 Scene Control API
 
 ```csharp
-await TXRSceneManager.Instance.SwitchActiveScene("SceneName");
-TXRSceneManager.Instance.RestartActiveScene();
+TXRSceneManager.Instance.SwitchActiveScene("SceneName");
+
