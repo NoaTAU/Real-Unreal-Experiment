@@ -32,6 +32,15 @@ Handles project-level initialization. Includes:
 
 * `ProjectInitializer`: performs calibration and setup on startup.
 
+### EyeTrackingTest (GameObject) (Disabled on default)
+
+A simple test setup to validate eye tracking. Includes:
+
+* A group of cubes with colliders.
+* A script that enables the red eye tracking sphere's `MeshRenderer` when the test is active.
+
+When working correctly, a red sphere will follow your gaze and attach to any object with a collider, verifying that eye tracking is functional.
+
 ## Usage Instructions
 
 1. Open the Base Scene (Assets/TAUXR/Base Scene/Base Scene) in Unity. 
