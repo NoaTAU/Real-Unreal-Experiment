@@ -1,6 +1,6 @@
 # Getting Started: Base Scene
 
-The Base Scene provides a complete setup for developing VR experiences in this project. It includes the core XR rig, input handling, data recording, scene management, and calibration components. All input and data systems are already initialized in this scene.
+The Base Scene provides a complete setup for developing VR experiences in this project. It includes the core XR rig, input handling, data recording, scene management, and calibration components. All input and data logging systems are already initialized in this scene.
 
 ## Scene Contents
 
