@@ -623,8 +623,7 @@ await TrialManager.Instance.RunTrialFlow(trial);
 
 ## 🔄 Version History
 
-- Current Version: 1.0.0
-- Last Updated: [Current Date]
-- Compatible with Unity 2021.3+
-- Requires Oculus Integration 47.0+
+
+- Compatible with Unity 2021.3.18+
+
 
