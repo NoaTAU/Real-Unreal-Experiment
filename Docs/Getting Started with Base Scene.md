@@ -43,8 +43,9 @@ When working correctly, a red sphere will follow your gaze and attach to any obj
 
 It should look something like this
 <div align="center">
-<img src="https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Media/base%20scene%20demo.gif" width="500"/>
+<img src="https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Media/com.oculus.vrshell-20250508-120336-0.gif" width="500"/>
 </div>
+
 ## Usage Instructions
 
 1. Open the Base Scene (Assets/TAUXR/Base Scene/Base Scene) in Unity. 
