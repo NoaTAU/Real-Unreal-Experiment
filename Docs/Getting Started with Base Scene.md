@@ -41,6 +41,10 @@ A simple test setup to validate eye tracking. Includes:
 
 When working correctly, a red sphere will follow your gaze and attach to any object with a collider, verifying that eye tracking is functional.
 
+It should look something like this
+<div align="center">
+<img src="https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Media/base%20scene%20demo.gif" width="500"/>
+</div>
 ## Usage Instructions
 
 1. Open the Base Scene (Assets/TAUXR/Base Scene/Base Scene) in Unity. 
