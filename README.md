@@ -7,7 +7,7 @@ This guide covers the key components of the toolkit:
 - 🗂️ Unity Project Template  
 - 📊 Data Collection Tools  
 - 🕹️ Player Interaction Management  
-- 🧩 Interactive Assets  
+
 
 Each component is optimized for **Meta Quest devices**, streamlining development and improving performance.
 
