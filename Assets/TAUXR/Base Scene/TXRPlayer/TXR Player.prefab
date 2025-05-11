@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 929733142}
   - component: {fileID: 929733145}
   - component: {fileID: 929733144}
+  - component: {fileID: 4675772483377253753}
   m_Layer: 0
   m_Name: OverlayColorQuad
   m_TagString: Untagged
@@ -83,6 +84,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4675772483377253753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929733141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f173570e462a094e800a290c7782152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useFadeValue: 0
+  useSharedMaterial: 0
+  fadePropertyName: _mul
+  objectRenderer: {fileID: 929733144}
+  threshold: 0.01
+  comparisonMode: 0
 --- !u!1 &593598469926169788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,6 +1543,9 @@ MonoBehaviour:
   overridePerLayerColorScaleAndOffset: 0
   colorScale: {x: 1, y: 1, z: 1, w: 1}
   colorOffset: {x: 0, y: 0, z: 0, w: 0}
+  passthroughLayerResumed:
+    m_PersistentCalls:
+      m_Calls: []
   colorMapEditorType_: 0
   colorMapEditorGradient:
     serializedVersion: 2
