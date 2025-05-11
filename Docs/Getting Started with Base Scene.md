@@ -52,6 +52,13 @@ It should look something like this
 2. Add objects and interactive content to the scene directly, or load additional scenes additively by dragging them into the hierarchy. Configure them later in the Build Settings and `TXRSceneManager` as [described here](https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Docs/Scene%20Manager.md).
 3. The scene automatically initializes tracking, input, data export, and calibration logic at runtime. To view your exported data, see [this guide](https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/View%20Exported%20Data.md).
 
+### Causion: if you are prompted with this massage, choose "Keep using ovr hands" 
+
+<div align="center">
+<img src="https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Media/dont.png" width="500"/>
+</div>
+
+
 ## Using TXR with Meta Interaction SDK
 
 If you want to integrate Meta's Interaction SDK while continuing to use the TXR data export system, use the **Base Scene with Meta Interactions**:
