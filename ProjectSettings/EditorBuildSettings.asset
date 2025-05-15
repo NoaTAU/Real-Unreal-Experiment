@@ -20,8 +20,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/TAUXR/TXR Assets/TAUXR Assets.unity
     guid: 64963697c2d588a42ae8ddd1bee0598f
+  - enabled: 0
+    path: Assets/Real - Unreal/Scenes/Main Experiment.unity
+    guid: efe9877f1e7e8a84d9f23042422aac95
+  - enabled: 0
+    path: Assets/Real - Unreal/Scenes/UISet.unity
+    guid: 6b3c935a786429a4385f47ac2519552c
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ea433a37a58c3fc4182d950dba8ad61f,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f7db628a5ee0256418e8c27aa87d5f76,
       type: 2}
+  m_UseUCBPForAssetBundles: 0

@@ -8104,7 +8104,7 @@ PrefabInstance:
     - target: {fileID: 3075981171919236425, guid: 9cde343ca5e21f542982ff876a7bd479,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 368
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3075981171919236425, guid: 9cde343ca5e21f542982ff876a7bd479,
         type: 3}
@@ -25071,7 +25071,7 @@ PrefabInstance:
     - target: {fileID: 3075981171919236425, guid: 9cde343ca5e21f542982ff876a7bd479,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 368
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3075981171919236425, guid: 9cde343ca5e21f542982ff876a7bd479,
         type: 3}
@@ -46081,7 +46081,7 @@ PrefabInstance:
     - target: {fileID: 4118325446768938422, guid: d1fbb9de4e73aff46a9f589420c2ad34,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 368
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4118325446768938422, guid: d1fbb9de4e73aff46a9f589420c2ad34,
         type: 3}
@@ -48280,7 +48280,7 @@ PrefabInstance:
     - target: {fileID: 241305303253945989, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 368
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 241305303253945989, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
@@ -51300,7 +51300,7 @@ PrefabInstance:
     - target: {fileID: 7930843997162957015, guid: 5a98624edf56c594d8d93c3402245e80,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 368
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7930843997162957015, guid: 5a98624edf56c594d8d93c3402245e80,
         type: 3}
@@ -51828,7 +51828,7 @@ PrefabInstance:
     - target: {fileID: 8332515563436936650, guid: f727782be5090c644bbd8d9c1aee79c8,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 368
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8332515563436936650, guid: f727782be5090c644bbd8d9c1aee79c8,
         type: 3}
