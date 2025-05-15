@@ -157,14 +157,14 @@ MonoBehaviour:
   MeshMaterial: {fileID: 2100000, guid: 599b01c5f1d17436c89b88cc04257314, type: 2}
   Colliders: 0
   CutHoles: 0
-  castShadows: 1
+  castShadows: 0
   hideMesh: 0
   Layer: 0
   textureCoordinateModes:
   - WallU: 5
     WallV: 2
     AnchorUV: 1
-  Labels: 2080767
+  Labels: 16383
 --- !u!114 &165116959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +402,72 @@ MonoBehaviour:
   installationRoutineCheckpoint:
     _installationRoutineId: 
     _installationVariants: []
+--- !u!4 &1444059572 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 973919995453942648, guid: 760813cf93bb049a598cb8464d3896b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1949395349}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1493705792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1493705793}
+  - component: {fileID: 1493705794}
+  m_Layer: 0
+  m_Name: BiggestAnchorPrefabSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1493705793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493705792}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.30190116, y: 1.508411, z: -0.1665278}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1444059572}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1493705794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493705792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b7cd22cb19d544894202a49a75df0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnOnStart: 1
+  SeedValue: 0
+  PrefabsToSpawn:
+  - Labels: 8
+    Prefabs: []
+    PrefabSelection: 2
+    MatchAspectRatio: 0
+    CalculateFacingDirection: 1
+    Scaling: 3
+    Alignment: 4
+    IgnorePrefabSize: 0
+  BiggestPrefab: {fileID: 2600870822896491895, guid: 0bc7266120a714e43966f1eca0edf9c1,
+    type: 3}
+  AnchorToFurnitureX: 1
+  AnchorToFurnitureY: 0
+  AnchorToFurnitureZ: 1
 --- !u!1 &1562775076
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +744,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 973919995453942648, guid: 760813cf93bb049a598cb8464d3896b3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1493705793}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6591664996896483173, guid: 760813cf93bb049a598cb8464d3896b3,
         type: 3}
