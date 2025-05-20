@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: TAUXR Studio
+  companyName: S-Lab
   productName: 'Real_Unreal Pilot '
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -143,6 +143,8 @@ PlayerSettings:
   bundleVersion: 0.1.0
   preloadedAssets:
   - {fileID: 11400000, guid: 757b7dcfef8a32647a4edc4a939fa758, type: 2}
+  - {fileID: 474786248239914460, guid: f7db628a5ee0256418e8c27aa87d5f76, type: 2}
+  - {fileID: 11400000, guid: ea433a37a58c3fc4182d950dba8ad61f, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -164,7 +166,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.TAUXRStudio.Real_UnrealPilot
+    Android: com.SLab.Real_UnrealPilot
     Standalone: com.TAUXR-Studio.TAUXR-Template---Quest-URP
   buildNumber:
     Standalone: 0
