@@ -1,7 +1,7 @@
 # MRUK Calibration System
 
 ## Overview
-This system enables calibration between real-world and virtual environments by aligning virtual objects with their real-world counterparts. It's particularly useful for static environments that cannot be positoned and rotated by the MRUK spawner while keeping their lighting and performance properties.
+This system enables calibration between real-world and virtual environments by aligning virtual objects with their real-world counterparts, by rotating the vr player. It's particularly useful for static environments that cannot be positoned and rotated by the MRUK spawner while keeping their lighting and performance properties.
 
 ## Prerequisites
 - A virtual environment with objects that need calibration
@@ -34,6 +34,6 @@ This system enables calibration between real-world and virtual environments by a
 3. The system will automatically align the virtual environment with the real-world position
 
 ## Notes
-- This system is ideal for static environments that cannot be automatically detected
+- This system is ideal for static environments that cannot be repositioned
 - Ensure reference points are placed at easily identifiable locations
 - The calibration process will move the player to match the real-world position in the virtual environment
