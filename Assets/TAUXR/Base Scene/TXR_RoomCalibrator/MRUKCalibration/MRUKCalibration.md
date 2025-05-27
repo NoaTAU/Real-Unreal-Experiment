@@ -37,3 +37,4 @@ This system enables calibration between real-world and virtual environments by a
 - This system is ideal for static environments that cannot be repositioned
 - Ensure reference points are placed at easily identifiable locations
 - The calibration process will move the player to match the real-world position in the virtual environment
+Make sure World Locking is disabled on the MRUK

@@ -12,12 +12,23 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
     [SerializeField] private Transform virtualReferencePointRotation;
     [SerializeField] private UnityEvent onCalibrationComplete;
     [SerializeField] private bool showDebugSpheres = false;
+    [SerializeField] private bool calibrateOnStart = false;
     
     private Transform _player;
     private Transform _positionReference;
     private Transform _rotationReference;
     private GameObject _positionDebugSphere;
     private GameObject _rotationDebugSphere;
+
+    private void Start()
+    {
+        Init();
+        
+        if (calibrateOnStart)
+        {
+            CalibrateRoom().Forget();
+        }
+    }
 
     private void CreateDebugSphere(ref GameObject sphere, Vector3 position, Color color)
     {
@@ -129,21 +140,21 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
 
     public void AlignVirtualToPhysicalRoom()
     {
-        // Get the real world positions from reference points
-        Vector3 realWorldPosition = _positionReference.position;
-        Vector3 realWorldRotation = _rotationReference.position;
+        // Parent the reference points to the player so they move with rotation
+        _positionReference.SetParent(_player);
+        _rotationReference.SetParent(_player);
+        
+        // ignore differences on height
+        _rotationReference.position = new Vector3(_rotationReference.position.x,
+            _positionReference.position.y, _rotationReference.position.z);
 
-        // Ignore differences on height
-        realWorldRotation = new Vector3(realWorldRotation.x,
-            realWorldPosition.y, realWorldRotation.z);
-
-        Vector3 realDirection = (realWorldRotation - realWorldPosition).normalized;
+        Vector3 realDirection = (_rotationReference.position - _positionReference.position).normalized;
         Vector3 virtualDirection = (virtualReferencePointRotation.position - virtualReferencePointPosition.position).normalized;
 
         float angle = Vector3.SignedAngle(realDirection, virtualDirection, _player.up);
         _player.Rotate(_player.up, angle);
 
-        Vector3 positionOffset = virtualReferencePointPosition.position - realWorldPosition;
+        Vector3 positionOffset = virtualReferencePointPosition.position - _positionReference.position;
         _player.position += positionOffset;
     }
 
