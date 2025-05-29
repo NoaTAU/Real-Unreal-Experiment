@@ -51,6 +51,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         LoadStimuliNames();
         ShuffleStimuliList();
         Debug.Log("Stimulus count: " + stimuliList.Count);
+        LogHelper.Log("finished init stimuli", "blue");
     }
 
     private void LoadStimuliNames()
@@ -84,6 +85,8 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
 
     public IEnumerator ShowImageSequence()
     {
+        LogHelper.Log("currentStimulusIndex: " + currentStimulusIndex, "blue");
+        LogHelper.Log("stimuliList: " + stimuliList.ToString(), "blue");
         while (currentStimulusIndex < stimuliList.Count)
         {
             ShowStimulus();

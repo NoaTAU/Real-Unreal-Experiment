@@ -16,6 +16,8 @@ public class MainExperiment : MonoBehaviour
 
     private IEnumerator RunAllExperiments()
     {
+
+        yield return new WaitForSeconds(1f); // Wait for 1 second before starting the experiments
         Debug.Log("Starting model rating experiment...");
         TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
         yield return modelRatingExperiment.ShowImageSequence();
