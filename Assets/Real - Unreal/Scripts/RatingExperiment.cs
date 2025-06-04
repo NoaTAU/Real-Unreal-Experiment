@@ -27,7 +27,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
     {
         InitReferences();
         InitStimuli();
-        InitConfirmToggle();
+        // InitConfirmToggle();
     }
 
     private void InitReferences()
@@ -42,7 +42,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         stimulusDisplayDuration = SceneReferencer.Instance.stimulusDisplayDuration;
     }
 
-    private void InitStimuli()
+    protected virtual void InitStimuli()
     {
         stimuliArray = Resources.LoadAll<T>(stimuliPath); // This now works because of the added constraint
         stimuliList = new List<T>(stimuliArray);
@@ -74,8 +74,10 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         }
     }
 
-    private void InitConfirmToggle()
+    public void InitConfirmToggle()
     {
+        confirmToggle.onValueChanged.RemoveAllListeners();
+        confirmToggle.interactable = false; // Initially disable the toggle
         confirmToggle.isOn = false;
         confirmToggle.onValueChanged.AddListener(OnConfirmToggled);
     }
@@ -83,8 +85,9 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
 
     #region ---- main logic ----
 
-    public IEnumerator ShowImageSequence()
+    public virtual IEnumerator ShowImageSequence()
     {
+        InitConfirmToggle();
         LogHelper.Log("currentStimulusIndex: " + currentStimulusIndex, "blue");
         LogHelper.Log("stimuliList: " + stimuliList.ToString(), "blue");
         while (currentStimulusIndex < stimuliList.Count)
@@ -134,7 +137,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
     protected abstract void HideStimulus();
 
 
-    private void OnConfirmToggled(bool isOn)
+    protected virtual void OnConfirmToggled(bool isOn)
     {
         if (!isOn) return; // only respond when toggled ON
 

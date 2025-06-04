@@ -16,7 +16,10 @@ public class SceneReferencer : TXRSingleton<SceneReferencer>
     public Slider myMetaSlider;
     public GameObject metaUISliderGroup;
     public GameObject blackScreenOverlay;
-    public GameObject threeDDisplay; // Assign this in the Inspector
+    public GameObject threeDDisplay;
+
+    public GameObject passthroughDisplay;
+    public GameObject passthroughCollider;
 
 
 }
