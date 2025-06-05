@@ -1,101 +1,139 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainExperiment : MonoBehaviour
 {
-    public Toggle endExperimentsToggle;
-    public Toggle startExperimentsToggle;
+    public Toggle ExperimentsToggle;
     public Toggle FirstExperimentToggle;
     public GameObject showInstructionsButton; // Button to show instructions
-    public GameObject showEndExperimentButton; // Button to end the experiment
+    public GameObject showExperimentButton;
     private ImageRatingExperiment imagerRatingExperiment;
     private ModelRatingExperiment modelRatingExperiment;
     private PassthroughRatingExperiment passthroughRatingExperiment;
     private bool readingInstructions = false;
-    private bool experimentEnded = false;
-    private bool experimentStrated = false;
+    private bool experimentToggle = false;
+    private string startMessage = "לחצו כאן כדי להתחיל";
+    private string endMessage = "הסבב הסתיים/n אנא קראו לנסיין/ית";
+
 
     private void Start()
     {
         InitExperiments();
 
-        endExperimentsToggle.interactable = false;
-        endExperimentsToggle.isOn = false;
-        endExperimentsToggle.onValueChanged.AddListener(OneEndToggled);
+        ExperimentsToggle.interactable = false;
+        ExperimentsToggle.isOn = false;
+        ExperimentsToggle.onValueChanged.AddListener(OnExpToggled);
 
         FirstExperimentToggle.interactable = false;
         FirstExperimentToggle.isOn = false;
-        FirstExperimentToggle.onValueChanged.AddListener(OneEndToggled);
+        FirstExperimentToggle.onValueChanged.AddListener(EndInstructionsToggled);
 
-        startExperimentsToggle.interactable = true;
-        startExperimentsToggle.isOn = false;
-        startExperimentsToggle.onValueChanged.AddListener(OnStartToggled);
         StartCoroutine(RunAllExperiments());
     }
 
     private IEnumerator RunAllExperiments()
     {
+        yield return new WaitForSeconds(1f); // Wait for 1 second before starting the experiments
+
         FirstExperimentToggle.interactable = true;
         showInstructionsButton.SetActive(true); // Show the button to start reading instructions
-
-        while (!experimentStrated)
-        {
-            yield return null;
-        }
-
-        showInstructionsButton.SetActive(false);
-        FirstExperimentToggle.interactable = false;
-        experimentEnded = false; // Set to true to start the experiments
-
-        yield return new WaitForSeconds(1f); // Wait for 1 second before starting the experiments
 
         while (!readingInstructions)
         {
             yield return null;
         }
 
+        showInstructionsButton.SetActive(false);
+        FirstExperimentToggle.interactable = false;
+        experimentToggle = false; // Set to true to start the experiments
+
+        TMP_Text label = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
+        label.text = startMessage;
+        ExperimentsToggle.interactable = true;
+        showExperimentButton.SetActive(true);
+
+        while (!experimentToggle)
+        {
+            yield return null;
+        }
+
+        experimentToggle = false;
+        showExperimentButton.SetActive(false);
+        ExperimentsToggle.interactable = false;
 
         Debug.Log("Starting passthrough rating experiment...");
         TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
         yield return passthroughRatingExperiment.ShowImageSequence();
 
-        showEndExperimentButton.SetActive(true);
-        endExperimentsToggle.interactable = true;
+        label.text = endMessage;
+        showExperimentButton.SetActive(true);
+        ExperimentsToggle.interactable = true;
 
-        while (!experimentEnded)
+        while (!experimentToggle)
         {
             yield return null;
         }
 
-        experimentEnded = false;
-        showEndExperimentButton.SetActive(false);
-        endExperimentsToggle.interactable = false;
+        experimentToggle = false;
+        showExperimentButton.SetActive(false);
+        ExperimentsToggle.interactable = false;
+
+        label.text = startMessage;
+        ExperimentsToggle.interactable = true;
+        showExperimentButton.SetActive(true);
+
+        while (!experimentToggle)
+        {
+            yield return null;
+        }
+
+        experimentToggle = false;
+        showExperimentButton.SetActive(false);
+        ExperimentsToggle.interactable = false;
+
 
         Debug.Log("Starting model rating experiment...");
         TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
         yield return modelRatingExperiment.ShowImageSequence();
 
-        showEndExperimentButton.SetActive(true);
-        endExperimentsToggle.interactable = true;
+        label.text = endMessage;
+        showExperimentButton.SetActive(true);
+        ExperimentsToggle.interactable = true;
 
-        while (!experimentEnded)
+        while (!experimentToggle)
         {
             yield return null;
         }
 
-        experimentEnded = false;
-        showEndExperimentButton.SetActive(false);
-        endExperimentsToggle.interactable = false;
+        experimentToggle = false;
+        showExperimentButton.SetActive(false);
+        ExperimentsToggle.interactable = false;
+
+        label.text = startMessage;
+        ExperimentsToggle.interactable = true;
+        showExperimentButton.SetActive(true);
+
+        while (!experimentToggle)
+        {
+            yield return null;
+        }
+
+        experimentToggle = false;
+        showExperimentButton.SetActive(false);
+        ExperimentsToggle.interactable = false;
 
         Debug.Log("Starting image rating experiment...");
         TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
         yield return imagerRatingExperiment.ShowImageSequence();
 
-        showEndExperimentButton.SetActive(true);
-        endExperimentsToggle.interactable = true;
+        label.text = endMessage;
+        showExperimentButton.SetActive(true);
+        ExperimentsToggle.interactable = true;
 
-        while (!experimentEnded)
+        while (!experimentToggle)
         {
             yield return null;
         }
@@ -110,18 +148,17 @@ public class MainExperiment : MonoBehaviour
         modelRatingExperiment = GetComponent<ModelRatingExperiment>();
         passthroughRatingExperiment = GetComponent<PassthroughRatingExperiment>();
     }
-    private void OneEndToggled(bool isOn)
+    private void EndInstructionsToggled(bool isOn)
     {
         if (!isOn) return; // only respond when toggled ON
         Debug.Log("toggle was toggled ON");
         readingInstructions = true;
-        experimentEnded = true;
         Debug.Log("readingInstructions = true");
     }
-    private void OnStartToggled(bool isOn)
+    private void OnExpToggled(bool isOn)
     {
         if (!isOn) return; // only respond when toggled ON
-        experimentStrated = true;
-        Debug.Log("started experiment = true");
+        experimentToggle = true;
+        Debug.Log("toggle = true");
     }
 }

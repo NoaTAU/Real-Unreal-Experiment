@@ -37650,10 +37650,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87c999f6fc8b5344aabf03b59226af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endExperimentsToggle: {fileID: 799057576}
+  ExperimentsToggle: {fileID: 799057576}
   FirstExperimentToggle: {fileID: 344963207}
   showInstructionsButton: {fileID: 1003142425}
-  showEndExperimentButton: {fileID: 1457535687}
+  showExperimentButton: {fileID: 1457535687}
 --- !u!4 &1219010836
 Transform:
   m_ObjectHideFlags: 0
@@ -45998,7 +45998,7 @@ GameObject:
   - component: {fileID: 1457535688}
   - component: {fileID: 1457535689}
   m_Layer: 5
-  m_Name: EndRoundButton
+  m_Name: RoundButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
