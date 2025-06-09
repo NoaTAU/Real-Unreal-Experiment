@@ -1,0 +1,5 @@
+<linker>
+  <assembly fullname="Meta.XR.ImmersiveDebugger">
+    <type fullname="Meta.XR.ImmersiveDebugger.Manager.DebugManagerAddon`1" preserve="nothing"/>
+  </assembly>
+</linker>

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EditorToucher : MonoBehaviour
 {
+    // #if UNITY_EDITOR
     public float moveSpeed = 5f;
     public float rayLength = 0.1f;
 
@@ -24,6 +25,7 @@ public class EditorToucher : MonoBehaviour
             }
         }
     }
+    // #endif
 }
 // This script allows the user to move a GameObject in the scene using WASD or arrow keys
 // and to simulate a touch event by clicking the mouse. The script uses raycasting to detect

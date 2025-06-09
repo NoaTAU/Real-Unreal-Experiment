@@ -18,7 +18,7 @@ public class SceneReferencer : TXRSingleton<SceneReferencer>
     public GameObject blackScreenOverlay;
     public GameObject threeDDisplay;
 
-    public GameObject passthroughDisplay;
+    // public GameObject passthroughDisplay;
     public GameObject passthroughCollider;
 
 

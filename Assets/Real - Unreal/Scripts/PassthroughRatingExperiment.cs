@@ -16,9 +16,9 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
     {
         base.Start();
         passthroughColliderParent = SceneReferencer.Instance.passthroughCollider.transform;
-        passthroughLayer = gameObject.AddComponent<OVRPassthroughLayer>();
+        passthroughLayer = gameObject.GetComponent<OVRPassthroughLayer>();
         // passthroughLayer.overlayType = OVRPassthroughLayer.OverlayType.Overlay;
-        passthroughLayer.textureOpacity = 1.0f; // fully see-through
+        // passthroughLayer.textureOpacity = 1.0f; // fully see-through
 
     }
 

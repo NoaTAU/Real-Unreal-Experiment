@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MouseToucher : MonoBehaviour
 {
+    // #if UNITY_EDITOR
     private Camera sceneCamera;
     public LayerMask raycastLayers;
     public float followSpeed = 10f;
@@ -69,4 +70,6 @@ public class MouseToucher : MonoBehaviour
 
         lastMousePosition = Input.mousePosition;
     }
+    // #endif
+
 }

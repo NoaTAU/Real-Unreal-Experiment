@@ -1,0 +1,19 @@
+# ninja log v5
+10	1906	1749380503535616992	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	702b9f3f0ef2ba31
+11	1904	1749380503534107208	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	70b061f1cddf14c6
+14	1907	1749380503534342707	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	1f7db9223cf37659
+15	1931	1749380503561717187	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	2d34238576285d61
+11	1968	1749380503608214108	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	652f935191d61e5a
+17	2010	1749380503650485510	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	bc262f71cf1ab125
+11	2202	1749380503842735412	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	24ad4845911a6392
+8	2359	1749380504000062832	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	b4269d9f20a2f997
+2359	2563	1749380504205543747	/Users/maya/Documents/GitHub/Real-Unreal-Experiment/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3t162x73/obj/arm64-v8a/libgame.so	ac3286fa54d404f5
+22	1838	1749388630676014891	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	1f7db9223cf37659
+21	1841	1749388630676410769	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	70b061f1cddf14c6
+24	1853	1749388630699593263	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	2d34238576285d61
+19	1865	1749388630713344066	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	702b9f3f0ef2ba31
+20	1961	1749388630807544052	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	652f935191d61e5a
+25	2017	1749388630865740621	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	bc262f71cf1ab125
+22	2142	1749388630990632153	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	24ad4845911a6392
+18	2216	1749388631064522164	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	b4269d9f20a2f997
+2216	2425	1749388631274684370	/Users/maya/Documents/GitHub/Real-Unreal-Experiment/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3t162x73/obj/arm64-v8a/libgame.so	ac3286fa54d404f5
