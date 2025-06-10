@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2419086873386926665}
   - component: {fileID: 7291093555186549453}
   - component: {fileID: 6213862510167099395}
-  - component: {fileID: 5567689665277449615}
+  - component: {fileID: 3773108033206381444}
   m_Layer: 0
   m_Name: 'MRUKCalibrator '
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2472981310587085774}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
     e32: 0
     e33: 1
   SceneSettings:
-    DataSource: 0
+    DataSource: 2
     RoomIndex: -1
     RoomPrefabs: []
     SceneJsons: []
@@ -114,7 +114,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   _immersiveSceneDebuggerPrefab: {fileID: 0}
---- !u!114 &5567689665277449615
+--- !u!114 &3773108033206381444
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,22 +123,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 2472981310587085774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b7cd22cb19d544894202a49a75df0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 55ff288767bbbf9408553953210de07c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnOnStart: 1
   SeedValue: 0
   PrefabsToSpawn:
-  - Labels: 8
-    Prefabs: []
-    PrefabSelection: 2
+  - Labels: 128
+    Prefabs:
+    - {fileID: 2600870822896491895, guid: 5ee5a1600aa18472583ac8cf63dc117d, type: 3}
+    PrefabSelection: 0
     MatchAspectRatio: 0
     CalculateFacingDirection: 1
-    Scaling: 3
+    Scaling: 0
     Alignment: 4
     IgnorePrefabSize: 0
-  BiggestPrefab: {fileID: 2600870822896491895, guid: 2f0927a619a84c3459f9cb99909f5e3f,
-    type: 3}
+  BiggestPrefab: {fileID: 0}
   AnchorToFurnitureX: 1
   AnchorToFurnitureY: 0
   AnchorToFurnitureZ: 1
@@ -167,7 +167,7 @@ Transform:
   m_GameObject: {fileID: 6371282219438062834}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.209, y: 0.75199986, z: -0.9989999}
+  m_LocalPosition: {x: -2.017, y: 0.669, z: -0.816}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -260,9 +260,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7214160502061065083, guid: 900fafd4751d29a428e29c46b7fa9005,
         type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e024342a58392e743a5ca6e42d8d6c96, type: 2}
+      objectReference: {fileID: 2100000, guid: e10668917a9af504ea73f89e5b892212, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -359,9 +359,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7214160502061065083, guid: 900fafd4751d29a428e29c46b7fa9005,
         type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ca08b9c3ed247ce4eb03cbd72e12dbd7, type: 2}
+      objectReference: {fileID: 2100000, guid: 057583b2a6cbfc541834d86fceeef816, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

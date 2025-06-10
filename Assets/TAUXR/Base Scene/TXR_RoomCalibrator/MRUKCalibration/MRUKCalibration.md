@@ -7,6 +7,8 @@ This system enables calibration between real-world and virtual environments by a
 - A virtual environment with objects that need calibration
 - MRUK Calibration scripts
 - Reference points in both virtual and real environments
+- a headset with an enviroment set up. you should tag the object you want to use for calibration with an "other" tag,
+and make sure it is the only object you tagged other. 
 
 ## Setup Instructions
 
