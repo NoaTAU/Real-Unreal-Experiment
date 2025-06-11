@@ -54,7 +54,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         LogHelper.Log("finished init stimuli", "blue");
     }
 
-    private void LoadStimuliNames()
+    public void LoadStimuliNames()
     {
         stimuliNames = new List<string>();
         foreach (T stimuli in stimuliList)
@@ -63,7 +63,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         }
     }
 
-    private void ShuffleStimuliList()
+    public void ShuffleStimuliList()
     {
         for (int i = 0; i < stimuliList.Count; i++)
         {

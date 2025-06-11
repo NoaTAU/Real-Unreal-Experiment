@@ -11,6 +11,8 @@ public class MainExperiment : MonoBehaviour
     public Toggle FirstExperimentToggle;
     public GameObject showInstructionsButton; // Button to show instructions
     public GameObject showExperimentButton;
+    public GameObject ArenaPrefab;
+
     public TMP_FontAsset defaultFont;
     private ImageRatingExperiment imagerRatingExperiment;
     private ModelRatingExperiment modelRatingExperiment;
@@ -144,9 +146,11 @@ public class MainExperiment : MonoBehaviour
                     yield return passthroughRatingExperiment.ShowImageSequence();
                     break;
                 case 1:
+                    ArenaPrefab.SetActive(true);  // or false to hide it
                     Debug.Log("Starting model rating experiment...");
                     TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
                     yield return modelRatingExperiment.ShowImageSequence();
+                    ArenaPrefab.SetActive(false);  // or false to hide it
                     break;
                 case 2:
                     TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
@@ -159,7 +163,16 @@ public class MainExperiment : MonoBehaviour
                     break;
             }
 
-            label.text = endMessage;
+            if (i != 2)
+            {
+                label.text = endMessage;
+            }
+            else
+            {
+                label.text = experimentEndMessage;
+                Debug.Log("All experiments finished.");
+                TXRDataManager.Instance.LogLineToFile("All experiments finished.");
+            }
             showExperimentButton.SetActive(true);
             ExperimentsToggle.interactable = true;
 
@@ -173,9 +186,6 @@ public class MainExperiment : MonoBehaviour
             ExperimentsToggle.interactable = false;
             ExperimentsToggle.isOn = false;
         }
-
-        Debug.Log("All experiments finished.");
-        TXRDataManager.Instance.LogLineToFile("All experiments finished.");
     }
 
     private void InitExperiments()
