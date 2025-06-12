@@ -21,6 +21,12 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
     protected GameObject metaUISliderGroup;
     protected Slider myMetaSlider;
     protected Toggle confirmToggle;
+    private float stimulusAppearanceTime;
+    private float RatingApperanceTime;
+
+    protected abstract string ExperimentType { get; }
+    // Define the type of experiment, e.g., Image, Model, Passthrough, etc.
+
 
     #region ---- init ----
     protected virtual void Start()
@@ -93,6 +99,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         while (currentStimulusIndex < stimuliList.Count)
         {
             ShowStimulus();
+            stimulusAppearanceTime = Time.time;
 
             TXRDataManager.Instance.LogLineToFile("Showed Stimulus: " + stimuliList[currentStimulusIndex].name);
             Debug.Log("Showed Stimulus: " + stimuliList[currentStimulusIndex].name);
@@ -106,6 +113,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
             myMetaSlider.gameObject.SetActive(true);
             confirmToggle.interactable = true;
 
+            RatingApperanceTime = Time.time;
 
             inputReceived = false;
 
@@ -142,6 +150,11 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         if (!isOn) return; // only respond when toggled ON
 
         float rating = myMetaSlider.value;
+        string stimulusName = stimuliList[currentStimulusIndex].name;
+
+        // TXRDataManager.Instance.ReportExperimentData("RatingExperiment", stimulusName, rating.ToString(), 
+        //     stimulusAppearanceTime.ToString(), RatingApperanceTime.ToString());
+
         Debug.Log($"Rating for {stimuliList[currentStimulusIndex].name}: {rating:F2}");
         TXRDataManager.Instance.LogLineToFile($"Rating for {stimuliList[currentStimulusIndex].name}: {rating:F2}");
 

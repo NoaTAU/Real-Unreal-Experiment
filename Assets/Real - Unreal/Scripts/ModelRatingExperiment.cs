@@ -4,6 +4,8 @@ public class ModelRatingExperiment : RatingExperiment<GameObject>
 {
     public override string stimuliPath => "3D/Snacks";
 
+    protected override string ExperimentType => "3D";
+
     private GameObject currentInstantiatedModel;
     private Transform modelParent;
 

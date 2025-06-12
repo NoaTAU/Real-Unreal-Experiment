@@ -7,6 +7,9 @@ using System.Linq;
 public class PassthroughRatingExperiment : RatingExperiment<GameObject>
 {
     public override string stimuliPath => "InvisibleCollider.prefab";
+
+    protected override string ExperimentType => "Passthrough";
+
     private OVRPassthroughLayer passthroughLayer;
     private Transform passthroughColliderParent;
 

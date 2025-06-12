@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class MainExperiment : MonoBehaviour
 {
@@ -11,8 +12,7 @@ public class MainExperiment : MonoBehaviour
     public Toggle FirstExperimentToggle;
     public GameObject showInstructionsButton; // Button to show instructions
     public GameObject showExperimentButton;
-    public GameObject ArenaPrefab;
-
+    public GameObject invisibleCollider;
     public TMP_FontAsset defaultFont;
     private ImageRatingExperiment imagerRatingExperiment;
     private ModelRatingExperiment modelRatingExperiment;
@@ -24,7 +24,9 @@ public class MainExperiment : MonoBehaviour
     private string experimentEndMessage = "הניסוי הסתיים\n תודה רבה על שיתוף הפעולה";
     private List<int> experimentList = new List<int> { 0, 1, 2 };
     private string textShuffledList = "";
+    private TMP_Text generalInstructionsLabel;
 
+    private TXRDataManager dataManager;
 
 
 
@@ -46,6 +48,7 @@ public class MainExperiment : MonoBehaviour
         ApplyFontToTMP(showExperimentButton);
         ApplyFontToTMP(showInstructionsButton);
         ShuffleExperimentOrder();
+        ReportExperimentConfigurations();
 
     }
     private void ApplyFontToTMP(GameObject parent)
@@ -95,64 +98,31 @@ public class MainExperiment : MonoBehaviour
         Debug.Log("Debug:Starting RunAllExperiments...");
         yield return new WaitForSeconds(1f); // Wait for 1 second before starting the experiments
 
-        TMP_Text label = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
-        label.text = textShuffledList;
-        ExperimentsToggle.interactable = true;
-        showExperimentButton.SetActive(true);
+        yield return ShowDialogAndWaitForConfirm(textShuffledList);
 
-        while (!experimentToggle)
-        {
-            yield return null;
-        }
-
-        experimentToggle = false;
-        showExperimentButton.SetActive(false);
-        ExperimentsToggle.interactable = false;
-        ExperimentsToggle.isOn = false;
-
-        FirstExperimentToggle.interactable = true;
-        showInstructionsButton.SetActive(true); // Show the button to start reading instructions
-
-        while (!readingInstructions)
-        {
-            yield return null;
-        }
-
-        showInstructionsButton.SetActive(false);
-        FirstExperimentToggle.interactable = false;
+        yield return ShowMainInstructionsAndWaitForConfirm();
 
         for (int i = 0; i < experimentList.Count; i++)
         {
-            // TMP_Text label = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
-            label.text = startMessage;
-            ExperimentsToggle.interactable = true;
-            showExperimentButton.SetActive(true);
-
-            while (!experimentToggle)
-            {
-                yield return null;
-            }
-
-            experimentToggle = false;
-            showExperimentButton.SetActive(false);
-            ExperimentsToggle.interactable = false;
-            ExperimentsToggle.isOn = false;
-
+            ShowDialogAndWaitForConfirm(startMessage);
             switch (experimentList[i])
             {
                 case 0:
                     Debug.Log("Starting passthrough rating experiment...");
+                    RendererActivator.Instance.HideRenderers(); // Hide the slab arena visuals
+                    invisibleCollider.SetActive(true); // Show the invisible collider
                     TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
                     yield return passthroughRatingExperiment.ShowImageSequence();
+                    invisibleCollider.SetActive(false); // Hide the invisible collider
                     break;
                 case 1:
-                    ArenaPrefab.SetActive(true);  // or false to hide it
+                    RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
                     Debug.Log("Starting model rating experiment...");
                     TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
                     yield return modelRatingExperiment.ShowImageSequence();
-                    ArenaPrefab.SetActive(false);  // or false to hide it
                     break;
                 case 2:
+                    RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
                     TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
                     Debug.Log("Starting image rating experiment...");
                     yield return imagerRatingExperiment.ShowImageSequence();
@@ -165,36 +135,67 @@ public class MainExperiment : MonoBehaviour
 
             if (i != 2)
             {
-                label.text = endMessage;
+                yield return ShowDialogAndWaitForConfirm(endMessage);
             }
             else
             {
-                label.text = experimentEndMessage;
+                yield return ShowDialogAndWaitForConfirm(experimentEndMessage);
                 Debug.Log("All experiments finished.");
                 TXRDataManager.Instance.LogLineToFile("All experiments finished.");
             }
-            showExperimentButton.SetActive(true);
-            ExperimentsToggle.interactable = true;
 
-            while (!experimentToggle)
-            {
-                yield return null;
-            }
-
-            experimentToggle = false;
-            showExperimentButton.SetActive(false);
-            ExperimentsToggle.interactable = false;
-            ExperimentsToggle.isOn = false;
         }
     }
+
+
 
     private void InitExperiments()
     {
         imagerRatingExperiment = GetComponent<ImageRatingExperiment>();
         modelRatingExperiment = GetComponent<ModelRatingExperiment>();
         passthroughRatingExperiment = GetComponent<PassthroughRatingExperiment>();
+        dataManager = TXRDataManager.Instance;
+        generalInstructionsLabel = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
     }
 
+    private IEnumerator ShowDialogAndWaitForConfirm(string InstructionsText)
+    {
+        TMP_Text label = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
+        label.text = InstructionsText;
+        ExperimentsToggle.interactable = true;
+        showExperimentButton.SetActive(true);
+
+        float appearanceTime = Time.time;
+
+        while (!experimentToggle)
+        {
+            yield return null;
+        }
+
+        float confirmationTime = Time.time;
+
+        experimentToggle = false;
+        showExperimentButton.SetActive(false);
+        ExperimentsToggle.interactable = false;
+        ExperimentsToggle.isOn = false;
+
+        dataManager.ReportInstructionsData(InstructionsText, appearanceTime, confirmationTime);
+    }
+
+    private IEnumerator ShowMainInstructionsAndWaitForConfirm()
+    {
+        // main experiment instructions:
+        FirstExperimentToggle.interactable = true;
+        showInstructionsButton.SetActive(true); // Show the button to start reading instructions
+
+        while (!readingInstructions)
+        {
+            yield return null;
+        }
+
+        showInstructionsButton.SetActive(false);
+        FirstExperimentToggle.interactable = false;
+    }
 
     private void EndInstructionsToggled(bool isOn)
     {
@@ -208,4 +209,13 @@ public class MainExperiment : MonoBehaviour
         experimentToggle = true;
         Debug.Log("toggle = true");
     }
+
+    private void ReportExperimentConfigurations()
+    {
+        dataManager.ReportConfiguration("BlackoutDuration", SceneReferencer.Instance.blackoutDuration.ToString());
+        dataManager.ReportConfiguration("StimulusDisplayDuration", SceneReferencer.Instance.stimulusDisplayDuration.ToString());
+        dataManager.ReportConfiguration("ExperimentOrderString", textShuffledList);
+        dataManager.ReportConfiguration("ExperimentOrderNumbers", string.Join(",", experimentList));
+    }
+
 }

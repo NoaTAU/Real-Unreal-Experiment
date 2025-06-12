@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class ImageRatingExperiment : RatingExperiment<Sprite>
 {
     public override string stimuliPath => "Images/2D";
+
+    protected override string ExperimentType => "2D";
+
     private Image imageDisplay;
 
     protected override void Start()

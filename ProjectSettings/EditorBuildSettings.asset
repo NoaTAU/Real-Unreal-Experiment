@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/TAUXR/Meta componentrs/Meta Interactions/Base Scene Meta Interactions.unity
     guid: bceea25798fa5944b80c28474e542c86
+  - enabled: 1
+    path: Assets/Real - Unreal/Scenes/base scene with meta and Slab Arena.unity
+    guid: bea72d06910d844e79f17624ef200d0d
   - enabled: 1
     path: Assets/Real - Unreal/Scenes/Main Experiment.unity
     guid: efe9877f1e7e8a84d9f23042422aac95
