@@ -22,7 +22,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
     protected Slider myMetaSlider;
     protected Toggle confirmToggle;
     private float stimulusAppearanceTime;
-    private float RatingApperanceTime;
+    private float ratingAppearanceTime;
 
     protected abstract string ExperimentType { get; }
     // Define the type of experiment, e.g., Image, Model, Passthrough, etc.
@@ -113,7 +113,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
             myMetaSlider.gameObject.SetActive(true);
             confirmToggle.interactable = true;
 
-            RatingApperanceTime = Time.time;
+            ratingAppearanceTime = Time.time;
 
             inputReceived = false;
 
@@ -148,12 +148,12 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
     protected virtual void OnConfirmToggled(bool isOn)
     {
         if (!isOn) return; // only respond when toggled ON
+        float ratingTime = Time.time;
 
         float rating = myMetaSlider.value;
         string stimulusName = stimuliList[currentStimulusIndex].name;
 
-        // TXRDataManager.Instance.ReportExperimentData("RatingExperiment", stimulusName, rating.ToString(), 
-        //     stimulusAppearanceTime.ToString(), RatingApperanceTime.ToString());
+        TXRDataManager.Instance.ReportExperimentData(ExperimentType, stimulusName, stimulusAppearanceTime, ratingAppearanceTime, ratingTime, rating);
 
         Debug.Log($"Rating for {stimuliList[currentStimulusIndex].name}: {rating:F2}");
         TXRDataManager.Instance.LogLineToFile($"Rating for {stimuliList[currentStimulusIndex].name}: {rating:F2}");
