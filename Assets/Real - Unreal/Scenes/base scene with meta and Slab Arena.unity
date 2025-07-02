@@ -4771,6 +4771,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'MRUKCalibrator '
       objectReference: {fileID: 0}
+    - target: {fileID: 2472981310587085774, guid: 24c06892d6f2a440f9aa4b91e8383352,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7291093555186549453, guid: 24c06892d6f2a440f9aa4b91e8383352,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7291093555186549453, guid: 24c06892d6f2a440f9aa4b91e8383352,
         type: 3}
       propertyPath: showDebugSpheres

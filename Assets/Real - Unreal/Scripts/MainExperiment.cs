@@ -14,6 +14,7 @@ public class MainExperiment : MonoBehaviour
     public GameObject showExperimentButton;
     public GameObject invisibleCollider;
     public TMP_FontAsset defaultFont;
+    public EyeCalibrationCheck eyeCalibration;
     private ImageRatingExperiment imagerRatingExperiment;
     private ModelRatingExperiment modelRatingExperiment;
     private PassthroughRatingExperiment passthroughRatingExperiment;
@@ -99,6 +100,14 @@ public class MainExperiment : MonoBehaviour
         yield return new WaitForSeconds(1f); // Wait for 1 second before starting the experiments
 
         yield return ShowDialogAndWaitForConfirm(textShuffledList);
+
+        // Run eye calibration check
+        if (eyeCalibration != null)
+        {
+            yield return ShowDialogAndWaitForConfirm("עכשיו תתבקשו להסתכל על נקודות כדי לבדוק את מעקב העיניים.");
+            yield return eyeCalibration.RunCalibration();
+        }
+
 
         yield return ShowMainInstructionsAndWaitForConfirm();
 
