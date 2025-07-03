@@ -12,6 +12,9 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
 
     private OVRPassthroughLayer passthroughLayer;
     private Transform passthroughColliderParent;
+    private float stimulusAppearanceTimePassthrough;
+    private float ratingAppearanceTimePassthrough;
+
 
     public int[] passthroughtList = Enumerable.Range(0, 8).ToArray();
 
@@ -55,6 +58,8 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
             currentStimulusIndex = i;
 
             ShowStimulus();
+            stimulusAppearanceTimePassthrough = Time.time;
+
             yield return new WaitForSeconds(stimulusDisplayDuration);
             HideStimulus();
 
@@ -63,6 +68,8 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
             myMetaSlider.gameObject.SetActive(true);
             confirmToggle.interactable = true;
             inputReceived = false;
+
+            ratingAppearanceTimePassthrough = Time.time;
 
             while (!inputReceived)
             {
@@ -87,8 +94,9 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
 
         float rating = myMetaSlider.value;
         Debug.Log($"Rating for {currentStimulusIndex}: {rating:F2}");
-        TXRDataManager.Instance.LogLineToFile($"Rating for {currentStimulusIndex}: {rating:F2}");
-
+        float ratingTime = Time.time;
+        string stimulusName = currentStimulusIndex.ToString();
+        TXRDataManager.Instance.ReportExperimentData(ExperimentType, stimulusName, stimulusAppearanceTimePassthrough, ratingAppearanceTimePassthrough, ratingTime, rating);
         confirmToggle.interactable = false;
         confirmToggle.isOn = false;
 

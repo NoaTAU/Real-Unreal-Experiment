@@ -23,8 +23,12 @@ public class EyeCalibrationCheck : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f); // small delay
             float startTime = Time.time;
-            List<Vector3> gazePoints = new List<Vector3>();
 
+            // calculate the direction vector from the middle of right and left eye to target point (getting them through TXRPlayer.Instance.RightEye and TXRPlayer.Instance.LeftEye)
+            // get the direction vector from the center eye to the avrage direction of the right and left eye (this is the gaze direction, through the TXRPlayer.Instance.leftEye and TXRPlayer.Instance.rightEye)
+            // calculate the deviation in angles
+            List<Vector3> gazePoints = new List<Vector3>();
+            // get the direction 
             while (Time.time - startTime < gazeCaptureDuration)
             {
                 if (TryGetEyeGaze(out Ray gazeRay))
@@ -40,17 +44,25 @@ public class EyeCalibrationCheck : MonoBehaviour
                 Vector3 avgGaze = Average(gazePoints);
                 float deviation = Vector3.Distance(avgGaze, point.position);
                 deviations.Add(deviation);
-                Debug.Log($"Deviation for {point.name}: {deviation:F3} meters");
+                Vector3 pos = point.position;
+                string pointName = point.name;
+                TXRDataManager.Instance.ReportEyeTrackingData(pointName, pos.ToString(), deviation);
+
+                Debug.Log($"Target {point.name} at {pos} → Deviation: {deviation:F3} meters");
             }
         }
-
+        HideAllTargets();
         Debug.Log("Eye calibration check complete. Mean deviation: " + Mean(deviations));
     }
 
-    void ShowTarget(Transform target)
+    void ShowTarget(Transform currentTarget)
     {
-        // Enable a small dot at target.position
-        // Optional: play sound or highlight to direct attention
+        foreach (Transform t in targetPoints)
+        {
+            if (t != null)
+                t.gameObject.SetActive(t == currentTarget);
+        }
+
     }
 
     bool TryGetEyeGaze(out Ray gazeRay)
@@ -82,4 +94,14 @@ public class EyeCalibrationCheck : MonoBehaviour
         foreach (float v in values) sum += v;
         return sum / values.Count;
     }
+
+    void HideAllTargets()
+    {
+        foreach (Transform t in targetPoints)
+        {
+            if (t != null)
+                t.gameObject.SetActive(false);
+        }
+    }
+
 }

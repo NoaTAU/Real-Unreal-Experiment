@@ -32,9 +32,12 @@ public class DataContinuousWriter : MonoBehaviour
 
     private TXRPlayer TAUXRPlayer;
 
+    private string UniqueParticipantId;
+
     public void Init(bool ShouldRecordEyeTracking)
     {
-        IsEyeTrackingEnabled= ShouldRecordEyeTracking;
+        UniqueParticipantId = TXRDataManager.UniqueParticipantId;
+        IsEyeTrackingEnabled = ShouldRecordEyeTracking;
 
         TAUXRPlayer = TXRPlayer.Instance;
 
@@ -51,7 +54,7 @@ public class DataContinuousWriter : MonoBehaviour
         AddAllTransformsToList();
 
         //setup file
-        filePath = Path.Combine(Application.persistentDataPath, $"{fileName}_{TAUXRUtilities.GetFormattedDateTime(true)}.csv");
+        filePath = Path.Combine(Application.persistentDataPath, UniqueParticipantId + "_" + $"{fileName}_{TAUXRUtilities.GetFormattedDateTime(true)}.csv");
         writer = new StreamWriter(filePath);
 
         WriteColumnNames();

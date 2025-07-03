@@ -13,8 +13,11 @@ public class DataExporterFaceExpression : MonoBehaviour
     StreamWriter writer;
     string path;
 
+    string UniqueParticipantId;
+
     public void Init()
     {
+        UniqueParticipantId = TXRDataManager.UniqueParticipantId;
         OVRFace = TXRPlayer.Instance.OVRFace;
 
         if (OVRFace == null)
@@ -55,7 +58,7 @@ public class DataExporterFaceExpression : MonoBehaviour
             return;
         }
 
-        if(!OVRFace.ValidExpressions)
+        if (!OVRFace.ValidExpressions)
         {
             Debug.LogWarning("Can't log face expression data because OVRFace data is not valid");
             return;
@@ -87,7 +90,7 @@ public class DataExporterFaceExpression : MonoBehaviour
     private string getPath()
     {
         string str = $"{Application.persistentDataPath}/";
-        str += $"{FileName}_FaceExpressionData_{TAUXRUtilities.GetFormattedDateTime(true)}.csv";
+        str += UniqueParticipantId + "_" + $"{FileName}_FaceExpressionData_{TAUXRUtilities.GetFormattedDateTime(true)}.csv";
         print(str);
         return str;
     }

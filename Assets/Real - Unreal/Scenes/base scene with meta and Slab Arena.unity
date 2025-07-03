@@ -494,37 +494,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4536773283001372330, guid: 764bad3fec0b543fa9358755ac7e2e24, type: 3}
---- !u!1 &478625764
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 478625765}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &478625765
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478625764}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &482281543
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4553,17 +4522,17 @@ PrefabInstance:
     - target: {fileID: 9179752177440450423, guid: d32c42f940d01aa45a115eef6b267bf6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.999
+      value: -1.931
       objectReference: {fileID: 0}
     - target: {fileID: 9179752177440450423, guid: d32c42f940d01aa45a115eef6b267bf6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.445
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 9179752177440450423, guid: d32c42f940d01aa45a115eef6b267bf6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.101
+      value: 2.225
       objectReference: {fileID: 0}
     - target: {fileID: 9179752177440450423, guid: d32c42f940d01aa45a115eef6b267bf6,
         type: 3}
@@ -5389,6 +5358,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5909402029071504857, guid: 0e536bf5e85d3f34f97dbec656223294,
+        type: 3}
+      propertyPath: shouldExport
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5909402029071504858, guid: 0e536bf5e85d3f34f97dbec656223294,
         type: 3}
       propertyPath: m_Name
@@ -5491,6 +5465,5 @@ SceneRoots:
   - {fileID: 248061798}
   - {fileID: 1360405077}
   - {fileID: 1394904239}
-  - {fileID: 478625765}
   - {fileID: 853325053}
   - {fileID: 1629587109}

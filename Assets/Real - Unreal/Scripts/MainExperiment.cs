@@ -104,8 +104,10 @@ public class MainExperiment : MonoBehaviour
         // Run eye calibration check
         if (eyeCalibration != null)
         {
-            yield return ShowDialogAndWaitForConfirm("עכשיו תתבקשו להסתכל על נקודות כדי לבדוק את מעקב העיניים.");
+            yield return ShowDialogAndWaitForConfirm("כעת נעשה קליברציה לתנועות העיניים.\n עקבו במבטכם אחרי הנקודה עד שהיא נעלמת");
             yield return eyeCalibration.RunCalibration();
+            yield return ShowDialogAndWaitForConfirm("הקליברציה הסתיימה, אנא עדכנו את הנסיין/ית.");
+
         }
 
 
@@ -170,7 +172,8 @@ public class MainExperiment : MonoBehaviour
     private IEnumerator ShowDialogAndWaitForConfirm(string InstructionsText)
     {
         TMP_Text label = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
-        label.text = InstructionsText;
+        label.text = InstructionsText; // strip text from /n characters and such
+        string InstructionsTextTrimmed = InstructionsText.Replace("\n", ""); //add chars to trim
         ExperimentsToggle.interactable = true;
         showExperimentButton.SetActive(true);
 
@@ -187,8 +190,8 @@ public class MainExperiment : MonoBehaviour
         showExperimentButton.SetActive(false);
         ExperimentsToggle.interactable = false;
         ExperimentsToggle.isOn = false;
-
-        dataManager.ReportInstructionsData(InstructionsText, appearanceTime, confirmationTime);
+        // Debug.Log(InstructionsTextTrimmed);
+        dataManager.ReportInstructionsData(InstructionsTextTrimmed, appearanceTime, confirmationTime);
     }
 
     private IEnumerator ShowMainInstructionsAndWaitForConfirm()
