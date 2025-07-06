@@ -5,7 +5,8 @@ public class ModelRatingExperiment : RatingExperiment<GameObject>
     public override string stimuliPath => "3D/Snacks";
 
     protected override string ExperimentType => "3D";
-
+    private List<GameObject> _baselineList = new List<GameObject>();
+    public override List<GameObject> baselineList => _baselineList;
     private GameObject currentInstantiatedModel;
     private Transform modelParent;
 
@@ -33,7 +34,17 @@ public class ModelRatingExperiment : RatingExperiment<GameObject>
         {
             GameObject childClone = Instantiate(child.gameObject, modelParent);
             childClone.SetActive(false);
-            stimuliList.Add(childClone);
+            if (childClone.name == "Bamba red(Clone)" || childClone.name == "Baflot(Clone)" || childClone.name == "Bisli(Clone)")
+            {
+                // Debug.Log($"Adding {childClone.name} to baseline list");
+                baselineList.Add(childClone);
+
+            }
+            else
+            {
+                stimuliList.Add(childClone);
+                // Debug.Log($"Adding {childClone.name} to stimuliList list");
+            }
         }
 
         // Optional: destroy the instance since we only needed its children
@@ -42,8 +53,11 @@ public class ModelRatingExperiment : RatingExperiment<GameObject>
         TXRDataManager.Instance.LogLineToFile($"Loaded {stimuliList.Count} stimuli from prefab {stimuliPath}");
         LoadStimuliNames();
         ShuffleStimuliList();
-        Debug.Log("Stimulus count: " + stimuliList.Count);
+        Debug.Log(string.Join(", ", stimuliList));
+        // Debug.Log("Stimulus count: " + stimuliList.Count);
         LogHelper.Log("finished init stimuli", "blue");
+
+
     }
 
     protected override void HideStimulus()
@@ -53,7 +67,7 @@ public class ModelRatingExperiment : RatingExperiment<GameObject>
 
     protected override void ShowStimulus()
     {
-        currentInstantiatedModel = Instantiate(stimuliList[currentStimulusIndex], modelParent);
+        currentInstantiatedModel = Instantiate(stimuliListWithBaseline[currentStimulusIndex], modelParent);
         currentInstantiatedModel.SetActive(true);
     }
 }

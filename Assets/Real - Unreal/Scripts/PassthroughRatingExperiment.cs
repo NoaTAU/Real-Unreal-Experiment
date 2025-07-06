@@ -15,14 +15,15 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
     private float stimulusAppearanceTimePassthrough;
     private float ratingAppearanceTimePassthrough;
 
-
-    public int[] passthroughtList = Enumerable.Range(0, 8).ToArray();
+    public int[] passthroughtObjectList = Enumerable.Range(0, 11).ToArray();
 
     protected override void Start()
     {
         base.Start();
         passthroughColliderParent = SceneReferencer.Instance.passthroughCollider.transform;
         passthroughLayer = gameObject.GetComponent<OVRPassthroughLayer>();
+        Debug.Log($"Passthrough list length = {passthroughtObjectList.Length}");
+
         // passthroughLayer.overlayType = OVRPassthroughLayer.OverlayType.Overlay;
         // passthroughLayer.textureOpacity = 1.0f; // fully see-through
 
@@ -30,8 +31,8 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
 
     protected override void InitStimuli()
     {
-        stimuliList = new List<GameObject>(); // or manually populate if you want
-        stimuliNames = new List<string>(); // to match the base expectations
+        // stimuliList = new List<GameObject>(); // or manually populate if you want
+        // stimuliNames = new List<string>(); // to match the base expectations
 
         // This avoids loading from Resources.
         LogHelper.Log("Passthrough round: skipping stimuli loading", "blue");
@@ -50,11 +51,13 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
 
     public override IEnumerator ShowImageSequence()
     {
+        Debug.Log($"Passthrough list length = {passthroughtObjectList.Length}");
         InitConfirmToggle();
-        int numRounds = passthroughtList.Length;
+        int numRounds = passthroughtObjectList.Length;
 
         for (int i = 0; i < numRounds; i++)
         {
+            Debug.Log(numRounds);
             currentStimulusIndex = i;
 
             ShowStimulus();

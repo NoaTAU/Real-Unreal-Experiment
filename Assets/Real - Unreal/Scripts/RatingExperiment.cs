@@ -21,8 +21,11 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
     protected GameObject metaUISliderGroup;
     protected Slider myMetaSlider;
     protected Toggle confirmToggle;
+    public virtual List<T> baselineList { get; }
     private float stimulusAppearanceTime;
     private float ratingAppearanceTime;
+    public List<T> stimuliListWithBaseline;
+    protected float stimulusAppearanceTimePassthrough;
 
     protected abstract string ExperimentType { get; }
     // Define the type of experiment, e.g., Image, Model, Passthrough, etc.
@@ -80,6 +83,13 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         }
     }
 
+    public static List<T> MergeLists<T>(List<T> baselineList, List<T> stimuliList)
+    {
+        List<T> stimuliListWithBaseline = baselineList;
+        stimuliListWithBaseline.AddRange(stimuliList);
+        return stimuliListWithBaseline;
+    }
+
     public void InitConfirmToggle()
     {
         confirmToggle.onValueChanged.RemoveAllListeners();
@@ -96,13 +106,15 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         InitConfirmToggle();
         LogHelper.Log("currentStimulusIndex: " + currentStimulusIndex, "blue");
         LogHelper.Log("stimuliList: " + stimuliList.ToString(), "blue");
-        while (currentStimulusIndex < stimuliList.Count)
+        stimuliListWithBaseline = MergeLists(baselineList, stimuliList);
+        Debug.Log("Merged stimuli list count: " + stimuliListWithBaseline.Count);
+        while (currentStimulusIndex < stimuliListWithBaseline.Count)
         {
             ShowStimulus();
             stimulusAppearanceTime = Time.time;
 
-            TXRDataManager.Instance.LogLineToFile("Showed Stimulus: " + stimuliList[currentStimulusIndex].name);
-            Debug.Log("Showed Stimulus: " + stimuliList[currentStimulusIndex].name);
+            TXRDataManager.Instance.LogLineToFile("Showed Stimulus: " + stimuliListWithBaseline[currentStimulusIndex].name);
+            Debug.Log("Showed Stimulus: " + stimuliListWithBaseline[currentStimulusIndex].name);
 
             yield return new WaitForSeconds(stimulusDisplayDuration);
 
@@ -151,12 +163,12 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         float ratingTime = Time.time;
 
         float rating = myMetaSlider.value;
-        string stimulusName = stimuliList[currentStimulusIndex].name;
+        string stimulusName = stimuliListWithBaseline[currentStimulusIndex].name;
 
         TXRDataManager.Instance.ReportExperimentData(ExperimentType, stimulusName, stimulusAppearanceTime, ratingAppearanceTime, ratingTime, rating);
 
-        Debug.Log($"Rating for {stimuliList[currentStimulusIndex].name}: {rating:F2}");
-        TXRDataManager.Instance.LogLineToFile($"Rating for {stimuliList[currentStimulusIndex].name}: {rating:F2}");
+        Debug.Log($"Rating for {stimuliListWithBaseline[currentStimulusIndex].name}: {rating:F2}");
+        TXRDataManager.Instance.LogLineToFile($"Rating for {stimuliListWithBaseline[currentStimulusIndex].name}: {rating:F2}");
 
         confirmToggle.interactable = false;
         confirmToggle.isOn = false;

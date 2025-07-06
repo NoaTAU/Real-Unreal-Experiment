@@ -2919,7 +2919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &103838521
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2929,14 +2929,14 @@ RectTransform:
   m_GameObject: {fileID: 103838520}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 189}
-  m_LocalScale: {x: 319.6601, y: 47.3485, z: 295.08292}
+  m_LocalScale: {x: 263.00485, y: 54.00309, z: 196.3558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2019590980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 197, y: -362}
+  m_AnchoredPosition: {x: 197, y: -337}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &103838522
@@ -15197,6 +15197,7 @@ MonoBehaviour:
   - {fileID: 866531315}
   - {fileID: 1123042312}
   gazeCaptureDuration: 2
+  deviations: []
 --- !u!4 &406188873
 Transform:
   m_ObjectHideFlags: 0
@@ -19820,7 +19821,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537625912}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 256}
+  m_LocalPosition: {x: 0, y: 0, z: 244.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19829,7 +19830,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 180, y: -204}
-  m_SizeDelta: {x: 300, y: 300}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &537625915
 MonoBehaviour:
@@ -19881,6 +19882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea226cc68398e4b288eb82401d0e813a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stimuliListWithBaseline: []
 --- !u!224 &554271230 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 495813528508125199, guid: 9e34356aa4bacdc45805c0d16862fc4b,
@@ -38132,7 +38134,6 @@ MonoBehaviour:
   showExperimentButton: {fileID: 1457535687}
   invisibleCollider: {fileID: 103838520}
   defaultFont: {fileID: 11400000, guid: 7b2823ff1026d421caf9870772c035a7, type: 2}
-  eyeCalibration: {fileID: 406188872}
 --- !u!4 &1219010836
 Transform:
   m_ObjectHideFlags: 0
@@ -38160,6 +38161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea226cc68398e4b288eb82401d0e813a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stimuliListWithBaseline: []
 --- !u!114 &1219010838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38172,6 +38174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f71842896caae54db07f0e866876bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stimuliListWithBaseline: []
 --- !u!114 &1219010839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38184,7 +38187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10dd6a11f829d43f59446b8ebaee14f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passthroughtList: 0000000001000000020000000300000004000000050000000600000007000000
+  stimuliListWithBaseline: []
+  passthroughtObjectList: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a000000
 --- !u!114 &1219010840
 MonoBehaviour:
   m_ObjectHideFlags: 0
