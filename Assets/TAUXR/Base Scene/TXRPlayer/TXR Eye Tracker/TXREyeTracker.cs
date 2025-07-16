@@ -10,6 +10,7 @@ public class TXREyeTracker : MonoBehaviour
     public Transform RightEye => _rightEye;
     public Transform LeftEye => _leftEye;
     public Vector3 EyePosition => _eyePosition;
+    public Vector3 EyeForward => _rightEye.forward;
 
 
     [SerializeField] private Transform _rightEye;

@@ -41,21 +41,23 @@ public class ConfigurationsData : AnalyticsDataClass
     }
 }
 
-// public class EyeTrackerData : AnalyticsDataClass
-// {
-//     public string TableName => "EyeTrackerData";
-//     public float LogTime;
-//     public string PointName; // Optional, can be used to identify specific points if needed
-//     public string PointPosition;
-//     public float PointDeviation;
-//     public EyeTrackerData(string pointName, string pos, float deviation)
-//     {
-//         LogTime = Time.time;
-//         PointName = pointName;
-//         PointPosition = pos;
-//         PointDeviation = deviation;
-//     }
-// }
+public class EyeTrackerData : AnalyticsDataClass
+{
+    public string TableName => "EyeTrackerData";
+    public float LogTime;
+    public string PointName; // Optional, can be used to identify specific points if needed
+    public string PointPosition;
+    public string EyePosition;
+    public string EyeForward; // Optional, can be used to identify the forward direction of the gaze
+    public EyeTrackerData(string pointName, string eyePosition, string eyeForward, string pointPosition)
+    {
+        LogTime = Time.time;
+        PointName = pointName;
+        EyePosition = eyePosition;
+        EyeForward = eyeForward;
+        PointPosition = pointPosition;
+    }
+}
 public class ExperimentData : AnalyticsDataClass
 {
     public string TableName => "ExperimentData";
@@ -120,7 +122,7 @@ public class TXRDataManager : TXRSingleton<TXRDataManager>
     private ConfigurationsData configurationsData;
     private instructionsData instructionsData;
     private ExperimentData experimentData;
-    // private EyeTrackerData eyeTrackerData;
+    private EyeTrackerData eyeTrackerData;
     // write additional events here..
 
     private static string uniqueParticipantId;
@@ -154,14 +156,14 @@ public class TXRDataManager : TXRSingleton<TXRDataManager>
     }
 
     // report eye tracking data for a specific point.
-    // public void ReportEyeTrackingData(string pointName, string pos, float deviation)
-    // {
-    //     // creates a new instance of EyeTrackerData data class. In it's constructor, it gets the point name, position and deviation.
-    //     eyeTrackerData = new EyeTrackerData(pointName, pos, deviation);
+    public void ReportEyeTrackingData(string pointName, string eyePosition, string eyeForward, string pointPosition)
+    {
+        // creates a new instance of EyeTrackerData data class. In it's constructor, it gets the point name, position and deviation.
+        eyeTrackerData = new EyeTrackerData(pointName, eyePosition, eyeForward, pointPosition);
 
-    //     // tells the analytics writer to write a new line in file.
-    //     WriteAnalyticsToFile(eyeTrackerData);
-    // }
+        // tells the analytics writer to write a new line in file.
+        WriteAnalyticsToFile(eyeTrackerData);
+    }
     public void ReportExperimentData(string round, string stimulusName, float stimulusAppearanceTime, float ratingAppearanceTime, float ratingTime, float ratingValue)
     {
         // creates a new instance of ExperimentData data class. In it's constructor, it gets the round, stimulus name and times.

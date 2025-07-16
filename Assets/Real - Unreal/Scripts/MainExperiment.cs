@@ -15,7 +15,7 @@ public class MainExperiment : MonoBehaviour
     public GameObject invisibleCollider;
     public TMP_FontAsset defaultFont;
     public GameObject Two_d_Background; // Background for 2D images
-    // public EyeCalibrationCheck eyeCalibration;
+    public EyeCalibrationCheck eyeCalibration;
     private ImageRatingExperiment imagerRatingExperiment;
     private ModelRatingExperiment modelRatingExperiment;
     private PassthroughRatingExperiment passthroughRatingExperiment;
@@ -103,13 +103,13 @@ public class MainExperiment : MonoBehaviour
         yield return ShowDialogAndWaitForConfirm(textShuffledList);
 
         // Run eye calibration check
-        // if (eyeCalibration != null)
-        // {
-        //     yield return ShowDialogAndWaitForConfirm("כעת נעשה קליברציה לתנועות העיניים.\n עקבו במבטכם אחרי הנקודה עד שהיא נעלמת");
-        //     yield return eyeCalibration.RunCalibration();
-        //     yield return ShowDialogAndWaitForConfirm("הקליברציה הסתיימה, אנא עדכנו את הנסיין/ית.");
+        if (eyeCalibration != null)
+        {
+            yield return ShowDialogAndWaitForConfirm("כעת נעשה קליברציה לתנועות העיניים.\n עקבו במבטכם אחרי הנקודה עד שהיא נעלמת");
+            yield return eyeCalibration.RunCalibration();
+            yield return ShowDialogAndWaitForConfirm("הקליברציה הסתיימה, אנא עדכנו את הנסיין/ית.");
 
-        // }
+        }
 
 
         yield return ShowMainInstructionsAndWaitForConfirm();
