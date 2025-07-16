@@ -14,6 +14,7 @@ public class MainExperiment : MonoBehaviour
     public GameObject showExperimentButton;
     public GameObject invisibleCollider;
     public TMP_FontAsset defaultFont;
+    public GameObject Two_d_Background; // Background for 2D images
     // public EyeCalibrationCheck eyeCalibration;
     private ImageRatingExperiment imagerRatingExperiment;
     private ModelRatingExperiment modelRatingExperiment;
@@ -136,7 +137,10 @@ public class MainExperiment : MonoBehaviour
                     RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
                     TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
                     Debug.Log("Starting image rating experiment...");
+                    Two_d_Background.SetActive(true);
                     yield return imagerRatingExperiment.ShowImageSequence();
+                    Two_d_Background.SetActive(false); // Hide the 2D background after the model rating experiment
+
                     break;
                 default:
                     Debug.Log("Starting image rating experiment...");

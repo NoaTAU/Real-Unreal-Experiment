@@ -63,10 +63,12 @@ public class ModelRatingExperiment : RatingExperiment<GameObject>
     protected override void HideStimulus()
     {
         Destroy(currentInstantiatedModel);
+        RendererActivator.Instance.HideRenderers();
     }
 
     protected override void ShowStimulus()
     {
+        RendererActivator.Instance.ShowRenderers();
         currentInstantiatedModel = Instantiate(stimuliListWithBaseline[currentStimulusIndex], modelParent);
         currentInstantiatedModel.SetActive(true);
     }

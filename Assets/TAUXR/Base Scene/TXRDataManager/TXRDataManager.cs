@@ -102,7 +102,7 @@ public class instructionsData : AnalyticsDataClass
 public class TXRDataManager : TXRSingleton<TXRDataManager>
 {
     // updated from TAUXRPlayer
-    // private bool exportEyeTracking = false;
+    private bool exportEyeTracking = false;
     private bool exportFaceTracking = false;
 
     // automatically switched to true if not in editor.
@@ -201,14 +201,14 @@ public class TXRDataManager : TXRSingleton<TXRDataManager>
         shouldExport = ShouldExportData();
         if (!shouldExport) return;
 
-        // exportEyeTracking = TXRPlayer.Instance.IsEyeTrackingEnabled;
+        exportEyeTracking = TXRPlayer.Instance.IsEyeTrackingEnabled;
         exportFaceTracking = TXRPlayer.Instance.IsFaceTrackingEnabled;
 
         analyticsWriter = new AnalyticsWriter();
 
         // for now, instead of making the whole interface in the datamanager, it will split between the different scripts.
         continuousWriter = GetComponent<DataContinuousWriter>();
-        // continuousWriter.Init(exportEyeTracking);
+        continuousWriter.Init(exportEyeTracking);
 
         if (exportFaceTracking)
         {

@@ -26,8 +26,8 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
     private float ratingAppearanceTime;
     public List<T> stimuliListWithBaseline;
     protected float stimulusAppearanceTimePassthrough;
-
     protected abstract string ExperimentType { get; }
+    protected ToggleFillAlphaController fillController;
     // Define the type of experiment, e.g., Image, Model, Passthrough, etc.
 
 
@@ -45,10 +45,14 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         blackScreenOverlay = SceneReferencer.Instance.blackScreenOverlay;
         metaUISliderGroup = SceneReferencer.Instance.metaUISliderGroup;
         myMetaSlider = SceneReferencer.Instance.myMetaSlider;
+        metaUISliderGroup.gameObject.SetActive(false); // Initially hide the slider
         confirmToggle = SceneReferencer.Instance.confirmToggle;
         // Initialze references to configurations
         blackoutDuration = SceneReferencer.Instance.blackoutDuration;
         stimulusDisplayDuration = SceneReferencer.Instance.stimulusDisplayDuration;
+        fillController = SceneReferencer.Instance.myMetaSlider.GetComponent<ToggleFillAlphaController>();
+
+
     }
 
     protected virtual void InitStimuli()
@@ -96,6 +100,8 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         confirmToggle.interactable = false; // Initially disable the toggle
         confirmToggle.isOn = false;
         confirmToggle.onValueChanged.AddListener(OnConfirmToggled);
+        fillController.SetTransparent();
+
     }
     #endregion
 
@@ -170,6 +176,8 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         Debug.Log($"Rating for {stimuliListWithBaseline[currentStimulusIndex].name}: {rating:F2}");
         TXRDataManager.Instance.LogLineToFile($"Rating for {stimuliListWithBaseline[currentStimulusIndex].name}: {rating:F2}");
 
+
+
         confirmToggle.interactable = false;
         confirmToggle.isOn = false;
 
@@ -177,6 +185,7 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         myMetaSlider.gameObject.SetActive(false);
 
         inputReceived = true;
+        fillController.SetTransparent();
         Debug.Log("inputReceived = true");
     }
 

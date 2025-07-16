@@ -16,7 +16,6 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
     private float ratingAppearanceTimePassthrough;
 
     public int[] passthroughtObjectList = Enumerable.Range(0, 11).ToArray();
-
     protected override void Start()
     {
         base.Start();
@@ -36,6 +35,7 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
 
         // This avoids loading from Resources.
         LogHelper.Log("Passthrough round: skipping stimuli loading", "blue");
+
     }
 
 
@@ -107,6 +107,7 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
         myMetaSlider.gameObject.SetActive(false);
 
         inputReceived = true;
+        fillController.SetTransparent();
         Debug.Log("inputReceived = true");
     }
 
