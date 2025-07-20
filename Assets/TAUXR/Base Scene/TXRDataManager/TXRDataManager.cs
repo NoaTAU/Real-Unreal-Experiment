@@ -240,6 +240,10 @@ public class TXRDataManager : TXRSingleton<TXRDataManager>
             faceExpressionWriter.CollectWriteDataToFile();
         }
     }
+    public void FlushAnalyticsData()
+    {
+        analyticsWriter.FlushAndCloseWriters();
+    }
 
     private void OnApplicationQuit()
     {

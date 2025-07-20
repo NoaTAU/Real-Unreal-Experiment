@@ -34,7 +34,7 @@ public class ModelRatingExperiment : RatingExperiment<GameObject>
         {
             GameObject childClone = Instantiate(child.gameObject, modelParent);
             childClone.SetActive(false);
-            if (childClone.name == "Bamba red(Clone)" || childClone.name == "Baflot(Clone)" || childClone.name == "Bisli(Clone)")
+            if (childClone.name.StartsWith("Bamba red") || childClone.name.StartsWith("Baflot") || childClone.name.StartsWith("Bisli"))
             {
                 // Debug.Log($"Adding {childClone.name} to baseline list");
                 baselineList.Add(childClone);

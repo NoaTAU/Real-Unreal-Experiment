@@ -13,6 +13,7 @@ public class MainExperiment : MonoBehaviour
     public GameObject showInstructionsButton; // Button to show instructions
     public GameObject showExperimentButton;
     public GameObject invisibleCollider;
+    public GameObject metaUISliderGroup;
     public TMP_FontAsset defaultFont;
     public GameObject Two_d_Background; // Background for 2D images
     public EyeCalibrationCheck eyeCalibration;
@@ -46,12 +47,12 @@ public class MainExperiment : MonoBehaviour
         FirstExperimentToggle.onValueChanged.AddListener(EndInstructionsToggled);
         Debug.Log("Debug: MainExperiment Start init completed");
         StartCoroutine(RunAllExperiments());
-
+        ShuffleExperimentOrder();
         ApplyFontToTMP(showExperimentButton);
         ApplyFontToTMP(showInstructionsButton);
-        ShuffleExperimentOrder();
+        ApplyFontToTMP(metaUISliderGroup);
+        
         ReportExperimentConfigurations();
-
     }
     private void ApplyFontToTMP(GameObject parent)
     {
@@ -103,13 +104,10 @@ public class MainExperiment : MonoBehaviour
         yield return ShowDialogAndWaitForConfirm(textShuffledList);
 
         // Run eye calibration check
-        if (eyeCalibration != null)
-        {
-            yield return ShowDialogAndWaitForConfirm("כעת נעשה קליברציה לתנועות העיניים.\n עקבו במבטכם אחרי הנקודה עד שהיא נעלמת");
-            yield return eyeCalibration.RunCalibration();
-            yield return ShowDialogAndWaitForConfirm("הקליברציה הסתיימה, אנא עדכנו את הנסיין/ית.");
+        yield return ShowDialogAndWaitForConfirm("כעת נעשה קליברציה לתנועות העיניים.\n עקבו במבטכם אחרי הנקודה עד שהיא נעלמת");
+        yield return eyeCalibration.RunCalibration();
+        yield return ShowDialogAndWaitForConfirm("הקליברציה הסתיימה, אנא עדכנו את הנסיין/ית.");
 
-        }
 
 
         yield return ShowMainInstructionsAndWaitForConfirm();
@@ -157,6 +155,15 @@ public class MainExperiment : MonoBehaviour
                 yield return ShowDialogAndWaitForConfirm(experimentEndMessage);
                 Debug.Log("All experiments finished.");
                 TXRDataManager.Instance.LogLineToFile("All experiments finished.");
+
+                // Flush data
+                TXRDataManager.Instance.FlushAnalyticsData();
+
+                // Wait a moment to ensure all writes are done
+                yield return new WaitForSeconds(1f);
+
+                // Exit app
+                Application.Quit();
             }
 
         }

@@ -122,4 +122,23 @@ public class AnalyticsWriter
         csvFiles[fileName].Flush();
     }
 
+    public void FlushAndCloseWriters()
+    {
+        try
+        {
+            foreach (var writer in csvFiles.Values)
+            {
+                writer.Flush();
+                writer.Close();
+            }
+            csvFiles.Clear(); // Remove references after closing
+            Debug.Log("All analytics writers flushed and closed.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error while flushing/closing analytics writers: " + e.Message);
+        }
+    }
+
+
 }
