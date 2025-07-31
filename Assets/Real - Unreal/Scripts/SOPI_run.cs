@@ -86,8 +86,10 @@ public class QuestionFlowController : MonoBehaviour
         }
     }
 
-    void HandleDuringQsContinue(bool isOn)
+        public void HandleDuringQsContinue(bool isOn)
     {
+        if (!isOn) return;  // only run when the toggle is turned ON
+
         if (!AllAnswered(duringQsRoot))
         {
             Debug.Log("Please answer all visible DuringQs.");
@@ -102,36 +104,42 @@ public class QuestionFlowController : MonoBehaviour
         else
         {
             Debug.Log("All questions completed!");
-            // Add any final transition here (scene change, save, etc.)
         }
+
+        // OPTIONAL: auto-reset the toggle back to off so user can click again
+        duringQsContinueButton.isOn = false;
     }
+
 
     // ------------ Shared Helper ------------------
 
-    bool AllAnswered(GameObject parent)
+        bool AllAnswered(GameObject parent)
     {
-        Toggle[] allToggles = parent.GetComponentsInChildren<Toggle>(true);
-
-        // Group toggles by parent question block
-        Dictionary<Transform, bool> answered = new Dictionary<Transform, bool>();
-
-        foreach (Toggle t in allToggles)
+        foreach (var block in questionBlocks)
         {
-            if (!answered.ContainsKey(t.transform.parent))
-                answered[t.transform.parent] = false;
+            // Only check active blocks (important for paged view)
+            if (!block.activeInHierarchy)
+                continue;
 
-            if (t.isOn)
-                answered[t.transform.parent] = true;
-        }
+            Toggle[] toggles = block.GetComponentsInChildren<Toggle>();
+            bool anySelected = false;
 
-        foreach (var kvp in answered)
-        {
-            if (!kvp.Value && kvp.Key.gameObject.activeInHierarchy)
+            foreach (var t in toggles)
+            {
+                if (t.isOn)
+                {
+                    anySelected = true;
+                    break;
+                }
+            }
+
+            if (!anySelected)
                 return false;
         }
 
         return true;
     }
+
 
     [System.Serializable]
     public class QuestionList
