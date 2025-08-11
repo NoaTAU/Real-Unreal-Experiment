@@ -7400,7 +7400,7 @@ PrefabInstance:
     - target: {fileID: 5909402029071504857, guid: 0e536bf5e85d3f34f97dbec656223294,
         type: 3}
       propertyPath: shouldExport
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5909402029071504858, guid: 0e536bf5e85d3f34f97dbec656223294,
         type: 3}

@@ -17,6 +17,7 @@ public class MainExperiment : MonoBehaviour
     public TMP_FontAsset defaultFont;
     public GameObject Two_d_Background; // Background for 2D images
     public EyeCalibrationCheck eyeCalibration;
+    public QuestionFlowController questionFlowController;
     private ImageRatingExperiment imagerRatingExperiment;
     private ModelRatingExperiment modelRatingExperiment;
     private PassthroughRatingExperiment passthroughRatingExperiment;
@@ -124,12 +125,14 @@ public class MainExperiment : MonoBehaviour
                     TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
                     yield return passthroughRatingExperiment.ShowImageSequence();
                     invisibleCollider.SetActive(false); // Hide the invisible collider
+                    questionFlowController.RunQuestionnaire("passthrough");
                     break;
                 case 1:
                     RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
                     Debug.Log("Starting model rating experiment...");
                     TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
                     yield return modelRatingExperiment.ShowImageSequence();
+                    yield return questionFlowController.RunQuestionnaire("3D");
                     break;
                 case 2:
                     RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
@@ -137,6 +140,7 @@ public class MainExperiment : MonoBehaviour
                     Debug.Log("Starting image rating experiment...");
                     Two_d_Background.SetActive(true);
                     yield return imagerRatingExperiment.ShowImageSequence();
+                    questionFlowController.RunQuestionnaire("2D");
                     Two_d_Background.SetActive(false); // Hide the 2D background after the model rating experiment
 
                     break;

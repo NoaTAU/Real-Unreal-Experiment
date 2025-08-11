@@ -81,6 +81,22 @@ public class ExperimentData : AnalyticsDataClass
     }
 }
 
+public class QuestionnaireData : AnalyticsDataClass
+{
+    public string TableName => "QuestionnaireData";
+    public float LogTime;
+    public string RoundName; 
+    public string QuestionText;
+    public string AnswerText;
+
+    public QuestionnaireData(string roundName,string questionText, string answerText)
+    {
+        LogTime = Time.time;
+        RoundName = roundName;
+        QuestionText = questionText;
+        AnswerText = answerText;
+    }
+}
 public class instructionsData : AnalyticsDataClass
 {
     public string TableName => "InstructionsData";
@@ -123,6 +139,7 @@ public class TXRDataManager : TXRSingleton<TXRDataManager>
     private instructionsData instructionsData;
     private ExperimentData experimentData;
     private EyeTrackerData eyeTrackerData;
+    private QuestionnaireData questionnaireData; // if you want to report questionnaire data, uncomment this line and the one below.
     // write additional events here..
 
     private static string uniqueParticipantId;
@@ -179,6 +196,15 @@ public class TXRDataManager : TXRSingleton<TXRDataManager>
 
         // tells the analytics writer to write a new line in file.
         WriteAnalyticsToFile(instructionsData);
+    }
+
+    public void ReportQuestionnaireData(string roundName, string questionText, string answerText)
+    {
+        // creates a new instance of QuestionnaireData data class. In it's constructor, it gets the question text and answer text.
+        questionnaireData = new QuestionnaireData(roundName, questionText, answerText);
+
+        // tells the analytics writer to write a new line in file.
+        WriteAnalyticsToFile(questionnaireData);
     }
 
     #endregion

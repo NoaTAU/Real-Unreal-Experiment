@@ -2,38 +2,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
+using UnityEngine.Animations;
 
 public class QuestionFlowController : MonoBehaviour
 {
     [Header("AfterQs")]
     public GameObject afterQsRoot;
     public Toggle afterQsContinueButton;
+     public List<GameObject> questionBlock;
+    public GameObject afterQsContinueButtonGameObject; // Optional, if you want to control visibility
 
     [Header("DuringQs")]
     public GameObject duringQsRoot;
     public List<GameObject> questionBlocks; // Fill with DuringQs/QandA GameObjects
     public Toggle duringQsContinueButton;
+    public GameObject duringQsContinueButtonGameObject; // Optional, if you want to control visibility
     public TextAsset questionsJSON; // questions.json in Resources or Inspector
 
     private List<string> allDuringQuestions;
     private int currentIndex = 0;
     private int batchSize;
+    private List<GameObject> block; // used to store the current question blocks, either from afterQsRoot or duringQsRoot
+
+    private string currentRoundName = "";
 
     void Start()
     {
+        batchSize = questionBlocks.Count;
+        LoadDuringQuestions();
+    }
+
+    public void RunQuestionnaire(string roundName)
+    {
+        currentRoundName = roundName;
         duringQsRoot.SetActive(false);
         afterQsRoot.SetActive(true);
-        batchSize = questionBlocks.Count;
         afterQsContinueButton.interactable = true;
         afterQsContinueButton.isOn = false;
-
-        duringQsContinueButton.interactable = false;
-        duringQsContinueButton.isOn = false;
-
+        duringQsContinueButtonGameObject.SetActive(false);
         afterQsContinueButton.onValueChanged.AddListener(HandleAfterQsContinue);
         duringQsContinueButton.onValueChanged.AddListener(HandleDuringQsContinue);
 
-        LoadDuringQuestions();
     }
 
     // ------------ PHASE 1: After Qs ------------------
@@ -63,8 +73,11 @@ public class QuestionFlowController : MonoBehaviour
 
     void ShowDuringQsBatch()
     {
+        afterQsContinueButtonGameObject.SetActive(false);
+        duringQsContinueButtonGameObject.SetActive(true);
         duringQsContinueButton.interactable = true;
-        afterQsContinueButton.interactable = false;
+        duringQsContinueButton.isOn = false;
+
         for (int i = 0; i < batchSize; i++)
         {
             int qIndex = currentIndex + i;
@@ -86,7 +99,7 @@ public class QuestionFlowController : MonoBehaviour
         }
     }
 
-        public void HandleDuringQsContinue(bool isOn)
+    public void HandleDuringQsContinue(bool isOn)
     {
         if (!isOn) return;  // only run when the toggle is turned ON
 
@@ -113,30 +126,60 @@ public class QuestionFlowController : MonoBehaviour
 
     // ------------ Shared Helper ------------------
 
-        bool AllAnswered(GameObject parent)
+    bool AllAnswered(GameObject parent)
+
     {
-        foreach (var block in questionBlocks)
+        if (parent == afterQsRoot)
+        {
+            block = questionBlock;
+        } else if (parent == duringQsRoot)
+        {
+            block = questionBlocks;
+        }
+        
+        string[] questionText = new string[block.Count];
+        string[] answerText = new string[block.Count];
+
+        foreach (var oneBlock in block)
         {
             // Only check active blocks (important for paged view)
-            if (!block.activeInHierarchy)
+            if (!oneBlock.activeInHierarchy)
                 continue;
 
-            Toggle[] toggles = block.GetComponentsInChildren<Toggle>();
+            Toggle[] toggles = oneBlock.GetComponentsInChildren<Toggle>();
             bool anySelected = false;
+
+            questionText[Array.IndexOf(block.ToArray(), oneBlock)] = oneBlock.GetComponentInChildren<TMP_Text>().text;
 
             foreach (var t in toggles)
             {
                 if (t.isOn)
                 {
                     anySelected = true;
+                    answerText[Array.IndexOf(block.ToArray(), oneBlock)] = t.GetComponentInChildren<TMP_Text>().text;
                     break;
                 }
             }
+
 
             if (!anySelected)
                 return false;
         }
 
+        // Report the data to the TXRDataManager
+        for (int i = 0; i < questionText.Length; i++)
+        {
+            if (questionText[i]==null)
+            {
+                questionText[i] = "None";
+            }
+            if (answerText[i]==null)
+            {
+                answerText[i] = "None";
+            }
+            TXRDataManager.Instance.ReportQuestionnaireData(currentRoundName, questionText[i], answerText[i]);
+            
+        }
         return true;
     }
 
@@ -146,4 +189,6 @@ public class QuestionFlowController : MonoBehaviour
     {
         public List<string> questions;
     }
+    
+
 }
