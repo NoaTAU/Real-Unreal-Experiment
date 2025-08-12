@@ -109,8 +109,6 @@ public class MainExperiment : MonoBehaviour
         yield return eyeCalibration.RunCalibration();
         yield return ShowDialogAndWaitForConfirm("הקליברציה הסתיימה, אנא עדכנו את הנסיין/ית.");
 
-
-
         yield return ShowMainInstructionsAndWaitForConfirm();
 
         for (int i = 0; i < experimentList.Count; i++)
@@ -125,13 +123,15 @@ public class MainExperiment : MonoBehaviour
                     TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
                     yield return passthroughRatingExperiment.ShowImageSequence();
                     invisibleCollider.SetActive(false); // Hide the invisible collider
-                    questionFlowController.RunQuestionnaire("passthrough");
+                    Debug.Log("Running questionnaire for passthrough experiment...");
+                    yield return questionFlowController.RunQuestionnaire("passthrough");
                     break;
                 case 1:
                     RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
                     Debug.Log("Starting model rating experiment...");
                     TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
                     yield return modelRatingExperiment.ShowImageSequence();
+                    Debug.Log("Running questionnaire for 3D experiment...");
                     yield return questionFlowController.RunQuestionnaire("3D");
                     break;
                 case 2:
@@ -140,13 +140,9 @@ public class MainExperiment : MonoBehaviour
                     Debug.Log("Starting image rating experiment...");
                     Two_d_Background.SetActive(true);
                     yield return imagerRatingExperiment.ShowImageSequence();
-                    questionFlowController.RunQuestionnaire("2D");
+                    Debug.Log("Running questionnaire for 2D experiment...");
                     Two_d_Background.SetActive(false); // Hide the 2D background after the model rating experiment
-
-                    break;
-                default:
-                    Debug.Log("Starting image rating experiment...");
-                    Debug.LogError("Invalid experiment index: " + experimentList[i]);
+                    yield return questionFlowController.RunQuestionnaire("2D");
                     break;
             }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;   
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ public class QuestionFlowController : MonoBehaviour
     private int currentIndex = 0;
     private int batchSize;
     private List<GameObject> block; // used to store the current question blocks, either from afterQsRoot or duringQsRoot
+    private bool questionnaireComplete = false;
 
     private string currentRoundName = "";
 
@@ -33,16 +35,34 @@ public class QuestionFlowController : MonoBehaviour
         LoadDuringQuestions();
     }
 
-    public void RunQuestionnaire(string roundName)
+    public virtual IEnumerator RunQuestionnaire(string roundName)
     {
+        Debug.Log("Running questionnaire for round: " + roundName);
         currentRoundName = roundName;
-        duringQsRoot.SetActive(false);
         afterQsRoot.SetActive(true);
+        afterQsContinueButtonGameObject.SetActive(true);
         afterQsContinueButton.interactable = true;
         afterQsContinueButton.isOn = false;
-        duringQsContinueButtonGameObject.SetActive(false);
+       
         afterQsContinueButton.onValueChanged.AddListener(HandleAfterQsContinue);
         duringQsContinueButton.onValueChanged.AddListener(HandleDuringQsContinue);
+
+        // Wait until the questionnaire is marked complete
+        //yield return new WaitUntil(() => questionnaireComplete);
+        while (!questionnaireComplete)
+            {
+
+                yield return null;
+
+            }
+        duringQsContinueButtonGameObject.SetActive(false);
+        duringQsRoot.SetActive(false);
+        questionnaireComplete = false; // Reset for next use
+        afterQsContinueButton.onValueChanged.RemoveListener(HandleAfterQsContinue);
+        duringQsContinueButton.onValueChanged.RemoveListener(HandleDuringQsContinue);
+        yield return new WaitForSeconds(1f); // Optional delay before proceeding
+        Debug.Log("Questionnaire completed for round: " + currentRoundName);
+       
 
     }
 
@@ -117,6 +137,7 @@ public class QuestionFlowController : MonoBehaviour
         else
         {
             Debug.Log("All questions completed!");
+            questionnaireComplete = true;
         }
 
         // OPTIONAL: auto-reset the toggle back to off so user can click again
