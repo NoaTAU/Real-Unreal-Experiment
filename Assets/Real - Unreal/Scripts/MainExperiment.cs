@@ -26,11 +26,21 @@ public class MainExperiment : MonoBehaviour
     private string startMessage = "לחצו כאן כדי להתחיל";
     private string endMessage = "הסבב הסתיים\n אנא קראו לנסיין/ית";
     private string experimentEndMessage = "הניסוי הסתיים\n תודה רבה על שיתוף הפעולה";
+    private string questionnaireStart = "אנחנו מעוניינים לדעת מה את/ה מרגיש/ה לגבי החוויה שעברת זה עתה ב'סביבה המוצגת'.\n" +
+    "המונח 'סביבה מוצגת' מתייחס כאן, ולאורך השאלון הזה, לעולם הוירטואלי שהתנסת בו עכשיו.\n" +
+    "חלק מהשאלות מתייחסות ל 'תוכן' של הסביבה המוצגת. בכך אנו מתכוונים לסיפור, לסצנות או אירועים, או כל מה שאתה יכול לראות, לשמוע או לחוש שמתרחש בתוך הסביבה המוצגת.\n" +
+    "הסביבה המוצגת והתוכן שלה שונים מ 'העולם האמיתי': העולם שבו את/ה חי/ה מיום ליום.\n" +
+    "ישנם שני חלקים לשאלון זה: חלק א' וחלק ב'. חלק א' שואל על המחשבות והרגשות שלך ברגע שהסביבה המוצגת הסתיימה.\n" +
+    "חלק ב' מתייחס למחשבות ולרגשות שלך בזמן שחווית את הסביבה המוצגת.\n" +
+    "נא לא לבזבז יותר מדי זמן על אף שאלה.\n" +
+    "התגובה הראשונה שלך היא בדרך כלל הכי טובה. עבור כל שאלה, בחר/י את התשובה הקרובה ביותר לשלך.\n" +
+    "אנא זכור/י שאין תשובות נכונות או לא נכונות - אנחנו פשוט מעוניינים לדעת מה המחשבות והרגשות שלך לגבי הסביבה המוצגת.";
+
     private List<int> experimentList = new List<int> { 0, 1, 2 };
     private string textShuffledList = "";
     private TMP_Text generalInstructionsLabel;
-
     private TXRDataManager dataManager;
+    private RectTransform bodyTextRect;
 
 
 
@@ -52,8 +62,18 @@ public class MainExperiment : MonoBehaviour
         ApplyFontToTMP(showExperimentButton);
         ApplyFontToTMP(showInstructionsButton);
         ApplyFontToTMP(metaUISliderGroup);
-        
+
         ReportExperimentConfigurations();
+
+        changeButtonSize();
+    }
+
+    private void changeButtonSize()
+    {
+        bodyTextRect = showExperimentButton
+        .transform
+        .Find("Dialog1Button_TextOnly/BodyText")
+        .GetComponent<RectTransform>();
     }
     private void ApplyFontToTMP(GameObject parent)
     {
@@ -105,11 +125,11 @@ public class MainExperiment : MonoBehaviour
         yield return ShowDialogAndWaitForConfirm(textShuffledList);
 
         // Run eye calibration check
-        yield return ShowDialogAndWaitForConfirm("כעת נעשה קליברציה לתנועות העיניים.\n עקבו במבטכם אחרי הנקודה עד שהיא נעלמת");
-        yield return eyeCalibration.RunCalibration();
-        yield return ShowDialogAndWaitForConfirm("הקליברציה הסתיימה, אנא עדכנו את הנסיין/ית.");
+        // yield return ShowDialogAndWaitForConfirm("כעת נעשה קליברציה לתנועות העיניים.\n עקבו במבטכם אחרי הנקודה עד שהיא נעלמת");
+        // yield return eyeCalibration.RunCalibration();
+        // yield return ShowDialogAndWaitForConfirm("הקליברציה הסתיימה, אנא עדכנו את הנסיין/ית.");
 
-        yield return ShowMainInstructionsAndWaitForConfirm();
+        // yield return ShowMainInstructionsAndWaitForConfirm();
 
         for (int i = 0; i < experimentList.Count; i++)
         {
@@ -121,8 +141,9 @@ public class MainExperiment : MonoBehaviour
                     RendererActivator.Instance.HideRenderers(); // Hide the slab arena visuals
                     invisibleCollider.SetActive(true); // Show the invisible collider
                     TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
-                    yield return passthroughRatingExperiment.ShowImageSequence();
+                    // yield return passthroughRatingExperiment.ShowImageSequence();
                     invisibleCollider.SetActive(false); // Hide the invisible collider
+                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
                     Debug.Log("Running questionnaire for passthrough experiment...");
                     yield return questionFlowController.RunQuestionnaire("passthrough");
                     break;
@@ -130,7 +151,9 @@ public class MainExperiment : MonoBehaviour
                     RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
                     Debug.Log("Starting model rating experiment...");
                     TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
-                    yield return modelRatingExperiment.ShowImageSequence();
+                    RendererActivator.Instance.HideRenderers(); 
+                    // yield return modelRatingExperiment.ShowImageSequence();
+                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
                     Debug.Log("Running questionnaire for 3D experiment...");
                     yield return questionFlowController.RunQuestionnaire("3D");
                     break;
@@ -139,7 +162,8 @@ public class MainExperiment : MonoBehaviour
                     TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
                     Debug.Log("Starting image rating experiment...");
                     Two_d_Background.SetActive(true);
-                    yield return imagerRatingExperiment.ShowImageSequence();
+                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
+                    // yield return imagerRatingExperiment.ShowImageSequence();
                     Debug.Log("Running questionnaire for 2D experiment...");
                     Two_d_Background.SetActive(false); // Hide the 2D background after the model rating experiment
                     yield return questionFlowController.RunQuestionnaire("2D");
@@ -182,6 +206,15 @@ public class MainExperiment : MonoBehaviour
 
     private IEnumerator ShowDialogAndWaitForConfirm(string InstructionsText)
     {
+        if (InstructionsText == questionnaireStart)
+        {
+        bodyTextRect.sizeDelta = new Vector2(830, 500);
+        }
+        else
+        {
+        bodyTextRect.sizeDelta = new Vector2(320, 80);
+        }
+
         TMP_Text label = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
         label.text = InstructionsText; // strip text from /n characters and such
         string InstructionsTextTrimmed = InstructionsText.Replace("\n", ""); //add chars to trim
