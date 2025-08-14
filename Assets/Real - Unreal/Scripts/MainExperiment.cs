@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class MainExperiment : MonoBehaviour
 {
@@ -42,9 +43,7 @@ public class MainExperiment : MonoBehaviour
     private TXRDataManager dataManager;
     private RectTransform bodyTextRect;
     private Vector2 restRectSize;
-    private Vector2 restRectPos;
-
-
+    private VerticalLayoutGroup vlg;
 
     private void Start()
     {
@@ -69,10 +68,8 @@ public class MainExperiment : MonoBehaviour
 
         changeButtonSize();
         restRectSize = bodyTextRect.sizeDelta;
-        restRectPos =  showExperimentButton.GetComponent<RectTransform>().anchoredPosition;
-
-        Debug.Log($"restRectPos:{restRectPos}");
-
+        // restRectPos =  showExperimentButton.GetComponent<RectTransform>().anchoredPosition;
+        vlg = showExperimentButton.transform.Find("Dialog1Button_TextOnly").GetComponent<VerticalLayoutGroup>();       
     }
 
     private void changeButtonSize()
@@ -220,10 +217,8 @@ public class MainExperiment : MonoBehaviour
         else
         {
             bodyTextRect.sizeDelta = restRectSize; // Reset to original size
-            showExperimentButton.GetComponent<RectTransform>().anchoredPosition = restRectPos;
-            Debug.Log($"restRectPos2:{restRectPos}");
         }
-
+        vlg.enabled = true; 
         TMP_Text label = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
         label.text = InstructionsText; // strip text from /n characters and such
         string InstructionsTextTrimmed = InstructionsText.Replace("\n", ""); //add chars to trim
@@ -244,8 +239,8 @@ public class MainExperiment : MonoBehaviour
         ExperimentsToggle.interactable = false;
         ExperimentsToggle.isOn = false;
         bodyTextRect.sizeDelta = restRectSize;
-        Debug.Log($"restRectPos3:{restRectPos}");
-        // Debug.Log(InstructionsTextTrimmed);
+        vlg.enabled = false;
+        // Reset the layout group to its original state        
         dataManager.ReportInstructionsData(InstructionsTextTrimmed, appearanceTime, confirmationTime);
     }
 
