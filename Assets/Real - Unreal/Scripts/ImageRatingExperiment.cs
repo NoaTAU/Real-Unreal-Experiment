@@ -11,6 +11,7 @@ public class ImageRatingExperiment : RatingExperiment<GameObject>
     protected override string ExperimentType => "2D";
     private List<GameObject> _baselineList = new List<GameObject>();
     public override List<GameObject> baselineList => _baselineList;
+    public BgToggle bgToggle; // Reference to the BgToggle script to control the background
     private String baselinePath = "Images/Baseline";
     private GameObject currentInstance;
     private UnityEngine.UI.Image imageDisplay;
@@ -31,7 +32,7 @@ public class ImageRatingExperiment : RatingExperiment<GameObject>
 
     protected override void HideStimulus()
     {
-        SceneReferencer.Instance.twoDBackground.SetActive(false);
+        bgToggle.UseSolid(); // Switch back to solid color background
         if (currentInstance != null)
         {
             Destroy(currentInstance);
@@ -42,7 +43,7 @@ public class ImageRatingExperiment : RatingExperiment<GameObject>
 
     protected override void ShowStimulus()
     {
-        SceneReferencer.Instance.twoDBackground.SetActive(true);
+        bgToggle.UseSkybox(); // Use the skybox for 2D images
         if (currentInstance != null)
             Destroy(currentInstance);
 

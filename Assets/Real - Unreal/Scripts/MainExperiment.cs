@@ -41,6 +41,7 @@ public class MainExperiment : MonoBehaviour
     private string textShuffledList = "";
     private TMP_Text generalInstructionsLabel;
     private TXRDataManager dataManager;
+    public BgToggle bgToggle;
     private RectTransform bodyTextRect;
     private Vector2 restRectSize;
     private VerticalLayoutGroup vlg;
@@ -133,7 +134,7 @@ public class MainExperiment : MonoBehaviour
         // yield return eyeCalibration.RunCalibration();
         // yield return ShowDialogAndWaitForConfirm("הקליברציה הסתיימה, אנא עדכנו את הנסיין/ית.");
 
-        // yield return ShowMainInstructionsAndWaitForConfirm();
+        yield return ShowMainInstructionsAndWaitForConfirm();
 
         for (int i = 0; i < experimentList.Count; i++)
         {
@@ -163,13 +164,15 @@ public class MainExperiment : MonoBehaviour
                     break;
                 case 2:
                     RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
+                    bgToggle.UseSkybox(); // Use the skybox for 2D images
                     TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
                     Debug.Log("Starting image rating experiment...");
-                    Two_d_Background.SetActive(true);
+                    // Two_d_Background.SetActive(true);
+                    yield return imagerRatingExperiment.ShowImageSequence();
+                    // Two_d_Background.SetActive(false); // Hide the 2D background after the model rating experiment
+                    bgToggle.UseSolid(); // Switch back to solid color
                     yield return ShowDialogAndWaitForConfirm(questionnaireStart);
-                    // yield return imagerRatingExperiment.ShowImageSequence();
                     Debug.Log("Running questionnaire for 2D experiment...");
-                    Two_d_Background.SetActive(false); // Hide the 2D background after the model rating experiment
                     yield return questionFlowController.RunQuestionnaire("2D");
                     break;
             }

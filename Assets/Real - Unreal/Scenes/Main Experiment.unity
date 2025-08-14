@@ -48547,6 +48547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stimuliListWithBaseline: []
+  bgToggle: {fileID: 0}
 --- !u!61 &537625918
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -72084,6 +72085,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7114770129336771048, guid: df64bf5efda75be4db0c812f9277d678,
         type: 3}
+      propertyPath: _suppressWhileDragging
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771048, guid: df64bf5efda75be4db0c812f9277d678,
+        type: 3}
       propertyPath: _whenSelectedEmpty.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
@@ -72166,6 +72172,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MutipleAnswers
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771054, guid: df64bf5efda75be4db0c812f9277d678,
+        type: 3}
+      propertyPath: _recoilAssist.Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771054, guid: df64bf5efda75be4db0c812f9277d678,
+        type: 3}
+      propertyPath: _positionPinning.Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7114770130731238579, guid: df64bf5efda75be4db0c812f9277d678,
         type: 3}
@@ -74186,6 +74202,57 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 820652223}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &821456490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 821456492}
+  - component: {fileID: 821456491}
+  m_Layer: 0
+  m_Name: 'Skybox Manager '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &821456491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821456490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ba31927d80b44acb8c5fcd93dd0ad70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraSceneName: base scene with meta and Slab Arena
+  cameraPath: TXR Player For Meta/OVRCameraRig/TrackingSpace/CenterEyeAnchor
+  panoramicSkybox: {fileID: 2100000, guid: 8ccee12fe979d4fcda724e01cbface26, type: 2}
+--- !u!224 &821456492
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821456490}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 2.2006032}
+  m_LocalScale: {x: 0.0010000003, y: 0.001, z: 0.0010000003}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.00029850533, y: 1057.9999}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &821706849
 GameObject:
   m_ObjectHideFlags: 0
@@ -104566,6 +104633,7 @@ MonoBehaviour:
   Two_d_Background: {fileID: 1534045017}
   eyeCalibration: {fileID: 406188872}
   questionFlowController: {fileID: 229705582}
+  bgToggle: {fileID: 821456491}
 --- !u!4 &1219010836
 Transform:
   m_ObjectHideFlags: 0
@@ -104594,6 +104662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stimuliListWithBaseline: []
+  bgToggle: {fileID: 821456491}
 --- !u!114 &1219010838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147657,6 +147726,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7114770129336771048, guid: df64bf5efda75be4db0c812f9277d678,
         type: 3}
+      propertyPath: _suppressWhileDragging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114770129336771048, guid: df64bf5efda75be4db0c812f9277d678,
+        type: 3}
       propertyPath: _whenSelectedEmpty.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
@@ -186364,6 +186438,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 2112069202}
   - {fileID: 1658430860}
+  - {fileID: 821456492}
   - {fileID: 256457731}
   - {fileID: 336127066}
   - {fileID: 240351956}
