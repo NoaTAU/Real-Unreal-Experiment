@@ -79,6 +79,8 @@ public class QuestionFlowController : MonoBehaviour
         afterQsRoot.SetActive(false);
         duringQsRoot.SetActive(true);
         currentIndex = 0;
+        afterQsContinueButton.isOn = false;
+        
         ShowDuringQsBatch();
     }
 
@@ -184,7 +186,16 @@ public class QuestionFlowController : MonoBehaviour
 
 
             if (!anySelected)
+            {
                 return false;
+            }
+            else
+            {
+                foreach (var t in toggles)
+            {
+                t.isOn = false;
+            }
+            }
         }
 
         // Report the data to the TXRDataManager

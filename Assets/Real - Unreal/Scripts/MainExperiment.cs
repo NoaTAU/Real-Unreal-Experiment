@@ -41,6 +41,8 @@ public class MainExperiment : MonoBehaviour
     private TMP_Text generalInstructionsLabel;
     private TXRDataManager dataManager;
     private RectTransform bodyTextRect;
+    private Vector2 restRectSize;
+    private Vector2 restRectPos;
 
 
 
@@ -66,6 +68,11 @@ public class MainExperiment : MonoBehaviour
         ReportExperimentConfigurations();
 
         changeButtonSize();
+        restRectSize = bodyTextRect.sizeDelta;
+        restRectPos =  showExperimentButton.GetComponent<RectTransform>().anchoredPosition;
+
+        Debug.Log($"restRectPos:{restRectPos}");
+
     }
 
     private void changeButtonSize()
@@ -208,11 +215,13 @@ public class MainExperiment : MonoBehaviour
     {
         if (InstructionsText == questionnaireStart)
         {
-        bodyTextRect.sizeDelta = new Vector2(830, 500);
+            bodyTextRect.sizeDelta = new Vector2(860, 500);
         }
         else
         {
-        bodyTextRect.sizeDelta = new Vector2(320, 80);
+            bodyTextRect.sizeDelta = restRectSize; // Reset to original size
+            showExperimentButton.GetComponent<RectTransform>().anchoredPosition = restRectPos;
+            Debug.Log($"restRectPos2:{restRectPos}");
         }
 
         TMP_Text label = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
@@ -234,6 +243,8 @@ public class MainExperiment : MonoBehaviour
         showExperimentButton.SetActive(false);
         ExperimentsToggle.interactable = false;
         ExperimentsToggle.isOn = false;
+        bodyTextRect.sizeDelta = restRectSize;
+        Debug.Log($"restRectPos3:{restRectPos}");
         // Debug.Log(InstructionsTextTrimmed);
         dataManager.ReportInstructionsData(InstructionsTextTrimmed, appearanceTime, confirmationTime);
     }
