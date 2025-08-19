@@ -39,13 +39,12 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
     protected override void HideStimulus()
     {
         passthroughLayer.enabled = false;
-        Debug.Log("Passthrough stimulus hidden.");
     }
 
     protected override void ShowStimulus()
     {
         passthroughLayer.enabled = true;
-        Debug.Log("Passthrough stimulus shown.");
+        passthroughLayer.textureOpacity = 1.0f; // fully see-through
     }
 
     public override IEnumerator ShowImageSequence()
