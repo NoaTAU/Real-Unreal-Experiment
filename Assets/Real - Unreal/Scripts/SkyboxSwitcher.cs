@@ -87,7 +87,9 @@ public class BgToggle : MonoBehaviour
         if (!cam && !TryInitCamera()) return;
 
         cam.clearFlags = CameraClearFlags.SolidColor; // <-- back to solid
-        // (optional) cam.backgroundColor = Color.black; // only if you want to set a specific color
+                                                      // (optional) cam.backgroundColor = Color.black; // only if you want to set a specific color
+        var c = cam.backgroundColor; 
+        cam.backgroundColor = new Color(c.r, c.g, c.b, 0f); // or Color.cle
         DynamicGI.UpdateEnvironment();
     }
 }

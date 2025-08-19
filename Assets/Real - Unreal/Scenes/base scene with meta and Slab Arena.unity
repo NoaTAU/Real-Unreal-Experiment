@@ -24,9 +24,9 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 8ccee12fe979d4fcda724e01cbface26, type: 2}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -4157,6 +4157,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 189833905, guid: d32c42f940d01aa45a115eef6b267bf6, type: 3}
+      propertyPath: textureOpacity_
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9019564288917803, guid: d32c42f940d01aa45a115eef6b267bf6, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -6011,6 +6015,46 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 9160895721437091003, guid: d32c42f940d01aa45a115eef6b267bf6,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9160895721437091003, guid: d32c42f940d01aa45a115eef6b267bf6,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9160895721437091003, guid: d32c42f940d01aa45a115eef6b267bf6,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9160895721437091003, guid: d32c42f940d01aa45a115eef6b267bf6,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9160895723763043105, guid: d32c42f940d01aa45a115eef6b267bf6,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9160895723763043105, guid: d32c42f940d01aa45a115eef6b267bf6,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9160895723763043105, guid: d32c42f940d01aa45a115eef6b267bf6,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9160895723763043105, guid: d32c42f940d01aa45a115eef6b267bf6,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9174539498200562429, guid: d32c42f940d01aa45a115eef6b267bf6,
         type: 3}
       propertyPath: m_Layer
@@ -6029,7 +6073,7 @@ PrefabInstance:
     - target: {fileID: 9179752177440450423, guid: d32c42f940d01aa45a115eef6b267bf6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.931
+      value: -1.773
       objectReference: {fileID: 0}
     - target: {fileID: 9179752177440450423, guid: d32c42f940d01aa45a115eef6b267bf6,
         type: 3}
@@ -6076,6 +6120,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9179752178192763192, guid: d32c42f940d01aa45a115eef6b267bf6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9179752179251115253, guid: d32c42f940d01aa45a115eef6b267bf6,
         type: 3}
       propertyPath: m_ClearFlags
@@ -6084,7 +6133,7 @@ PrefabInstance:
     - target: {fileID: 9179752179251115253, guid: d32c42f940d01aa45a115eef6b267bf6,
         type: 3}
       propertyPath: m_BackGroundColor.a
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9179752179251115253, guid: d32c42f940d01aa45a115eef6b267bf6,
         type: 3}

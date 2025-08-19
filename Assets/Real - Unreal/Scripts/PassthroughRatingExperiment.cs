@@ -12,7 +12,6 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
 
     private OVRPassthroughLayer passthroughLayer;
     private Transform passthroughColliderParent;
-    private float stimulusAppearanceTimePassthrough;
     private float ratingAppearanceTimePassthrough;
 
     public int[] passthroughtObjectList = Enumerable.Range(0, 11).ToArray();
@@ -22,9 +21,7 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
         passthroughColliderParent = SceneReferencer.Instance.passthroughCollider.transform;
         passthroughLayer = gameObject.GetComponent<OVRPassthroughLayer>();
         Debug.Log($"Passthrough list length = {passthroughtObjectList.Length}");
-
-        // passthroughLayer.overlayType = OVRPassthroughLayer.OverlayType.Overlay;
-        // passthroughLayer.textureOpacity = 1.0f; // fully see-through
+        passthroughLayer.textureOpacity = 1.0f; // fully see-through
 
     }
 
@@ -42,11 +39,13 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
     protected override void HideStimulus()
     {
         passthroughLayer.enabled = false;
+        Debug.Log("Passthrough stimulus hidden.");
     }
 
     protected override void ShowStimulus()
     {
         passthroughLayer.enabled = true;
+        Debug.Log("Passthrough stimulus shown.");
     }
 
     public override IEnumerator ShowImageSequence()

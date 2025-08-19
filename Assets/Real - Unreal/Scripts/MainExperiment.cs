@@ -16,7 +16,6 @@ public class MainExperiment : MonoBehaviour
     public GameObject invisibleCollider;
     public GameObject metaUISliderGroup;
     public TMP_FontAsset defaultFont;
-    public GameObject Two_d_Background; // Background for 2D images
     public EyeCalibrationCheck eyeCalibration;
     public QuestionFlowController questionFlowController;
     private ImageRatingExperiment imagerRatingExperiment;
@@ -44,6 +43,7 @@ public class MainExperiment : MonoBehaviour
     public BgToggle bgToggle;
     private RectTransform bodyTextRect;
     private Vector2 restRectSize;
+    private Vector2 restRectPos;
     private VerticalLayoutGroup vlg;
 
     private void Start()
@@ -69,7 +69,7 @@ public class MainExperiment : MonoBehaviour
 
         changeButtonSize();
         restRectSize = bodyTextRect.sizeDelta;
-        // restRectPos =  showExperimentButton.GetComponent<RectTransform>().anchoredPosition;
+        restRectPos =  showExperimentButton.GetComponent<RectTransform>().anchoredPosition;
         vlg = showExperimentButton.transform.Find("Dialog1Button_TextOnly").GetComponent<VerticalLayoutGroup>();       
     }
 
@@ -146,34 +146,32 @@ public class MainExperiment : MonoBehaviour
                     RendererActivator.Instance.HideRenderers(); // Hide the slab arena visuals
                     invisibleCollider.SetActive(true); // Show the invisible collider
                     TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
-                    // yield return passthroughRatingExperiment.ShowImageSequence();
+                    yield return passthroughRatingExperiment.ShowImageSequence();
                     invisibleCollider.SetActive(false); // Hide the invisible collider
-                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
-                    Debug.Log("Running questionnaire for passthrough experiment...");
-                    yield return questionFlowController.RunQuestionnaire("passthrough");
+                    // yield return ShowDialogAndWaitForConfirm(questionnaireStart);
+                    // Debug.Log("Running questionnaire for passthrough experiment...");
+                    // yield return questionFlowController.RunQuestionnaire("passthrough");
                     break;
                 case 1:
                     RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
                     Debug.Log("Starting model rating experiment...");
                     TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
                     RendererActivator.Instance.HideRenderers(); 
-                    // yield return modelRatingExperiment.ShowImageSequence();
-                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
-                    Debug.Log("Running questionnaire for 3D experiment...");
-                    yield return questionFlowController.RunQuestionnaire("3D");
+                    yield return modelRatingExperiment.ShowImageSequence();
+                    // yield return ShowDialogAndWaitForConfirm(questionnaireStart);
+                    // Debug.Log("Running questionnaire for 3D experiment...");
+                    // yield return questionFlowController.RunQuestionnaire("3D");
                     break;
                 case 2:
                     RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
                     bgToggle.UseSkybox(); // Use the skybox for 2D images
                     TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
                     Debug.Log("Starting image rating experiment...");
-                    // Two_d_Background.SetActive(true);
                     yield return imagerRatingExperiment.ShowImageSequence();
-                    // Two_d_Background.SetActive(false); // Hide the 2D background after the model rating experiment
                     bgToggle.UseSolid(); // Switch back to solid color
-                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
-                    Debug.Log("Running questionnaire for 2D experiment...");
-                    yield return questionFlowController.RunQuestionnaire("2D");
+                    // yield return ShowDialogAndWaitForConfirm(questionnaireStart);
+                    // Debug.Log("Running questionnaire for 2D experiment...");
+                    // yield return questionFlowController.RunQuestionnaire("2D");
                     break;
             }
 
@@ -220,6 +218,7 @@ public class MainExperiment : MonoBehaviour
         else
         {
             bodyTextRect.sizeDelta = restRectSize; // Reset to original size
+            showExperimentButton.GetComponent<RectTransform>().anchoredPosition = restRectPos; // Reset to original position
         }
         vlg.enabled = true; 
         TMP_Text label = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();

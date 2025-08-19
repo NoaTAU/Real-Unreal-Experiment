@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5615281387180630396}
   - component: {fileID: 8454690214088702301}
-  - component: {fileID: 6238712289372788778}
+  - component: {fileID: -5839757112478608762}
   m_Layer: 0
   m_Name: Egozi2D
   m_TagString: Untagged
@@ -88,8 +88,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!65 &6238712289372788778
-BoxCollider:
+--- !u!64 &-5839757112478608762
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,6 +106,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.700001, y: 5.48, z: 0.20000005}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
