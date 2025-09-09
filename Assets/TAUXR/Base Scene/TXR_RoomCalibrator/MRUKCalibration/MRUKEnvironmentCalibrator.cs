@@ -1,6 +1,8 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UnityEngine.Events;
+using TMPro;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -13,6 +15,7 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
     [SerializeField] private UnityEvent onCalibrationComplete;
     [SerializeField] private bool showDebugSpheres = false;
     [SerializeField] private bool calibrateOnStart = false;
+    [SerializeField] private TextMeshPro calibrationStatusText;
     
     private Transform _player;
     private Transform _positionReference;
@@ -22,6 +25,7 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
 
     private void Start()
     {
+        calibrationStatusText.text = "MRUKEnvironmentCalibrator Starting...";
         Init();
         
         if (calibrateOnStart)
@@ -33,11 +37,11 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
     private void CreateDebugSphere(ref GameObject sphere, Vector3 position, Color color)
     {
         if (sphere != null || !showDebugSpheres) return;
-        
+
         sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = position;
         sphere.transform.localScale = Vector3.one * 0.1f; // 10cm sphere
-        
+
         // Set material color
         var renderer = sphere.GetComponent<Renderer>();
         if (renderer != null)
@@ -45,13 +49,14 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
             renderer.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
             renderer.material.color = color;
         }
-        
+
         // Remove collider
         var collider = sphere.GetComponent<Collider>();
         if (collider != null)
         {
             Destroy(collider);
         }
+        calibrationStatusText.text += $"\nCreated debug sphere at {position}";
     }
 
     private void DestroyDebugSphere(ref GameObject sphere)
@@ -65,17 +70,20 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
 
     public void SetPositionReference(Transform reference)
     {
+        calibrationStatusText.text += "\nSetting position reference...";
         _positionReference = reference;
         Debug.Log($"[MRUKEnvironmentCalibrator] Position reference set to: {reference?.name ?? "null"}");
-        
+
         if (reference != null)
         {
             CreateDebugSphere(ref _positionDebugSphere, reference.position, Color.blue);
+            
         }
     }
 
     public void SetRotationReference(Transform reference)
     {
+        calibrationStatusText.text += "\nSetting rotation reference...";
         _rotationReference = reference;
         Debug.Log($"[MRUKEnvironmentCalibrator] Rotation reference set to: {reference?.name ?? "null"}");
         
@@ -108,15 +116,17 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
     public async UniTask CalibrateRoom()
     {
         Init();
-        
+
         // Wait for reference points to be set
         await WaitForReferencePoints();
-        
+
         // Once we have the reference points, we can calibrate
         AlignVirtualToPhysicalRoom();
-        
+
         // Disable passthrough & show model
         ExitCalibrationMode();
+        
+        calibrationStatusText.text += "\nCalibration process finished.";
     }
 
     private void Init()
@@ -126,11 +136,13 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
 
     private async UniTask WaitForReferencePoints()
     {
+        calibrationStatusText.text += "\nWaiting for reference points...";
         // Wait until we have both reference points
         while (_positionReference == null || _rotationReference == null)
         {
             await UniTask.Yield();
         }
+        calibrationStatusText.text += "\nReference points acquired.";
     }
 
     private void ExitCalibrationMode()
@@ -140,10 +152,12 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
 
     public void AlignVirtualToPhysicalRoom()
     {
+        calibrationStatusText.text += "\nCalibrating room...";
         // Parent the reference points to the player so they move with rotation
         _positionReference.SetParent(_player);
         _rotationReference.SetParent(_player);
-        
+
+
         // ignore differences on height
         _rotationReference.position = new Vector3(_rotationReference.position.x,
             _positionReference.position.y, _rotationReference.position.z);
@@ -156,6 +170,7 @@ public class MRUKEnvironmentCalibrator : TXRSingleton<MRUKEnvironmentCalibrator>
 
         Vector3 positionOffset = virtualReferencePointPosition.position - _positionReference.position;
         _player.position += positionOffset;
+        calibrationStatusText.text += "\nCalibration complete.";
     }
 
 #if UNITY_EDITOR

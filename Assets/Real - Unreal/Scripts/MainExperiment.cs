@@ -142,15 +142,15 @@ public class MainExperiment : MonoBehaviour
             switch (experimentList[i])
             {
                 case 0:
-                    // Debug.Log("Starting passthrough rating experiment...");
-                    // RendererActivator.Instance.HideRenderers(); // Hide the slab arena visuals
-                    // invisibleCollider.SetActive(true); // Show the invisible collider
-                    // TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
-                    // yield return passthroughRatingExperiment.ShowImageSequence();
-                    // invisibleCollider.SetActive(false); // Hide the invisible collider
-                    // yield return ShowDialogAndWaitForConfirm(questionnaireStart);
-                    // Debug.Log("Running questionnaire for passthrough experiment...");
-                    // yield return questionFlowController.RunQuestionnaire("passthrough");
+                    Debug.Log("Starting passthrough rating experiment...");
+                    RendererActivator.Instance.HideRenderers(); // Hide the slab arena visuals
+                    invisibleCollider.SetActive(true); // Show the invisible collider
+                    TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
+                    yield return passthroughRatingExperiment.ShowImageSequence();
+                    invisibleCollider.SetActive(false); // Hide the invisible collider
+                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
+                    Debug.Log("Running questionnaire for passthrough experiment...");
+                    yield return questionFlowController.RunQuestionnaire("passthrough");
                     break;
                 case 1:
                     RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
