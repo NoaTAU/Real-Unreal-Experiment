@@ -16,6 +16,7 @@ public class ImageRatingExperiment : RatingExperiment<GameObject>
     private GameObject currentInstance;
     private UnityEngine.UI.Image imageDisplay;
     private Sprite[] baselineArray;
+    private Transform modelParent;
 
     protected override void Start()
     {
@@ -30,6 +31,49 @@ public class ImageRatingExperiment : RatingExperiment<GameObject>
         Debug.Log(string.Join(", ", baselineList));
     }
 
+protected override void InitStimuli()
+    {
+        GameObject snacksPrefab = Resources.Load<GameObject>(stimuliPath);
+        if (snacksPrefab == null)
+        {
+            Debug.LogError($"Could not load prefab at path: {stimuliPath}");
+            return;
+        }
+        GameObject snacksInstance2D = Instantiate(snacksPrefab);
+        snacksInstance2D.SetActive(false);
+        modelParent = SceneReferencer.Instance.threeDDisplay.transform;
+
+        // Collect each child as a separate stimulus
+        stimuliList = new List<GameObject>();
+        foreach (Transform child in snacksInstance.transform)
+        {
+            GameObject childClone = Instantiate(child.gameObject, modelParent);
+            childClone.SetActive(false);
+            if (childClone.name.StartsWith("Bamba red") || childClone.name.StartsWith("Baflot") || childClone.name.StartsWith("Bisli"))
+            {
+                // Debug.Log($"Adding {childClone.name} to baseline list");
+                baselineList.Add(childClone);
+
+            }
+            else
+            {
+                stimuliList.Add(childClone);
+                // Debug.Log($"Adding {childClone.name} to stimuliList list");
+            }
+        }
+
+        // Optional: destroy the instance since we only needed its children
+        Destroy(snacksInstance);
+
+        TXRDataManager.Instance.LogLineToFile($"Loaded {stimuliList.Count} stimuli from prefab {stimuliPath}");
+        LoadStimuliNames();
+        ShuffleStimuliList();
+        Debug.Log(string.Join(", ", stimuliList));
+        // Debug.Log("Stimulus count: " + stimuliList.Count);
+        LogHelper.Log("finished init stimuli", "blue");
+
+
+    }
     protected override void HideStimulus()
     {
         bgToggle.UseSolid(); // Switch back to solid color background
