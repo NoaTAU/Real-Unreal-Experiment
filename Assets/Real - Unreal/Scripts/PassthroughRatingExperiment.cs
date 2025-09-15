@@ -50,6 +50,7 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
     public override IEnumerator ShowImageSequence()
     {
         Debug.Log($"Passthrough list length = {passthroughtObjectList.Length}");
+        passthroughColliderParent.gameObject.SetActive(true);
         InitConfirmToggle();
         int numRounds = passthroughtObjectList.Length;
 
@@ -85,7 +86,7 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
             canvas.alpha = 0;
             blackScreenOverlay.SetActive(false);
         }
-
+        passthroughColliderParent.gameObject.SetActive(false);
         Debug.Log("Finished all passthrough stimuli.");
     }
 

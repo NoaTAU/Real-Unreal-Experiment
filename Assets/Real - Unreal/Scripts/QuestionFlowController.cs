@@ -8,6 +8,8 @@ using UnityEngine.Animations;
 
 public class QuestionFlowController : MonoBehaviour
 {
+    public GameObject ContentRoot;
+
     [Header("AfterQs")]
     public GameObject afterQsRoot;
     public Toggle afterQsContinueButton;
@@ -37,6 +39,7 @@ public class QuestionFlowController : MonoBehaviour
 
     public virtual IEnumerator RunQuestionnaire(string roundName)
     {
+        ContentRoot.SetActive(true);
         Debug.Log("Running questionnaire for round: " + roundName);
         currentRoundName = roundName;
         afterQsRoot.SetActive(true);
@@ -60,6 +63,7 @@ public class QuestionFlowController : MonoBehaviour
         questionnaireComplete = false; // Reset for next use
         afterQsContinueButton.onValueChanged.RemoveListener(HandleAfterQsContinue);
         duringQsContinueButton.onValueChanged.RemoveListener(HandleDuringQsContinue);
+        ContentRoot.SetActive(false);
         yield return new WaitForSeconds(1f); // Optional delay before proceeding
         Debug.Log("Questionnaire completed for round: " + currentRoundName);
        
