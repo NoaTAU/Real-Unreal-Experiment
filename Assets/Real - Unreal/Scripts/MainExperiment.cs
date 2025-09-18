@@ -25,7 +25,7 @@ public class MainExperiment : MonoBehaviour
     private bool experimentToggle = false;
     private string startMessage = "לחצו כאן כדי להתחיל";
     private string endMessage = "הסבב הסתיים\n אנא קראו לנסיין/ית";
-    private string experimentEndMessage = "הניסוי הסתיים\n תודה רבה על שיתוף הפעולה";
+    private string experimentEndMessage = "אנא עדכנו את הנסיין/ית ששלב זה הסתיים\n תודה רבה על שיתוף הפעולה";
     private string questionnaireStart = "אנחנו מעוניינים לדעת מה את/ה מרגיש/ה לגבי החוויה שעברת זה עתה ב'סביבה המוצגת'.\n" +
     "המונח 'סביבה מוצגת' מתייחס כאן, ולאורך השאלון הזה, לעולם הוירטואלי שהתנסת בו עכשיו.\n" +
     "חלק מהשאלות מתייחסות ל 'תוכן' של הסביבה המוצגת. בכך אנו מתכוונים לסיפור, לסצנות או אירועים, או כל מה שאתה יכול לראות, לשמוע או לחוש שמתרחש בתוך הסביבה המוצגת.\n" +
@@ -213,7 +213,7 @@ public class MainExperiment : MonoBehaviour
     {
         if (InstructionsText == questionnaireStart)
         {
-            bodyTextRect.sizeDelta = new Vector2(860, 550);
+            bodyTextRect.sizeDelta = new Vector2(1000, 800);
         }
         else
         {
