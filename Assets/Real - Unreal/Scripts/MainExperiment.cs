@@ -64,9 +64,7 @@ public class MainExperiment : MonoBehaviour
         ApplyFontToTMP(showExperimentButton);
         ApplyFontToTMP(showInstructionsButton);
         ApplyFontToTMP(metaUISliderGroup);
-
-        ReportExperimentConfigurations();
-
+        // ReportExperimentConfigurations();
         changeButtonSize();
         restRectSize = bodyTextRect.sizeDelta;
         restRectPos =  showExperimentButton.GetComponent<RectTransform>().anchoredPosition;
@@ -142,15 +140,15 @@ public class MainExperiment : MonoBehaviour
             switch (experimentList[i])
             {
                 case 0:
-                    // Debug.Log("Starting passthrough rating experiment...");
-                    // RendererActivator.Instance.HideRenderers(); // Hide the slab arena visuals
-                    // invisibleCollider.SetActive(true); // Show the invisible collider
-                    // TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
-                    // yield return passthroughRatingExperiment.ShowImageSequence();
-                    // invisibleCollider.SetActive(false); // Hide the invisible collider
-                    // yield return ShowDialogAndWaitForConfirm(questionnaireStart);
-                    // Debug.Log("Running questionnaire for passthrough experiment...");
-                    // yield return questionFlowController.RunQuestionnaire("passthrough");
+                    Debug.Log("Starting passthrough rating experiment...");
+                    RendererActivator.Instance.HideRenderers(); // Hide the slab arena visuals
+                    invisibleCollider.SetActive(true); // Show the invisible collider
+                    TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
+                    yield return passthroughRatingExperiment.ShowImageSequence();
+                    invisibleCollider.SetActive(false); // Hide the invisible collider
+                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
+                    Debug.Log("Running questionnaire for passthrough experiment...");
+                    yield return questionFlowController.RunQuestionnaire("passthrough");
                     break;
                 case 1:
                     RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
@@ -163,15 +161,15 @@ public class MainExperiment : MonoBehaviour
                     yield return questionFlowController.RunQuestionnaire("3D");
                     break;
                 case 2:
-                    // RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
-                    // bgToggle.UseSkybox(); // Use the skybox for 2D images
-                    // TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
-                    // Debug.Log("Starting image rating experiment...");
-                    // yield return imagerRatingExperiment.ShowImageSequence();
-                    // bgToggle.UseSolid(); // Switch back to solid color
-                    // yield return ShowDialogAndWaitForConfirm(questionnaireStart);
-                    // Debug.Log("Running questionnaire for 2D experiment...");
-                    // yield return questionFlowController.RunQuestionnaire("2D");
+                    RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
+                    bgToggle.UseSkybox(); // Use the skybox for 2D images
+                    TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
+                    Debug.Log("Starting image rating experiment...");
+                    yield return imagerRatingExperiment.ShowImageSequence();
+                    bgToggle.UseSolid(); // Switch back to solid color
+                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
+                    Debug.Log("Running questionnaire for 2D experiment...");
+                    yield return questionFlowController.RunQuestionnaire("2D");
                     break;
             }
 
@@ -211,8 +209,6 @@ public class MainExperiment : MonoBehaviour
 
     private IEnumerator ShowDialogAndWaitForConfirm(string InstructionsText)
     {
-        changeButtonSize();
-        vlg = showExperimentButton.transform.Find("Dialog1Button_TextOnly").GetComponent<VerticalLayoutGroup>(); 
         if (InstructionsText == questionnaireStart)
         {
             bodyTextRect.sizeDelta = new Vector2(1000, 800);
