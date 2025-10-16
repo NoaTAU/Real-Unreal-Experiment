@@ -6428,6 +6428,18 @@ PrefabInstance:
       addedObject: {fileID: 1559551180}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d32c42f940d01aa45a115eef6b267bf6, type: 3}
+--- !u!4 &1532142878 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9184341666924649557, guid: d32c42f940d01aa45a115eef6b267bf6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1532142877}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1532142879 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9181407312410147821, guid: d32c42f940d01aa45a115eef6b267bf6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1532142877}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1547494205
 GameObject:
   m_ObjectHideFlags: 0
@@ -7743,6 +7755,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: TXR_DataManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5909402029071504863, guid: 0e536bf5e85d3f34f97dbec656223294,
+        type: 3}
+      propertyPath: AdditionalTransforms.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5909402029071504863, guid: 0e536bf5e85d3f34f97dbec656223294,
+        type: 3}
+      propertyPath: 'AdditionalTransforms.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1532142879}
+    - target: {fileID: 5909402029071504863, guid: 0e536bf5e85d3f34f97dbec656223294,
+        type: 3}
+      propertyPath: 'AdditionalTransforms.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1532142878}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
