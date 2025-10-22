@@ -1,18 +1,17 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
 
 public class MainExperiment : MonoBehaviour
 {
     public Toggle ExperimentsToggle;
     public Toggle FirstExperimentToggle;
+    public Toggle EndQsInstructionsToggle;
     public GameObject showInstructionsButton; // Button to show instructions
     public GameObject showExperimentButton;
+    public GameObject showQsButton;
     public GameObject invisibleCollider;
     public GameObject metaUISliderGroup;
     public TMP_FontAsset defaultFont;
@@ -22,19 +21,20 @@ public class MainExperiment : MonoBehaviour
     private ModelRatingExperiment modelRatingExperiment;
     private PassthroughRatingExperiment passthroughRatingExperiment;
     private bool readingInstructions = false;
+    private bool readingQsInstructions = false;
     private bool experimentToggle = false;
     private string startMessage = "לחצו כאן כדי להתחיל";
     private string endMessage = "הסבב הסתיים\n אנא קראו לנסיין/ית";
     private string experimentEndMessage = "אנא עדכנו את הנסיין/ית ששלב זה הסתיים\n תודה רבה על שיתוף הפעולה";
-    private string questionnaireStart = "אנחנו מעוניינים לדעת מה את/ה מרגיש/ה לגבי החוויה שעברת זה עתה ב'סביבה המוצגת'.\n" +
-    "המונח 'סביבה מוצגת' מתייחס כאן, ולאורך השאלון הזה, לעולם הוירטואלי שהתנסת בו עכשיו.\n" +
-    "חלק מהשאלות מתייחסות ל 'תוכן' של הסביבה המוצגת. בכך אנו מתכוונים לסיפור, לסצנות או אירועים, או כל מה שאתה יכול לראות, לשמוע או לחוש שמתרחש בתוך הסביבה המוצגת.\n" +
-    "הסביבה המוצגת והתוכן שלה שונים מ 'העולם האמיתי': העולם שבו את/ה חי/ה מיום ליום.\n" +
-    "ישנם שני חלקים לשאלון זה: חלק א' וחלק ב'. חלק א' שואל על המחשבות והרגשות שלך ברגע שהסביבה המוצגת הסתיימה.\n" +
-    "חלק ב' מתייחס למחשבות ולרגשות שלך בזמן שחווית את הסביבה המוצגת.\n" +
-    "נא לא לבזבז יותר מדי זמן על אף שאלה.\n" +
-    "התגובה הראשונה שלך היא בדרך כלל הכי טובה. עבור כל שאלה, בחר/י את התשובה הקרובה ביותר לשלך.\n" +
-    "אנא זכור/י שאין תשובות נכונות או לא נכונות - אנחנו פשוט מעוניינים לדעת מה המחשבות והרגשות שלך לגבי הסביבה המוצגת.";
+    private string questionnaireStart = "אנחנו מעוניינים לדעת מה את/ה מרגיש/ה לגבי החוויה שעברת זה עתה ב'סביבה המוצגת'.\n";
+    // "המונח 'סביבה מוצגת' מתייחס כאן, ולאורך השאלון הזה, לעולם הוירטואלי שהתנסת בו עכשיו.\n" +
+    // "חלק מהשאלות מתייחסות ל 'תוכן' של הסביבה המוצגת. בכך אנו מתכוונים לסיפור, לסצנות או אירועים, או כל מה שאתה יכול לראות, לשמוע או לחוש שמתרחש בתוך הסביבה המוצגת.\n" +
+    // "הסביבה המוצגת והתוכן שלה שונים מ 'העולם האמיתי': העולם שבו את/ה חי/ה מיום ליום.\n" +
+    // "ישנם שני חלקים לשאלון זה: חלק א' וחלק ב'. חלק א' שואל על המחשבות והרגשות שלך ברגע שהסביבה המוצגת הסתיימה.\n" +
+    // "חלק ב' מתייחס למחשבות ולרגשות שלך בזמן שחווית את הסביבה המוצגת.\n" +
+    // "נא לא לבזבז יותר מדי זמן על אף שאלה.\n" +
+    // "התגובה הראשונה שלך היא בדרך כלל הכי טובה. עבור כל שאלה, בחר/י את התשובה הקרובה ביותר לשלך.\n" +
+    // "אנא זכור/י שאין תשובות נכונות או לא נכונות - אנחנו פשוט מעוניינים לדעת מה המחשבות והרגשות שלך לגבי הסביבה המוצגת.";
 
     private List<int> experimentList = new List<int> { 0, 1, 2 };
     private string textShuffledList = "";
@@ -58,6 +58,9 @@ public class MainExperiment : MonoBehaviour
         FirstExperimentToggle.interactable = false;
         FirstExperimentToggle.isOn = false;
         FirstExperimentToggle.onValueChanged.AddListener(EndInstructionsToggled);
+        EndQsInstructionsToggle.interactable = false;
+        EndQsInstructionsToggle.isOn = false;
+        EndQsInstructionsToggle.onValueChanged.AddListener(QsInstructionsToggleEnded);
         Debug.Log("Debug: MainExperiment Start init completed");
         StartCoroutine(RunAllExperiments());
         ShuffleExperimentOrder();
@@ -146,7 +149,7 @@ public class MainExperiment : MonoBehaviour
                     TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
                     yield return passthroughRatingExperiment.ShowImageSequence();
                     invisibleCollider.SetActive(false); // Hide the invisible collider
-                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
+                    yield return ShowQsInstructionsAndWaitForConfirm();
                     Debug.Log("Running questionnaire for passthrough experiment...");
                     yield return questionFlowController.RunQuestionnaire("passthrough");
                     break;
@@ -156,7 +159,7 @@ public class MainExperiment : MonoBehaviour
                     TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
                     RendererActivator.Instance.HideRenderers(); 
                     yield return modelRatingExperiment.ShowImageSequence();
-                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
+                    yield return ShowQsInstructionsAndWaitForConfirm();
                     Debug.Log("Running questionnaire for 3D experiment...");
                     yield return questionFlowController.RunQuestionnaire("3D");
                     break;
@@ -167,7 +170,7 @@ public class MainExperiment : MonoBehaviour
                     Debug.Log("Starting image rating experiment...");
                     yield return imagerRatingExperiment.ShowImageSequence();
                     bgToggle.UseSolid(); // Switch back to solid color
-                    yield return ShowDialogAndWaitForConfirm(questionnaireStart);
+                    yield return ShowQsInstructionsAndWaitForConfirm();
                     Debug.Log("Running questionnaire for 2D experiment...");
                     yield return questionFlowController.RunQuestionnaire("2D");
                     break;
@@ -258,12 +261,38 @@ public class MainExperiment : MonoBehaviour
         showInstructionsButton.SetActive(false);
         FirstExperimentToggle.interactable = false;
     }
+    private IEnumerator ShowQsInstructionsAndWaitForConfirm()
+    {
+        EndQsInstructionsToggle.interactable = true;
+        showQsButton.SetActive(true); // Show the button to start reading instructions
+
+        while (!readingQsInstructions)
+        {
+            yield return null;
+        }
+
+        showQsButton.SetActive(false);
+        EndQsInstructionsToggle.interactable = false;
+        readingQsInstructions = false;
+
+    }
 
     private void EndInstructionsToggled(bool isOn)
     {
         if (!isOn) return; // only respond when toggled ON
         readingInstructions = true;
         Debug.Log("readingInstructions = true");
+        FirstExperimentToggle.isOn = false;
+
+    }
+
+    private void QsInstructionsToggleEnded(bool isOn)
+    {
+        if (!isOn) return; // only respond when toggled ON
+        readingQsInstructions = true;
+        Debug.Log("readingQsInstructions = true");
+        EndQsInstructionsToggle.isOn = false;
+
     }
     private void OnExpToggled(bool isOn)
     {
