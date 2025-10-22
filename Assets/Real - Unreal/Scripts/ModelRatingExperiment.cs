@@ -3,7 +3,7 @@ using UnityEngine;
 public class ModelRatingExperiment : RatingExperiment<GameObject>
 {
     public override string stimuliPath => "3D/Snacks";
-
+    // public ShuffleChildrenOrder shuffleChildrenOrder;
     protected override string ExperimentType => "3D";
     private List<GameObject> _baselineList = new List<GameObject>();
     public override List<GameObject> baselineList => _baselineList;
@@ -47,17 +47,14 @@ public class ModelRatingExperiment : RatingExperiment<GameObject>
             }
         }
 
-        // Optional: destroy the instance since we only needed its children
-        Destroy(snacksInstance);
-
-        TXRDataManager.Instance.LogLineToFile($"Loaded {stimuliList.Count} stimuli from prefab {stimuliPath}");
-        LoadStimuliNames();
-        ShuffleStimuliList();
+        // TXRDataManager.Instance.LogLineToFile($"Loaded {stimuliList.Count} stimuli from prefab {stimuliPath}");
+        // LoadStimuliNames()
+        ShuffleChildren();
         Debug.Log(string.Join(", ", stimuliList));
         // Debug.Log("Stimulus count: " + stimuliList.Count);
         LogHelper.Log("finished init stimuli", "blue");
-
-
+        // Optional: destroy the instance since we only needed its children
+        Destroy(snacksInstance);
     }
 
     protected override void HideStimulus()
@@ -71,5 +68,16 @@ public class ModelRatingExperiment : RatingExperiment<GameObject>
         RendererActivator.Instance.ShowRenderers();
         currentInstantiatedModel = Instantiate(stimuliListWithBaseline[currentStimulusIndex], modelParent);
         currentInstantiatedModel.SetActive(true);
+    }
+
+    void ShuffleChildren()
+    {
+        int count = modelParent.childCount;
+        for (int i = 0; i < count; i++)
+        {
+            int randomIndex = Random.Range(i, count);
+            modelParent.GetChild(randomIndex).SetSiblingIndex(i);
+        }
+        // Debug.Log("Shuffled children order.");
     }
 }

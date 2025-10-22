@@ -14567,6 +14567,7 @@ GameObject:
   - component: {fileID: 199553570}
   - component: {fileID: 199553571}
   - component: {fileID: 199553572}
+  - component: {fileID: 199553573}
   m_Layer: 0
   m_Name: 3Dobject
   m_TagString: Untagged
@@ -14660,6 +14661,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &199553573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199553569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46fd5e701d0fc4a028ed37ac197352a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &202912486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4667101609217243260, guid: ea06e258bd2c8462b8d7da203dcade38,
@@ -18377,6 +18390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ContentRoot: {fileID: 1786096194}
+  ContentRoot_1: {fileID: 320071753}
   afterQsRoot: {fileID: 1684550339}
   afterQsContinueButton: {fileID: 171848233}
   questionBlock:
@@ -19275,12 +19289,12 @@ PrefabInstance:
     - target: {fileID: 935305165792370163, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 935305165792370163, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 935305165792370163, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
@@ -19295,12 +19309,12 @@ PrefabInstance:
     - target: {fileID: 935305165792370163, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 154
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 935305165792370163, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 935305165792370163, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
@@ -19543,22 +19557,22 @@ PrefabInstance:
     - target: {fileID: 7974221873738248123, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7974221873738248123, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7974221873738248123, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7974221873738248123, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8043156362340038974, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
@@ -104273,6 +104287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stimuliListWithBaseline: []
+  shuffleChildrenOrder: {fileID: 199553573}
 --- !u!114 &1219010839
 MonoBehaviour:
   m_ObjectHideFlags: 0

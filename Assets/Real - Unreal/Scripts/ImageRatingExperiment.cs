@@ -12,20 +12,26 @@ public class ImageRatingExperiment : RatingExperiment<GameObject>
     private List<GameObject> _baselineList = new List<GameObject>();
     public override List<GameObject> baselineList => _baselineList;
     public BgToggle bgToggle; // Reference to the BgToggle script to control the background
-    private String baselinePath = "Images/Baseline";
+    private string baselinePath = "Images/Baseline";
     private GameObject currentInstance;
     private UnityEngine.UI.Image imageDisplay;
-    private Sprite[] baselineArray;
+    // private Sprite[] baselineArray;
 
     protected override void Start()
     {
-        base.Start();
+       
+        
+        Debug.Log("stop 0");
         imageDisplay = SceneReferencer.Instance.imageDisplay;
+        Debug.Log("stop 1");
         imageDisplay.enabled = false; // Ensure the image display is initially hidden
+        Debug.Log("stop 2");
         var baselineArray = Resources.LoadAll<GameObject>(baselinePath);
+        Debug.Log("stop 3");
         _baselineList.AddRange(baselineArray);
-
+        Debug.Log("stop 4");
         Debug.Log("Loaded baseline prefabs: " + _baselineList.Count);
+        base.Start();
         // Debug.Log($"Loaded {baselineList.Count} baseline images from {baselinePath}");
         Debug.Log(string.Join(", ", baselineList));
     }
