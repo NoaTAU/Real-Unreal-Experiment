@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ImageRatingExperiment : RatingExperiment<GameObject>
 {
     public override string stimuliPath => "Images/2D";
-
+    public GameObject twoDBackground;
     protected override string ExperimentType => "2D";
     private List<GameObject> _baselineList = new List<GameObject>();
     public override List<GameObject> baselineList => _baselineList;
@@ -43,12 +43,14 @@ public class ImageRatingExperiment : RatingExperiment<GameObject>
         {
             Destroy(currentInstance);
             currentInstance = null;
+            // twoDBackground.SetActive(false);
         }
 
     }
 
     protected override void ShowStimulus()
     {
+        // twoDBackground.SetActive(true);
         bgToggle.UseSkybox(); // Use the skybox for 2D images
         if (currentInstance != null)
             Destroy(currentInstance);
