@@ -17,6 +17,7 @@ public class MainExperiment : MonoBehaviour
     public TMP_FontAsset defaultFont;
     public EyeCalibrationCheck eyeCalibration;
     public QuestionFlowController questionFlowController;
+    public GameObject ContentRoot;
     private ImageRatingExperiment imagerRatingExperiment;
     private ModelRatingExperiment modelRatingExperiment;
     private PassthroughRatingExperiment passthroughRatingExperiment;
@@ -149,19 +150,23 @@ public class MainExperiment : MonoBehaviour
                     TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
                     yield return passthroughRatingExperiment.ShowImageSequence();
                     invisibleCollider.SetActive(false); // Hide the invisible collider
+                    ContentRoot.SetActive(false);
                     yield return ShowQsInstructionsAndWaitForConfirm();
                     Debug.Log("Running questionnaire for passthrough experiment...");
                     yield return questionFlowController.RunQuestionnaire("passthrough");
+                    ContentRoot.SetActive(true);
                     break;
                 case 1:
                     RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
                     Debug.Log("Starting model rating experiment...");
                     TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
-                    RendererActivator.Instance.HideRenderers(); 
+                    RendererActivator.Instance.HideRenderers();
                     yield return modelRatingExperiment.ShowImageSequence();
+                    ContentRoot.SetActive(false);
                     yield return ShowQsInstructionsAndWaitForConfirm();
                     Debug.Log("Running questionnaire for 3D experiment...");
                     yield return questionFlowController.RunQuestionnaire("3D");
+                    ContentRoot.SetActive(true);
                     break;
                 case 2:
                     RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
@@ -170,9 +175,11 @@ public class MainExperiment : MonoBehaviour
                     Debug.Log("Starting image rating experiment...");
                     yield return imagerRatingExperiment.ShowImageSequence();
                     bgToggle.UseSolid(); // Switch back to solid color
+                    ContentRoot.SetActive(false);
                     yield return ShowQsInstructionsAndWaitForConfirm();
                     Debug.Log("Running questionnaire for 2D experiment...");
                     yield return questionFlowController.RunQuestionnaire("2D");
+                    ContentRoot.SetActive(true);
                     break;
             }
 
