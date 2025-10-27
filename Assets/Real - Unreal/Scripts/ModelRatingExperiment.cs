@@ -34,17 +34,17 @@ public class ModelRatingExperiment : RatingExperiment<GameObject>
         {
             GameObject childClone = Instantiate(child.gameObject, modelParent);
             childClone.SetActive(false);
-            if (childClone.name.StartsWith("Bamba red") || childClone.name.StartsWith("Baflot") || childClone.name.StartsWith("Bisli"))
-            {
-                // Debug.Log($"Adding {childClone.name} to baseline list");
-                baselineList.Add(childClone);
+            // if (childClone.name.StartsWith("Bamba red") || childClone.name.StartsWith("Baflot") || childClone.name.StartsWith("Bisli"))
+            // {
+            //     // Debug.Log($"Adding {childClone.name} to baseline list");
+            //     baselineList.Add(childClone);
 
-            }
-            else
-            {
+            // }
+            // else
+            // {
                 stimuliList.Add(childClone);
                 // Debug.Log($"Adding {childClone.name} to stimuliList list");
-            }
+            // }
         }
 
         // TXRDataManager.Instance.LogLineToFile($"Loaded {stimuliList.Count} stimuli from prefab {stimuliPath}");

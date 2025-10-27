@@ -14,7 +14,7 @@ public class PassthroughRatingExperiment : RatingExperiment<GameObject>
     private Transform passthroughColliderParent;
     private float ratingAppearanceTimePassthrough;
 
-    public int[] passthroughtObjectList = Enumerable.Range(0, 44).ToArray();
+    public int[] passthroughtObjectList = Enumerable.Range(0, 3).ToArray();
     protected override void Start()
     {
         base.Start();

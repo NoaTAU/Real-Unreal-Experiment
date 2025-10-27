@@ -87,12 +87,12 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         }
     }
 
-    public static List<T> MergeLists<T>(List<T> baselineList, List<T> stimuliList)
-    {
-        List<T> stimuliListWithBaseline = baselineList;
-        stimuliListWithBaseline.AddRange(stimuliList);
-        return stimuliListWithBaseline;
-    }
+    // public static List<T> MergeLists<T>(List<T> baselineList, List<T> stimuliList)
+    // {
+    //     List<T> stimuliListWithBaseline = baselineList;
+    //     stimuliListWithBaseline.AddRange(stimuliList);
+    //     return stimuliListWithBaseline;
+    // }
 
     public void InitConfirmToggle()
     {
@@ -112,8 +112,8 @@ public abstract class RatingExperiment<T> : MonoBehaviour where T : Object // Ad
         InitConfirmToggle();
         LogHelper.Log("currentStimulusIndex: " + currentStimulusIndex, "blue");
         LogHelper.Log("stimuliList: " + stimuliList.ToString(), "blue");
-        stimuliListWithBaseline = MergeLists(baselineList, stimuliList);
-        Debug.Log("Merged stimuli list count: " + stimuliListWithBaseline.Count);
+        stimuliListWithBaseline = stimuliList;//MergeLists(baselineList, stimuliList);
+        // Debug.Log("Merged stimuli list count: " + stimuliListWithBaseline.Count);
         while (currentStimulusIndex < stimuliListWithBaseline.Count)
         {
             ShowStimulus();
