@@ -150,12 +150,12 @@ public class MainExperiment : MonoBehaviour
             switch (experimentList[i])
             {
                 case 0:
-                    // Debug.Log("Starting passthrough rating experiment...");
-                    // RendererActivator.Instance.HideRenderers(); // Hide the slab arena visuals
-                    // invisibleCollider.SetActive(true); // Show the invisible collider
-                    // TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
-                    // yield return passthroughRatingExperiment.ShowImageSequence();
-                    // invisibleCollider.SetActive(false); // Hide the invisible collider
+                    Debug.Log("Starting passthrough rating experiment...");
+                    RendererActivator.Instance.HideRenderers(); // Hide the slab arena visuals
+                    invisibleCollider.SetActive(true); // Show the invisible collider
+                    TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
+                    yield return passthroughRatingExperiment.ShowImageSequence();
+                    invisibleCollider.SetActive(false); // Hide the invisible collider
                     // ContentRoot.SetActive(false);
                     // yield return ShowQsInstructionsAndWaitForConfirm();
                     // Debug.Log("Running questionnaire for passthrough experiment...");
@@ -163,25 +163,25 @@ public class MainExperiment : MonoBehaviour
                     ContentRoot.SetActive(true);
                     break;
                 case 1:
-                    // RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
-                    // Debug.Log("Starting model rating experiment...");
-                    // TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
-                    // RendererActivator.Instance.HideRenderers();
-                    // yield return modelRatingExperiment.ShowImageSequence();
-                    // ContentRoot.SetActive(false);
+                    RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
+                    Debug.Log("Starting model rating experiment...");
+                    TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
+                    RendererActivator.Instance.HideRenderers();
+                    yield return modelRatingExperiment.ShowImageSequence();
+                    ContentRoot.SetActive(false);
                     // yield return ShowQsInstructionsAndWaitForConfirm();
                     // Debug.Log("Running questionnaire for 3D experiment...");
                     // yield return questionFlowController.RunQuestionnaire("3D");
                     ContentRoot.SetActive(true);
                     break;
                 case 2:
-                    // RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
-                    // bgToggle.UseSkybox(); // Use the skybox for 2D images
-                    // TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
-                    // Debug.Log("Starting image rating experiment...");
-                    // yield return imagerRatingExperiment.ShowImageSequence();
-                    // bgToggle.UseSolid(); // Switch back to solid color
-                    // ContentRoot.SetActive(false);
+                    RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
+                    bgToggle.UseSkybox(); // Use the skybox for 2D images
+                    TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
+                    Debug.Log("Starting image rating experiment...");
+                    yield return imagerRatingExperiment.ShowImageSequence();
+                    bgToggle.UseSolid(); // Switch back to solid color
+                    ContentRoot.SetActive(false);
                     // yield return ShowQsInstructionsAndWaitForConfirm();
                     // Debug.Log("Running questionnaire for 2D experiment...");
                     // yield return questionFlowController.RunQuestionnaire("2D");

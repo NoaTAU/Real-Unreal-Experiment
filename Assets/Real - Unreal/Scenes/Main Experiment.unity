@@ -105839,7 +105839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stimuliListWithBaseline: []
-  passthroughtObjectList: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
+  passthroughtObjectList: 000000000100000002000000
 --- !u!114 &1219010840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123525,7 +123525,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -1.338, y: 8.3}
+  m_AnchoredPosition: {x: -1.376, y: 8.166}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1421468764
@@ -139942,7 +139942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1649535385
 Transform:
   m_ObjectHideFlags: 0
@@ -139952,7 +139952,7 @@ Transform:
   m_GameObject: {fileID: 1649535384}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.338, y: 9.441, z: 0.659}
+  m_LocalPosition: {x: -2.358, y: 9.441, z: 0.659}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children: []
