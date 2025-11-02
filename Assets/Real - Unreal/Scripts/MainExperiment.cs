@@ -17,7 +17,9 @@ public class MainExperiment : MonoBehaviour
     public TMP_FontAsset defaultFont;
     public EyeCalibrationCheck eyeCalibration;
     public QuestionFlowController questionFlowController;
-    private ImageRatingExperiment imagerRatingExperiment;
+    public GameObject ContentRoot_1;
+    // private ImageRatingExperiment imagerRatingExperiment;
+    private ImageRatingExperimentUnified imageRatingExperimentUnified;
     private bool readingInstructions = false;
     private bool readingQsInstructions = false;
     private bool experimentToggle = false;
@@ -103,15 +105,17 @@ public class MainExperiment : MonoBehaviour
         yield return ShowMainInstructionsAndWaitForConfirm();
         ShowDialogAndWaitForConfirm(startMessage);
         
-        RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
         bgToggle.UseSkybox(); // Use the skybox for 2D images
         TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
         Debug.Log("Starting image rating experiment...");
-        yield return imagerRatingExperiment.ShowImageSequence();
+         ContentRoot_1.SetActive(false);
+        yield return imageRatingExperimentUnified.ShowImageSequence();  
         bgToggle.UseSolid(); // Switch back to solid color
         yield return ShowQsInstructionsAndWaitForConfirm();
         Debug.Log("Running questionnaire for 2D experiment...");
         yield return questionFlowController.RunQuestionnaire("2D");
+        ContentRoot_1.SetActive(true);
+
         
          
         yield return ShowDialogAndWaitForConfirm(experimentEndMessage);
@@ -130,16 +134,16 @@ public class MainExperiment : MonoBehaviour
 
     private void InitExperiments()
     {
-        imagerRatingExperiment = GetComponent<ImageRatingExperiment>();
+        imageRatingExperimentUnified = GetComponent<ImageRatingExperimentUnified>();
         dataManager = TXRDataManager.Instance;
         generalInstructionsLabel = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
     }
 
     private IEnumerator ShowDialogAndWaitForConfirm(string InstructionsText)
     {
-        if (InstructionsText == questionnaireStart)
+        if (InstructionsText == experimentEndMessage)
         {
-            bodyTextRect.sizeDelta = new Vector2(1000, 800);
+            bodyTextRect.sizeDelta = new Vector2(320, 200);
         }
         else
         {

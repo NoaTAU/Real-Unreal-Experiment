@@ -41,7 +41,7 @@ public class QuestionFlowController : MonoBehaviour
     public virtual IEnumerator RunQuestionnaire(string roundName)
     {
         ContentRoot.SetActive(true);
-        ContentRoot_1.SetActive(false);
+        // ContentRoot_1.SetActive(false);
         Debug.Log("Running questionnaire for round: " + roundName);
         currentRoundName = roundName;
         afterQsRoot.SetActive(true);
@@ -68,7 +68,6 @@ public class QuestionFlowController : MonoBehaviour
         ContentRoot.SetActive(false);
         yield return new WaitForSeconds(1f); // Optional delay before proceeding
         Debug.Log("Questionnaire completed for round: " + currentRoundName);
-        ContentRoot_1.SetActive(true);
        
 
     }
@@ -151,7 +150,7 @@ public class QuestionFlowController : MonoBehaviour
 
         // OPTIONAL: auto-reset the toggle back to off so user can click again
         duringQsContinueButton.isOn = false;
-        ContentRoot_1.SetActive(true);
+        // ContentRoot_1.SetActive(true);
     }
 
 

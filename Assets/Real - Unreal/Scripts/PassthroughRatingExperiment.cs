@@ -1,114 +1,114 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+// using UnityEngine;
+// using System.Collections;
+// using System.Collections.Generic;
+// using System.Linq;
 
 
-public class PassthroughRatingExperiment : RatingExperiment<GameObject>
-{
-    public override string stimuliPath => "InvisibleCollider.prefab";
+// public class PassthroughRatingExperiment : RatingExperiment<GameObject>
+// {
+//     public override string stimuliPath => "InvisibleCollider.prefab";
 
-    protected override string ExperimentType => "Passthrough";
+//     protected override string ExperimentType => "Passthrough";
 
-    private OVRPassthroughLayer passthroughLayer;
-    private Transform passthroughColliderParent;
-    private float ratingAppearanceTimePassthrough;
+//     private OVRPassthroughLayer passthroughLayer;
+//     private Transform passthroughColliderParent;
+//     private float ratingAppearanceTimePassthrough;
 
-    public int[] passthroughtObjectList = Enumerable.Range(0, 44).ToArray();
-    protected override void Start()
-    {
-        base.Start();
-        passthroughColliderParent = SceneReferencer.Instance.passthroughCollider.transform;
-        passthroughLayer = gameObject.GetComponent<OVRPassthroughLayer>();
-        Debug.Log($"Passthrough list length = {passthroughtObjectList.Length}");
-        passthroughLayer.textureOpacity = 1.0f; // fully see-through
+//     public int[] passthroughtObjectList = Enumerable.Range(0, 44).ToArray();
+//     protected override void Start()
+//     {
+//         base.Start();
+//         passthroughColliderParent = SceneReferencer.Instance.passthroughCollider.transform;
+//         passthroughLayer = gameObject.GetComponent<OVRPassthroughLayer>();
+//         Debug.Log($"Passthrough list length = {passthroughtObjectList.Length}");
+//         passthroughLayer.textureOpacity = 1.0f; // fully see-through
 
-    }
+//     }
 
-    protected override void InitStimuli()
-    {
-        // stimuliList = new List<GameObject>(); // or manually populate if you want
-        // stimuliNames = new List<string>(); // to match the base expectations
+//     protected override void InitStimuli()
+//     {
+//         // stimuliList = new List<GameObject>(); // or manually populate if you want
+//         // stimuliNames = new List<string>(); // to match the base expectations
 
-        // This avoids loading from Resources.
-        LogHelper.Log("Passthrough round: skipping stimuli loading", "blue");
+//         // This avoids loading from Resources.
+//         LogHelper.Log("Passthrough round: skipping stimuli loading", "blue");
 
-    }
+//     }
 
 
-    protected override void HideStimulus()
-    {
-        passthroughLayer.enabled = false;
-    }
+//     protected override void HideStimulus()
+//     {
+//         passthroughLayer.enabled = false;
+//     }
 
-    protected override void ShowStimulus()
-    {
-        passthroughLayer.enabled = true;
-        passthroughLayer.textureOpacity = 1.0f; // fully see-through
-    }
+//     protected override void ShowStimulus()
+//     {
+//         passthroughLayer.enabled = true;
+//         passthroughLayer.textureOpacity = 1.0f; // fully see-through
+//     }
 
-    public override IEnumerator ShowImageSequence()
-    {
-        Debug.Log($"Passthrough list length = {passthroughtObjectList.Length}");
-        passthroughColliderParent.gameObject.SetActive(true);
-        InitConfirmToggle();
-        int numRounds = passthroughtObjectList.Length;
+//     public override IEnumerator ShowImageSequence()
+//     {
+//         Debug.Log($"Passthrough list length = {passthroughtObjectList.Length}");
+//         passthroughColliderParent.gameObject.SetActive(true);
+//         InitConfirmToggle();
+//         int numRounds = passthroughtObjectList.Length;
 
-        for (int i = 0; i < numRounds; i++)
-        {
-            Debug.Log(numRounds);
-            currentStimulusIndex = i;
+//         for (int i = 0; i < numRounds; i++)
+//         {
+//             Debug.Log(numRounds);
+//             currentStimulusIndex = i;
 
-            ShowStimulus();
-            stimulusAppearanceTimePassthrough = Time.time;
+//             ShowStimulus();
+//             stimulusAppearanceTimePassthrough = Time.time;
 
-            yield return new WaitForSeconds(stimulusDisplayDuration);
-            HideStimulus();
+//             yield return new WaitForSeconds(stimulusDisplayDuration);
+//             HideStimulus();
 
-            // rating UI
-            metaUISliderGroup.SetActive(true);
-            myMetaSlider.gameObject.SetActive(true);
-            confirmToggle.interactable = true;
-            inputReceived = false;
+//             // rating UI
+//             metaUISliderGroup.SetActive(true);
+//             myMetaSlider.gameObject.SetActive(true);
+//             confirmToggle.interactable = true;
+//             inputReceived = false;
 
-            ratingAppearanceTimePassthrough = Time.time;
+//             ratingAppearanceTimePassthrough = Time.time;
 
-            while (!inputReceived)
-            {
-                yield return null;
-            }
+//             while (!inputReceived)
+//             {
+//                 yield return null;
+//             }
 
-            // blackout
-            CanvasGroup canvas = blackScreenOverlay.GetComponent<CanvasGroup>();
-            canvas.alpha = 1;
-            blackScreenOverlay.SetActive(true);
-            yield return new WaitForSeconds(blackoutDuration);
-            canvas.alpha = 0;
-            blackScreenOverlay.SetActive(false);
-        }
-        passthroughColliderParent.gameObject.SetActive(false);
-        Debug.Log("Finished all passthrough stimuli.");
-    }
+//             // blackout
+//             CanvasGroup canvas = blackScreenOverlay.GetComponent<CanvasGroup>();
+//             canvas.alpha = 1;
+//             blackScreenOverlay.SetActive(true);
+//             yield return new WaitForSeconds(blackoutDuration);
+//             canvas.alpha = 0;
+//             blackScreenOverlay.SetActive(false);
+//         }
+//         passthroughColliderParent.gameObject.SetActive(false);
+//         Debug.Log("Finished all passthrough stimuli.");
+//     }
 
-    protected override void OnConfirmToggled(bool isOn)
-    {
-        if (!isOn) return; // only respond when toggled ON
+//     protected override void OnConfirmToggled(bool isOn)
+//     {
+//         if (!isOn) return; // only respond when toggled ON
 
-        float rating = myMetaSlider.value;
-        Debug.Log($"Rating for {currentStimulusIndex}: {rating:F2}");
-        float ratingTime = Time.time;
-        string stimulusName = currentStimulusIndex.ToString();
-        TXRDataManager.Instance.ReportExperimentData(ExperimentType, stimulusName, stimulusAppearanceTimePassthrough, ratingAppearanceTimePassthrough, ratingTime, rating);
-        confirmToggle.interactable = false;
-        confirmToggle.isOn = false;
+//         float rating = myMetaSlider.value;
+//         Debug.Log($"Rating for {currentStimulusIndex}: {rating:F2}");
+//         float ratingTime = Time.time;
+//         string stimulusName = currentStimulusIndex.ToString();
+//         TXRDataManager.Instance.ReportExperimentData(ExperimentType, stimulusName, stimulusAppearanceTimePassthrough, ratingAppearanceTimePassthrough, ratingTime, rating);
+//         confirmToggle.interactable = false;
+//         confirmToggle.isOn = false;
 
-        metaUISliderGroup.SetActive(false);
-        myMetaSlider.gameObject.SetActive(false);
+//         metaUISliderGroup.SetActive(false);
+//         myMetaSlider.gameObject.SetActive(false);
 
-        inputReceived = true;
-        fillController.SetTransparent();
-        Debug.Log("inputReceived = true");
-    }
+//         inputReceived = true;
+//         fillController.SetTransparent();
+//         Debug.Log("inputReceived = true");
+//     }
 
-}
+// }
 
