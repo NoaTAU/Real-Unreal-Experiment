@@ -60,7 +60,6 @@ public class MainExperiment : MonoBehaviour
         EndQsInstructionsToggle.onValueChanged.AddListener(QsInstructionsToggleEnded);
         Debug.Log("Debug: MainExperiment Start init completed");
         StartCoroutine(RunAllExperiments());
-        ShuffleExperimentOrder();
         ApplyFontToTMP(showExperimentButton);
         ApplyFontToTMP(showInstructionsButton);
         ApplyFontToTMP(metaUISliderGroup);
@@ -87,37 +86,6 @@ public class MainExperiment : MonoBehaviour
         {
             text.font = defaultFont;
         }
-    }
-
-    private void ShuffleExperimentOrder()
-    {
-        textShuffledList = "";
-        for (int i = 0; i < experimentList.Count; i++)
-        {
-            int randomIndex = UnityEngine.Random.Range(i, experimentList.Count); // upper bound is exclusive
-                                                                                 // Swap elements
-            var temp = experimentList[i];
-            experimentList[i] = experimentList[randomIndex];
-            experimentList[randomIndex] = temp;
-        }
-        foreach (int id in experimentList)
-        {
-            switch (id)
-            {
-                case 0:
-                    textShuffledList += "פסתרו, ";
-                    break;
-                case 1:
-                    textShuffledList += "תלת מימד, ";
-                    break;
-                case 2:
-                    textShuffledList += "דו מימד, ";
-                    break;
-            }
-        }
-        // Remove trailing comma + space
-        if (textShuffledList.Length > 2)
-            textShuffledList = textShuffledList.Substring(0, textShuffledList.Length - 2);
     }
 
     private IEnumerator RunAllExperiments()
