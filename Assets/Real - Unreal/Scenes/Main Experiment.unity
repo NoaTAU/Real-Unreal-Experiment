@@ -8644,8 +8644,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120531010}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 5.38}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4.747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8653,7 +8653,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.338, y: 8.3}
+  m_AnchoredPosition: {x: -1.62, y: 8.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &120719012
@@ -31675,18 +31675,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "\u05D1\u05E0\u05D9\u05E1\u05D5\u05D9 \u05D6\u05D4 \u05D9\u05D5\u05E6\u05D2\u05D5
-        \u05D1\u05E4\u05E0\u05D9\u05DA \u05D7\u05D8\u05D9\u05E4\u05D9\u05DD \u05E9\u05D5\u05E0\u05D9\u05DD
-        \u05D1-3 \u05E1\u05D1\u05D1\u05D9\u05DD. \n\u05DB\u05DC \u05D7\u05D8\u05D9\u05E3
-        \u05D9\u05D5\u05E6\u05D2 \u05DC\u05DE\u05E9\u05DA \u05DE\u05E1\u05E4\u05E8
-        \u05E9\u05E0\u05D9\u05D5\u05EA \u05D5\u05DC\u05D0\u05D7\u05E8\u05D9\u05D4\u05DF
+        \u05D1\u05E4\u05E0\u05D9\u05DA \u05D7\u05D8\u05D9\u05E4\u05D9\u05DD \u05E9\u05D5\u05E0\u05D9\u05DD.
+        \n\u05DB\u05DC \u05D7\u05D8\u05D9\u05E3 \u05D9\u05D5\u05E6\u05D2 \u05DC\u05DE\u05E9\u05DA
+        \u05DE\u05E1\u05E4\u05E8 \u05E9\u05E0\u05D9\u05D5\u05EA \u05D5\u05DC\u05D0\u05D7\u05E8\u05D9\u05D4\u05DF
         \u05E0\u05D1\u05E7\u05E9 \u05DE\u05DE\u05DA \u05DC\u05D3\u05E8\u05D2 \u05DB\u05DE\u05D4
         \u05D4\u05D9\u05D9\u05EA \u05E8\u05D5\u05E6\u05D4 \u05DC\u05D0\u05DB\u05D5\u05DC
         \u05D0\u05EA \u05D4\u05D7\u05D8\u05D9\u05E3 \u05D1\u05E1\u05D5\u05DC\u05DD
         \u05E9\u05DC 1 )\u05DC\u05D0 \u05E8\u05D5\u05E6\u05D4 \u05DB\u05DC\u05DC(
         \u05E2\u05D3 01 )\u05E8\u05D5\u05E6\u05D4 \u05DE\u05D0\u05D5\u05D3(.\n\u05D1\u05E1\u05D9\u05D5\u05DD
-        \u05DB\u05DC \u05E1\u05D1\u05D1 \u05EA\u05D5\u05E4\u05D9\u05E2 \u05D4\u05D5\u05D3\u05E2\u05D4
-        \u05E9\u05D4\u05E1\u05D1\u05D1 \u05D4\u05E1\u05EA\u05D9\u05D9\u05DD \u05D5\u05D9\u05E9
-        \u05DC\u05D4\u05D5\u05D3\u05D9\u05E2 \u05DC\u05E0\u05E1\u05D9\u05D9\u05DF/\u05D9\u05EA."
+        \u05EA\u05D5\u05E4\u05D9\u05E2 \u05D4\u05D5\u05D3\u05E2\u05D4 \u05E9\u05D4\u05E1\u05D1\u05D1
+        \u05D4\u05E1\u05EA\u05D9\u05D9\u05DD \u05D5\u05D9\u05E9 \u05DC\u05D4\u05D5\u05D3\u05D9\u05E2
+        \u05DC\u05E0\u05E1\u05D9\u05D9\u05DF/\u05D9\u05EA."
       objectReference: {fileID: 0}
     - target: {fileID: 1234312488749823225, guid: ee824579eadf66544a0c3913fec1debf,
         type: 3}
@@ -140827,7 +140826,7 @@ PrefabInstance:
     - target: {fileID: 612552674921322229, guid: 56cb0481d0a95af4a8059ec0bd4b07c5,
         type: 3}
       propertyPath: blackoutDuration
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 612552674921322229, guid: 56cb0481d0a95af4a8059ec0bd4b07c5,
         type: 3}
@@ -140857,7 +140856,7 @@ PrefabInstance:
     - target: {fileID: 612552674921322229, guid: 56cb0481d0a95af4a8059ec0bd4b07c5,
         type: 3}
       propertyPath: stimulusDisplayDuration
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1578084748075281979, guid: 56cb0481d0a95af4a8059ec0bd4b07c5,
         type: 3}

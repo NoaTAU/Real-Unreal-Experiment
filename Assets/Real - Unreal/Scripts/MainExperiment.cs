@@ -108,9 +108,9 @@ public class MainExperiment : MonoBehaviour
         bgToggle.UseSkybox(); // Use the skybox for 2D images
         TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
         Debug.Log("Starting image rating experiment...");
-         ContentRoot_1.SetActive(false);
-        yield return imageRatingExperimentUnified.ShowImageSequence();  
+        yield return imageRatingExperimentUnified.ShowImageSequence();
         bgToggle.UseSolid(); // Switch back to solid color
+        ContentRoot_1.SetActive(false);
         yield return ShowQsInstructionsAndWaitForConfirm();
         Debug.Log("Running questionnaire for 2D experiment...");
         yield return questionFlowController.RunQuestionnaire("2D");
