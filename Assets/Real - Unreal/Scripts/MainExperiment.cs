@@ -18,13 +18,10 @@ public class MainExperiment : MonoBehaviour
     public EyeCalibrationCheck eyeCalibration;
     public QuestionFlowController questionFlowController;
     private ImageRatingExperiment imagerRatingExperiment;
-    private ModelRatingExperiment modelRatingExperiment;
-    private PassthroughRatingExperiment passthroughRatingExperiment;
     private bool readingInstructions = false;
     private bool readingQsInstructions = false;
     private bool experimentToggle = false;
     private string startMessage = "לחצו כאן כדי להתחיל";
-    private string endMessage = "הסבב הסתיים\n אנא קראו לנסיין/ית";
     private string experimentEndMessage = "אנא עדכנו את הנסיין/ית ששלב זה הסתיים\n תודה רבה על שיתוף הפעולה";
     private string questionnaireStart = "אנחנו מעוניינים לדעת מה את/ה מרגיש/ה לגבי החוויה שעברת זה עתה ב'סביבה המוצגת'.\n";
     // "המונח 'סביבה מוצגת' מתייחס כאן, ולאורך השאלון הזה, לעולם הוירטואלי שהתנסת בו עכשיו.\n" +
@@ -136,76 +133,36 @@ public class MainExperiment : MonoBehaviour
         // yield return ShowDialogAndWaitForConfirm("הקליברציה הסתיימה, אנא עדכנו את הנסיין/ית.");
 
         yield return ShowMainInstructionsAndWaitForConfirm();
+        ShowDialogAndWaitForConfirm(startMessage);
+        
+        RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
+        bgToggle.UseSkybox(); // Use the skybox for 2D images
+        TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
+        Debug.Log("Starting image rating experiment...");
+        yield return imagerRatingExperiment.ShowImageSequence();
+        bgToggle.UseSolid(); // Switch back to solid color
+        yield return ShowQsInstructionsAndWaitForConfirm();
+        Debug.Log("Running questionnaire for 2D experiment...");
+        yield return questionFlowController.RunQuestionnaire("2D");
+        
+         
+        yield return ShowDialogAndWaitForConfirm(experimentEndMessage);
+        Debug.Log("All experiments finished.");
+        TXRDataManager.Instance.LogLineToFile("All experiments finished.");
 
-        for (int i = 0; i < experimentList.Count; i++)
-        {
-            ShowDialogAndWaitForConfirm(startMessage);
-            switch (experimentList[i])
-            {
-                case 0:
-                    Debug.Log("Starting passthrough rating experiment...");
-                    RendererActivator.Instance.HideRenderers(); // Hide the slab arena visuals
-                    invisibleCollider.SetActive(true); // Show the invisible collider
-                    TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
-                    yield return passthroughRatingExperiment.ShowImageSequence();
-                    invisibleCollider.SetActive(false); // Hide the invisible collider
-                    yield return ShowQsInstructionsAndWaitForConfirm();
-                    Debug.Log("Running questionnaire for passthrough experiment...");
-                    yield return questionFlowController.RunQuestionnaire("passthrough");
-                    break;
-                case 1:
-                    RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
-                    Debug.Log("Starting model rating experiment...");
-                    TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
-                    RendererActivator.Instance.HideRenderers(); 
-                    yield return modelRatingExperiment.ShowImageSequence();
-                    yield return ShowQsInstructionsAndWaitForConfirm();
-                    Debug.Log("Running questionnaire for 3D experiment...");
-                    yield return questionFlowController.RunQuestionnaire("3D");
-                    break;
-                case 2:
-                    RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
-                    bgToggle.UseSkybox(); // Use the skybox for 2D images
-                    TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
-                    Debug.Log("Starting image rating experiment...");
-                    yield return imagerRatingExperiment.ShowImageSequence();
-                    bgToggle.UseSolid(); // Switch back to solid color
-                    yield return ShowQsInstructionsAndWaitForConfirm();
-                    Debug.Log("Running questionnaire for 2D experiment...");
-                    yield return questionFlowController.RunQuestionnaire("2D");
-                    break;
+        // Flush data
+        TXRDataManager.Instance.FlushAnalyticsData();
+
+        // Wait a moment to ensure all writes are done
+        yield return new WaitForSeconds(1f);
+
+        // Exit app
+        Application.Quit();
             }
-
-            if (i != 2)
-            {
-                yield return ShowDialogAndWaitForConfirm(endMessage);
-            }
-            else
-            {
-                yield return ShowDialogAndWaitForConfirm(experimentEndMessage);
-                Debug.Log("All experiments finished.");
-                TXRDataManager.Instance.LogLineToFile("All experiments finished.");
-
-                // Flush data
-                TXRDataManager.Instance.FlushAnalyticsData();
-
-                // Wait a moment to ensure all writes are done
-                yield return new WaitForSeconds(1f);
-
-                // Exit app
-                Application.Quit();
-            }
-
-        }
-    }
-
-
 
     private void InitExperiments()
     {
         imagerRatingExperiment = GetComponent<ImageRatingExperiment>();
-        modelRatingExperiment = GetComponent<ModelRatingExperiment>();
-        passthroughRatingExperiment = GetComponent<PassthroughRatingExperiment>();
         dataManager = TXRDataManager.Instance;
         generalInstructionsLabel = showExperimentButton.transform.Find("Dialog1Button_TextOnly/BodyText").GetComponentInChildren<TMP_Text>();
     }
