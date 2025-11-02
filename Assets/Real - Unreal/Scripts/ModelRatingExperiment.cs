@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ModelRatingExperiment : RatingExperiment<GameObject>
 {
-    public override string stimuliPath => "3D/Snacks";
+    public override string stimuliPath => "3D/Snacks/2Dsnacks";
     // public ShuffleChildrenOrder shuffleChildrenOrder;
     protected override string ExperimentType => "3D";
     private List<GameObject> _baselineList = new List<GameObject>();

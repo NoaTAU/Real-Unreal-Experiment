@@ -93,7 +93,7 @@ public class MainExperiment : MonoBehaviour
         Debug.Log("Debug:Starting RunAllExperiments...");
         yield return new WaitForSeconds(1f); // Wait for 1 second before starting the experiments
 
-        yield return ShowDialogAndWaitForConfirm(textShuffledList);
+        // yield return ShowDialogAndWaitForConfirm(textShuffledList);
 
         // Run eye calibration check
         // yield return ShowDialogAndWaitForConfirm("כעת נעשה קליברציה לתנועות העיניים.\n עקבו במבטכם אחרי הנקודה עד שהיא נעלמת");

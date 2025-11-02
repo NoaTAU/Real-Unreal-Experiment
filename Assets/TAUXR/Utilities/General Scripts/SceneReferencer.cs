@@ -18,6 +18,7 @@ public class SceneReferencer : TXRSingleton<SceneReferencer>
     public GameObject blackScreenOverlay;
     public GameObject threeDDisplay;
     public Transform prefabSpawnPoint;
+    public GameObject twoDDisplay;
 
     // public GameObject passthroughDisplay;
     public GameObject passthroughCollider;
