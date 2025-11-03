@@ -27,7 +27,7 @@ public class EyeCalibrationCheck : MonoBehaviour
             string pointName = point.name;
             Vector3 pointPosition = point.position;
 
-            TXRDataManager.Instance.ReportEyeTrackingData(pointName, eyePositionCalibration.ToString("F4"), eyeForward.ToString("F4"), pointPosition.ToString("F4"));
+            // TXRDaTXRDataManagertaManager.Instance.ReportEyeTrackingData(pointName, eyePositionCalibration.ToString("F4"), eyeForward.ToString("F4"), pointPosition.ToString("F4"));
             yield return new WaitForSeconds(gazeCaptureDuration - 0.6f);
         }
         HideAllTargets();

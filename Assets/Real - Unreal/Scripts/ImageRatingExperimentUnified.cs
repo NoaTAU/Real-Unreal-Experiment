@@ -123,7 +123,7 @@ public class ImageRatingExperimentUnified : MonoBehaviour
         _playback.AddRange(shuffledStimuli); // then shuffled stimuli
 
 
-        TXRDataManager.Instance.LogLineToFile($"Loaded + prepared {_playback.Count} stimuli from Resources/{stimuliPath}");
+        // TXRDataManager.Instance.LogLineToFile($"Loaded + prepared {_playback.Count} stimuli from Resources/{stimuliPath}");
         LogHelper.Log("finished init stimuli", "blue");
     }
 
@@ -144,7 +144,7 @@ public class ImageRatingExperimentUnified : MonoBehaviour
             ShowStimulus();
             _stimulusAppearanceTime = Time.time;
 
-            TXRDataManager.Instance.LogLineToFile("Showed Stimulus: " + _playback[_currentIndex].name);
+            // TXRDataManager.Instance.LogLineToFile("Showed Stimulus: " + _playback[_currentIndex].name);
             Debug.Log("Showed Stimulus: " + _playback[_currentIndex].name);
 
             yield return new WaitForSeconds(stimulusDisplayDuration);
@@ -215,16 +215,16 @@ public class ImageRatingExperimentUnified : MonoBehaviour
         float rating = myMetaSlider.value;
         string stimulusName = _playback[_currentIndex].name;
 
-        TXRDataManager.Instance.ReportExperimentData(
-            ExperimentType,
-            stimulusName,
-            _stimulusAppearanceTime,
-            _ratingAppearanceTime,
-            ratingTime,
-            rating);
+        // TXRDataManager.Instance.ReportExperimentData(
+        //     ExperimentType,
+        //     stimulusName,
+        //     _stimulusAppearanceTime,
+        //     _ratingAppearanceTime,
+        //     ratingTime,
+        //     rating);
 
         Debug.Log($"Rating for {_playback[_currentIndex].name}: {rating:F2}");
-        TXRDataManager.Instance.LogLineToFile($"Rating for {_playback[_currentIndex].name}: {rating:F2}");
+        // TXRDataManager.Instance.LogLineToFile($"Rating for {_playback[_currentIndex].name}: {rating:F2}");
 
         confirmToggle.interactable = false;
         confirmToggle.isOn = false;

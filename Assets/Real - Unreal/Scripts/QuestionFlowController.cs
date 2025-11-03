@@ -216,7 +216,7 @@ public class QuestionFlowController : MonoBehaviour
             {
                 answerText[i] = "None";
             }
-            TXRDataManager.Instance.ReportQuestionnaireData(currentRoundName, questionText[i], answerText[i]);
+            // TXRDataManager.Instance.ReportQuestionnaireData(currentRoundName, questionText[i], answerText[i]);
             
         }
         return true;

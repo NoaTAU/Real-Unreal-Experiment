@@ -106,7 +106,7 @@ public class MainExperiment : MonoBehaviour
         ShowDialogAndWaitForConfirm(startMessage);
         
         bgToggle.UseSkybox(); // Use the skybox for 2D images
-        TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
+        // TXRDataManager.Instance.LogLineToFile("Starting image rating experiment...");
         Debug.Log("Starting image rating experiment...");
         yield return imageRatingExperimentUnified.ShowImageSequence();
         bgToggle.UseSolid(); // Switch back to solid color
@@ -120,10 +120,10 @@ public class MainExperiment : MonoBehaviour
          
         yield return ShowDialogAndWaitForConfirm(experimentEndMessage);
         Debug.Log("All experiments finished.");
-        TXRDataManager.Instance.LogLineToFile("All experiments finished.");
+        // TXRDataManager.Instance.LogLineToFile("All experiments finished.");
 
         // Flush data
-        TXRDataManager.Instance.FlushAnalyticsData();
+        // TXRDataManager.Instance.FlushAnalyticsData();
 
         // Wait a moment to ensure all writes are done
         yield return new WaitForSeconds(1f);
