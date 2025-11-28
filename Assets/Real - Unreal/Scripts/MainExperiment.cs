@@ -17,6 +17,7 @@ public class MainExperiment : MonoBehaviour
     public TMP_FontAsset defaultFont;
     public EyeCalibrationCheck eyeCalibration;
     public QuestionFlowController questionFlowController;
+    public GameObject ContentRoot;
     private ImageRatingExperiment imagerRatingExperiment;
     private ModelRatingExperiment modelRatingExperiment;
     private PassthroughRatingExperiment passthroughRatingExperiment;
@@ -25,7 +26,7 @@ public class MainExperiment : MonoBehaviour
     private bool experimentToggle = false;
     private string startMessage = "לחצו כאן כדי להתחיל";
     private string endMessage = "הסבב הסתיים\n אנא קראו לנסיין/ית";
-    private string experimentEndMessage = "אנא עדכנו את הנסיין/ית ששלב זה הסתיים\n תודה רבה על שיתוף הפעולה";
+    private string experimentEndMessage = "הדמו הסתיים,\n תודה רבה על שיתוף הפעולה";
     private string questionnaireStart = "אנחנו מעוניינים לדעת מה את/ה מרגיש/ה לגבי החוויה שעברת זה עתה ב'סביבה המוצגת'.\n";
     // "המונח 'סביבה מוצגת' מתייחס כאן, ולאורך השאלון הזה, לעולם הוירטואלי שהתנסת בו עכשיו.\n" +
     // "חלק מהשאלות מתייחסות ל 'תוכן' של הסביבה המוצגת. בכך אנו מתכוונים לסיפור, לסצנות או אירועים, או כל מה שאתה יכול לראות, לשמוע או לחוש שמתרחש בתוך הסביבה המוצגת.\n" +
@@ -42,6 +43,7 @@ public class MainExperiment : MonoBehaviour
     private TXRDataManager dataManager;
     public BgToggle bgToggle;
     private RectTransform bodyTextRect;
+    private RectTransform Dialog1Button_TextOnlyRect;   
     private Vector2 restRectSize;
     private Vector2 restRectPos;
     private VerticalLayoutGroup vlg;
@@ -71,7 +73,8 @@ public class MainExperiment : MonoBehaviour
         changeButtonSize();
         restRectSize = bodyTextRect.sizeDelta;
         restRectPos =  showExperimentButton.GetComponent<RectTransform>().anchoredPosition;
-        vlg = showExperimentButton.transform.Find("Dialog1Button_TextOnly").GetComponent<VerticalLayoutGroup>();       
+        vlg = showExperimentButton.transform.Find("Dialog1Button_TextOnly").GetComponent<VerticalLayoutGroup>();  
+        // Dialog1Button_TextOnlyRect = Dialog1Button_TextOnlyRect.transform.Find("Dialog1Button_TextOnly").GetComponent<RectTransform>();     
     }
 
     private void changeButtonSize()
@@ -79,6 +82,10 @@ public class MainExperiment : MonoBehaviour
         bodyTextRect = showExperimentButton
         .transform
         .Find("Dialog1Button_TextOnly/BodyText")
+        .GetComponent<RectTransform>();
+        Dialog1Button_TextOnlyRect = showExperimentButton
+        .transform
+        .Find("Dialog1Button_TextOnly")
         .GetComponent<RectTransform>();
     }
     private void ApplyFontToTMP(GameObject parent)
@@ -149,19 +156,23 @@ public class MainExperiment : MonoBehaviour
                     TXRDataManager.Instance.LogLineToFile("Starting passthrough rating experiment...");
                     yield return passthroughRatingExperiment.ShowImageSequence();
                     invisibleCollider.SetActive(false); // Hide the invisible collider
-                    yield return ShowQsInstructionsAndWaitForConfirm();
-                    Debug.Log("Running questionnaire for passthrough experiment...");
-                    yield return questionFlowController.RunQuestionnaire("passthrough");
+                    // ContentRoot.SetActive(false);
+                    // yield return ShowQsInstructionsAndWaitForConfirm();
+                    // Debug.Log("Running questionnaire for passthrough experiment...");
+                    // yield return questionFlowController.RunQuestionnaire("passthrough");
+                    ContentRoot.SetActive(true);
                     break;
                 case 1:
                     RendererActivator.Instance.ShowRenderers(); // Show the slab arena visuals
                     Debug.Log("Starting model rating experiment...");
                     TXRDataManager.Instance.LogLineToFile("Starting model rating experiment...");
-                    RendererActivator.Instance.HideRenderers(); 
+                    RendererActivator.Instance.HideRenderers();
                     yield return modelRatingExperiment.ShowImageSequence();
-                    yield return ShowQsInstructionsAndWaitForConfirm();
-                    Debug.Log("Running questionnaire for 3D experiment...");
-                    yield return questionFlowController.RunQuestionnaire("3D");
+                    ContentRoot.SetActive(false);
+                    // yield return ShowQsInstructionsAndWaitForConfirm();
+                    // Debug.Log("Running questionnaire for 3D experiment...");
+                    // yield return questionFlowController.RunQuestionnaire("3D");
+                    ContentRoot.SetActive(true);
                     break;
                 case 2:
                     RendererActivator.Instance.HideRenderers(); // Show the slab arena visuals
@@ -170,9 +181,11 @@ public class MainExperiment : MonoBehaviour
                     Debug.Log("Starting image rating experiment...");
                     yield return imagerRatingExperiment.ShowImageSequence();
                     bgToggle.UseSolid(); // Switch back to solid color
-                    yield return ShowQsInstructionsAndWaitForConfirm();
-                    Debug.Log("Running questionnaire for 2D experiment...");
-                    yield return questionFlowController.RunQuestionnaire("2D");
+                    ContentRoot.SetActive(false);
+                    // yield return ShowQsInstructionsAndWaitForConfirm();
+                    // Debug.Log("Running questionnaire for 2D experiment...");
+                    // yield return questionFlowController.RunQuestionnaire("2D");
+                    ContentRoot.SetActive(true);
                     break;
             }
 
@@ -212,9 +225,13 @@ public class MainExperiment : MonoBehaviour
 
     private IEnumerator ShowDialogAndWaitForConfirm(string InstructionsText)
     {
-        if (InstructionsText == questionnaireStart)
+        if (InstructionsText == experimentEndMessage)
         {
-            bodyTextRect.sizeDelta = new Vector2(1000, 800);
+            bodyTextRect.sizeDelta = new Vector2(320, 200);
+            // Dialog1Button_TextOnlyRect.sizeDelta = new Vector2(0, 400);
+            Dialog1Button_TextOnlyRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 400);
+
+
         }
         else
         {
@@ -241,7 +258,7 @@ public class MainExperiment : MonoBehaviour
         showExperimentButton.SetActive(false);
         ExperimentsToggle.interactable = false;
         ExperimentsToggle.isOn = false;
-        bodyTextRect.sizeDelta = restRectSize;
+        // bodyTextRect.sizeDelta = restRectSize;
         vlg.enabled = false;
         // Reset the layout group to its original state        
         dataManager.ReportInstructionsData(InstructionsTextTrimmed, appearanceTime, confirmationTime);
